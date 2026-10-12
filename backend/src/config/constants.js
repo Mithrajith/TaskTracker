@@ -1,0 +1,59 @@
+export const ROLES = {
+  ADMIN: 'admin',
+  STUDENT: 'student',
+};
+
+export const ACCOUNT_STATUS = {
+  ACTIVE: 'active',
+  INACTIVE: 'inactive',
+};
+
+export const TASK_STATUS = {
+  DRAFT: 'draft',
+  PUBLISHED: 'published',
+};
+
+export const STUDENT_TASK_STATUS = {
+  ASSIGNED: 'assigned',
+  IN_PROGRESS: 'in_progress',
+  SUBMITTED: 'submitted',
+  CHANGES_REQUESTED: 'changes_requested',
+  REJECTED: 'rejected',
+  APPROVED: 'approved',
+};
+
+export const SUBMISSION_STATUS = {
+  SUBMITTED: 'submitted',
+  CHANGES_REQUESTED: 'changes_requested',
+  REJECTED: 'rejected',
+  APPROVED: 'approved',
+};
+
+export const REVIEW_DECISION = {
+  APPROVED: 'approved',
+  CHANGES_REQUESTED: 'changes_requested',
+  REJECTED: 'rejected',
+};
+
+export const UPLOAD_CONFIG = {
+  MAX_FILE_SIZE_BYTES: 3 * 1024 * 1024, // 3MB limit
+  ALLOWED_MIME_TYPES: ['image/jpeg', 'image/png', 'image/webp'],
+};
+
+export const AUDIT_ACTIONS = {
+  STUDENT_CREATED: 'STUDENT_CREATED',
+  STUDENT_UPDATED: 'STUDENT_UPDATED',
+  STUDENT_DEACTIVATED: 'STUDENT_DEACTIVATED',
+  STUDENT_ACTIVATED: 'STUDENT_ACTIVATED',
+  PASSWORD_RESET: 'PASSWORD_RESET',
+  PASSWORD_CHANGED: 'PASSWORD_CHANGED',
+  TASK_CREATED: 'TASK_CREATED',
+  TASK_UPDATED: 'TASK_UPDATED',
+  TASK_PUBLISHED: 'TASK_PUBLISHED',
+  TASK_ASSIGNED: 'TASK_ASSIGNED',
+  SUBMISSION_CREATED: 'SUBMISSION_CREATED',
+  SUBMISSION_APPROVED: 'SUBMISSION_APPROVED',
+  CHANGES_REQUESTED: 'CHANGES_REQUESTED',
+  SUBMISSION_REJECTED: 'SUBMISSION_REJECTED',
+};
+

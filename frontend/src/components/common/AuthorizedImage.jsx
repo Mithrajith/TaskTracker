@@ -1,0 +1,87 @@
+import React, { useState, useEffect } from 'react';
+import apiClient from '../../api/client';
+import { Image as ImageIcon, Loader2 } from 'lucide-react';
+
+export const AuthorizedImage = ({
+  fileId,
+  alt = 'Proof Image',
+  className = '',
+  onClick = null,
+  thumbnail = false,
+}) => {
+  const [imgSrc, setImgSrc] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    let objectUrl = null;
+
+    if (!fileId) {
+      setLoading(false);
+      setError(true);
+      return;
+    }
+
+    const fetchImage = async () => {
+      try {
+        setLoading(true);
+        setError(false);
+        const res = await apiClient.get(`/files/${fileId}`, {
+          responseType: 'blob',
+        });
+        objectUrl = URL.createObjectURL(res.data);
+        if (isMounted) {
+          setImgSrc(objectUrl);
+          setLoading(false);
+        }
+      } catch (err) {
+        if (isMounted) {
+          console.error(`Failed to load proof image ${fileId}:`, err);
+          setError(true);
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchImage();
+
+    return () => {
+      isMounted = false;
+      if (objectUrl) {
+        URL.revokeObjectURL(objectUrl);
+      }
+    };
+  }, [fileId]);
+
+  if (loading) {
+    return (
+      <div
+        className={`flex items-center justify-center bg-slate-800/80 rounded-lg border border-slate-700/60 text-slate-400 ${className}`}
+      >
+        <Loader2 className="w-5 h-5 animate-spin text-purple-400" />
+      </div>
+    );
+  }
+
+  if (error || !imgSrc) {
+    return (
+      <div
+        className={`flex flex-col items-center justify-center bg-slate-800/50 rounded-lg border border-slate-700/60 text-slate-500 p-2 text-center text-xs ${className}`}
+      >
+        <ImageIcon className="w-5 h-5 mb-1 opacity-50" />
+        <span>No image</span>
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={imgSrc}
+      alt={alt}
+      className={`object-cover rounded-lg cursor-pointer transition-transform duration-200 hover:scale-[1.02] ${className}`}
+      onClick={() => onClick && onClick(imgSrc)}
+    />
+  );
+};
+
