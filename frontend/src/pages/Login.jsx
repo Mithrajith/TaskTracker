@@ -108,7 +108,7 @@ export const Login = () => {
                   required
                   value={registerNumber}
                   onChange={(e) => setRegisterNumber(e.target.value)}
-                  placeholder="e.g. ADMIN001 or AI2026001"
+                  placeholder="Your Register ID"
                   className="w-full pl-10 pr-3 py-3 bg-[#F5F0E8] border border-[#D6CEC1] rounded-xl text-sm text-[#242424] placeholder-[#77766F]/60 uppercase tracking-wider focus:outline-none focus:ring-2 focus:ring-[#233DFF]/30 focus:border-[#233DFF] transition-all font-mono"
                 />
               </div>
