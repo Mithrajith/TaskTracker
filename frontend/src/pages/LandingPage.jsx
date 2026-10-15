@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useToast } from '../context/ToastContext';
 import {
   Sparkles,
   BookOpen,
@@ -16,6 +17,12 @@ import {
 } from 'lucide-react';
 
 export const LandingPage = () => {
+  const { info } = useToast();
+
+  const handleComingSoon = (label) => {
+    info(`${label} is coming soon. Stay tuned!`);
+  };
+
   return (
     <div className="min-h-screen bg-[#FAF8F0] text-[#172E2A] flex flex-col selection:bg-[#064E45]/40 selection:text-[#064E45]">
       {/* Top Navigation */}
@@ -44,12 +51,20 @@ export const LandingPage = () => {
             <a href="#features" className="hover:text-[#064E45] transition-colors">
               Features
             </a>
-            <a href="#roadmap" className="hover:text-[#064E45] transition-colors">
+            <button
+              type="button"
+              onClick={() => handleComingSoon('Roadmap')}
+              className="hover:text-[#064E45] transition-colors"
+            >
               Roadmap
-            </a>
-            <a href="#about" className="hover:text-[#064E45] transition-colors">
+            </button>
+            <button
+              type="button"
+              onClick={() => handleComingSoon('About')}
+              className="hover:text-[#064E45] transition-colors"
+            >
               About
-            </a>
+            </button>
           </nav>
 
           {/* Action CTAs */}
@@ -83,7 +98,7 @@ export const LandingPage = () => {
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EAF7EF] border border-[#CDE5D6] text-[#064E45] text-xs font-bold uppercase tracking-wider">
                 <Sparkles className="w-3.5 h-3.5 text-[#2D806B]" />
-                <span>Hands-On AI Roadmap Mentorship</span>
+                <span>Guided, Hands-On Learning Track</span>
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#064E45] tracking-tight leading-[1.12]">
@@ -95,7 +110,7 @@ export const LandingPage = () => {
               </h1>
 
               <p className="text-base sm:text-lg text-[#71817B] max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
-                Master the AI Engineer roadmap through practical daily assignments. Complete real-world code tasks, submit verified execution proof, receive mentor feedback, and systematically build portfolio-ready intelligence systems.
+                Work through the AI Engineer roadmap with practical daily assignments. Build real projects, submit proof of your work, get feedback from your mentor, and grow your portfolio one task at a time.
               </p>
 
               {/* CTAs */}
@@ -209,10 +224,10 @@ export const LandingPage = () => {
               Why It Works
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[#064E45] tracking-tight">
-              Designed for Practical Engineering Mastery
+              Built for Practical, Hands-On Learning
             </h2>
             <p className="text-sm sm:text-base text-[#71817B]">
-              No passive video lectures. Every concept is reinforced through hands-on coding, strict validation, and sequential task progression.
+              No passive video lectures. Every concept is reinforced through hands-on coding, careful review, and clear step-by-step progression.
             </p>
           </div>
 
@@ -265,10 +280,10 @@ export const LandingPage = () => {
           <div className="bg-[#064E45] rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden space-y-6">
             <div className="relative z-10 max-w-xl mx-auto space-y-4">
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-                Ready to accelerate your AI Engineering journey?
+                Ready to start your AI Engineering journey?
               </h2>
               <p className="text-sm text-[#E0F3E8] leading-relaxed">
-                Log in to your student workspace, complete today's practical assignment, and submit your verified proof.
+                Log in to your student workspace, complete today's assignment, and submit your proof.
               </p>
               <div className="pt-2">
                 <Link
@@ -291,7 +306,7 @@ export const LandingPage = () => {
             <Sparkles className="w-4 h-4 text-[#2D806B]" />
             <span className="font-bold text-[#064E45]">AI Engineer Student Task Tracker</span>
           </div>
-          <p>© {new Date().getFullYear()} AI Engineer Program. All practical rights reserved.</p>
+          <p>© {new Date().getFullYear()} AI Engineer Program. All rights reserved.</p>
         </div>
       </footer>
     </div>

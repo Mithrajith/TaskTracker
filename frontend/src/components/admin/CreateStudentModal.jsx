@@ -4,6 +4,7 @@ import apiClient from '../../api/client';
 import { useToast } from '../../context/ToastContext';
 import { User, Hash, Lock, AlertCircle } from 'lucide-react';
 import { Github } from '../common/Icons';
+import { PasswordInput } from '../common/PasswordInput';
 
 export const CreateStudentModal = ({ isOpen, onClose, onCreated }) => {
   const { success, error } = useToast();
@@ -127,17 +128,16 @@ export const CreateStudentModal = ({ isOpen, onClose, onCreated }) => {
           <label className="block text-xs font-bold text-[#064E45] mb-1.5">
             Initial Temporary Password <span className="text-[#E86A5B]">*</span>
           </label>
-          <div className="relative">
-            <Lock className="w-4 h-4 absolute left-3 top-3 text-[#2D806B]" />
-            <input
-              type="text"
-              required
-              minLength={6}
-              value={initialPassword}
-              onChange={(e) => setInitialPassword(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-sm text-[#172E2A] placeholder-[#A3B2AC] focus:outline-none focus:ring-2 focus:ring-[#2D806B]/30 focus:border-[#2D806B] font-mono"
-            />
-          </div>
+          <PasswordInput
+            leftIcon={Lock}
+            iconClassName="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#2D806B]"
+            required
+            minLength={6}
+            value={initialPassword}
+            onChange={(e) => setInitialPassword(e.target.value)}
+            autoComplete="new-password"
+            className="w-full pl-9 pr-10 py-2 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-sm text-[#172E2A] placeholder-[#A3B2AC] focus:outline-none focus:ring-2 focus:ring-[#2D806B]/30 focus:border-[#2D806B] font-mono"
+          />
           <span className="text-[10px] text-[#D88918] mt-1 block">
             Student will be required to change this password on their first login.
           </span>

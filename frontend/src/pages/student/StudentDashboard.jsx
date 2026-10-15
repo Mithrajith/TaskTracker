@@ -97,21 +97,6 @@ export const StudentDashboard = () => {
     fetchStudentData();
   }, []);
 
-  const handleToggleCheckbox = async (studentTaskId, isStudentCompleted) => {
-    try {
-      const res = await apiClient.patch(
-        `/student-tasks/${studentTaskId}/toggle-checkbox`,
-        { isStudentCompleted }
-      );
-      if (res.data?.success) {
-        success(res.data.message);
-        fetchStudentData();
-      }
-    } catch (err) {
-      error(err.response?.data?.message || 'Failed to update checklist');
-    }
-  };
-
   const handleSubmitWork = async ({
     studentTaskId,
     githubUrl,
@@ -250,8 +235,8 @@ export const StudentDashboard = () => {
               Welcome back, {user?.name?.split(' ')[0] || 'Engineer'}!
             </h1>
             <p className="text-sm text-[#71817B] mt-1.5 max-w-xl">
-              Stay consistent — every approved task moves you one step closer to becoming a
-              production-ready AI engineer. Let's ship today's work.
+              Stay consistent — every approved task brings you one step closer to your goal.
+              Let's get today's work done.
             </p>
             <p className="text-xs text-[#71817B] mt-3">
               Register No:{' '}
@@ -338,7 +323,6 @@ export const StudentDashboard = () => {
             <TaskCard
               studentTask={currentTask}
               onSubmitWork={handleSubmitWork}
-              onToggleCheckbox={handleToggleCheckbox}
               onImageClick={(fileId) => setZoomImageId(fileId)}
               submitting={submitting}
               uploadProgress={uploadProgress}
@@ -496,14 +480,11 @@ export const StudentDashboard = () => {
       <ImageModal
         isOpen={!!zoomImageId}
         onClose={() => setZoomImageId(null)}
+        fileId={
+          zoomImageId && !/^(blob:|data:|https?:)/.test(zoomImageId) ? zoomImageId : undefined
+        }
         imgSrc={
-          zoomImageId
-            ? zoomImageId.startsWith('blob:') ||
-              zoomImageId.startsWith('data:') ||
-              zoomImageId.startsWith('http')
-              ? zoomImageId
-              : `/api/v1/files/${zoomImageId}`
-            : null
+          zoomImageId && /^(blob:|data:|https?:)/.test(zoomImageId) ? zoomImageId : undefined
         }
       />
     </div>

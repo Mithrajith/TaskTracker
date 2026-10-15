@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
+import { PasswordInput } from '../components/common/PasswordInput';
 import {
   Sparkles,
   Lock,
@@ -118,14 +119,15 @@ export const Login = () => {
                 Password
               </label>
               <div className="relative">
-                <Lock className="w-4 h-4 absolute left-3.5 top-3.5 text-[#71817B]" />
-                <input
-                  type="password"
+                <PasswordInput
+                  leftIcon={Lock}
+                  iconClassName="w-4 h-4 absolute left-3.5 top-3.5 text-[#71817B]"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••••••"
-                  className="w-full pl-10 pr-3 py-3 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-sm text-[#172E2A] placeholder-[#71817B]/60 focus:outline-none focus:ring-2 focus:ring-[#2D806B]/30 focus:border-[#2D806B] transition-all"
+                  autoComplete="current-password"
+                  className="w-full pl-10 pr-11 py-3 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-sm text-[#172E2A] placeholder-[#71817B]/60 focus:outline-none focus:ring-2 focus:ring-[#2D806B]/30 focus:border-[#2D806B] transition-all"
                 />
               </div>
             </div>

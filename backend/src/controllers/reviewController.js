@@ -12,6 +12,102 @@ import {
 import { unlockNextTaskForStudent } from '../services/progressionService.js';
 import { logAudit } from '../utils/auditLogger.js';
 
+const performApproval = async (submission, reviewerId, feedback) => {
+  // Concurrency protection: atomically transition studentTask only if not already approved
+  const updatedStudentTask = await StudentTask.findOneAndUpdate(
+    {
+      _id: submission.studentTask,
+      status: { $ne: STUDENT_TASK_STATUS.APPROVED },
+    },
+    {
+      $set: {
+        status: STUDENT_TASK_STATUS.APPROVED,
+        approvedAt: new Date(),
+      },
+    },
+    { returnDocument: 'after' }
+  );
+
+  if (!updatedStudentTask) {
+    return { ok: false, reason: 'already_approved' };
+  }
+
+  submission.status = SUBMISSION_STATUS.APPROVED;
+  await submission.save();
+
+  const review = await TaskReview.create({
+    submission: submission._id,
+    studentTask: updatedStudentTask._id,
+    reviewer: reviewerId,
+    decision: REVIEW_DECISION.APPROVED,
+    feedback: feedback.trim(),
+    reviewedAt: new Date(),
+  });
+
+  // Progression Engine: Atomically unlock the next task for the student if published
+  const nextTaskProgression = await unlockNextTaskForStudent(
+    submission.student._id,
+    submission.task.taskNumber
+  );
+
+  await logAudit({
+    actorId: reviewerId,
+    action: AUDIT_ACTIONS.SUBMISSION_APPROVED,
+    resourceType: 'Submission',
+    resourceId: submission._id,
+    metadata: {
+      taskNumber: submission.task.taskNumber,
+      studentRegisterNumber: submission.student.registerNumber,
+      unlockedNextTask: nextTaskProgression.unlocked,
+    },
+  });
+
+  return {
+    ok: true,
+    submission,
+    review,
+    studentTask: updatedStudentTask,
+    nextTaskProgression,
+  };
+};
+
+const performRejection = async (submission, reviewerId, feedback) => {
+  const updatedStudentTask = await StudentTask.findByIdAndUpdate(
+    submission.studentTask,
+    {
+      $set: {
+        status: STUDENT_TASK_STATUS.REJECTED,
+      },
+    },
+    { returnDocument: 'after' }
+  );
+
+  submission.status = SUBMISSION_STATUS.REJECTED;
+  await submission.save();
+
+  const review = await TaskReview.create({
+    submission: submission._id,
+    studentTask: updatedStudentTask._id,
+    reviewer: reviewerId,
+    decision: REVIEW_DECISION.REJECTED,
+    feedback: feedback.trim(),
+    reviewedAt: new Date(),
+  });
+
+  await logAudit({
+    actorId: reviewerId,
+    action: AUDIT_ACTIONS.SUBMISSION_REJECTED,
+    resourceType: 'Submission',
+    resourceId: submission._id,
+    metadata: {
+      taskNumber: submission.task.taskNumber,
+      studentRegisterNumber: submission.student.registerNumber,
+    },
+  });
+
+  return { ok: true, submission, review, studentTask: updatedStudentTask };
+};
+
 export const getPendingReviews = async (req, res, next) => {
   try {
     const { page = 1, limit = 20, taskId, studentId } = req.query;
@@ -87,68 +183,23 @@ export const approveSubmission = async (req, res, next) => {
       });
     }
 
-    // Concurrency protection: atomically transition studentTask only if not already approved
-    const updatedStudentTask = await StudentTask.findOneAndUpdate(
-      {
-        _id: submission.studentTask,
-        status: { $ne: STUDENT_TASK_STATUS.APPROVED },
-      },
-      {
-        $set: {
-          status: STUDENT_TASK_STATUS.APPROVED,
-          approvedAt: new Date(),
-        },
-      },
-      { returnDocument: 'after' }
-    );
+    const result = await performApproval(submission, req.user._id, feedback);
 
-    if (!updatedStudentTask) {
+    if (!result.ok) {
       return res.status(400).json({
         success: false,
         message: 'This task has already been approved or is currently locked against duplicate approvals.',
       });
     }
 
-    // Update submission status
-    submission.status = SUBMISSION_STATUS.APPROVED;
-    await submission.save();
-
-    // Create review record
-    const review = await TaskReview.create({
-      submission: submission._id,
-      studentTask: updatedStudentTask._id,
-      reviewer: req.user._id,
-      decision: REVIEW_DECISION.APPROVED,
-      feedback: feedback.trim(),
-      reviewedAt: new Date(),
-    });
-
-    // Progression Engine: Atomically unlock the next task for the student if published
-    const nextTaskProgression = await unlockNextTaskForStudent(
-      submission.student._id,
-      submission.task.taskNumber
-    );
-
-    await logAudit({
-      actorId: req.user._id,
-      action: AUDIT_ACTIONS.SUBMISSION_APPROVED,
-      resourceType: 'Submission',
-      resourceId: submission._id,
-      metadata: {
-        taskNumber: submission.task.taskNumber,
-        studentRegisterNumber: submission.student.registerNumber,
-        unlockedNextTask: nextTaskProgression.unlocked,
-      },
-    });
-
     res.json({
       success: true,
       message: `Task ${submission.task.taskNumber} approved successfully for ${submission.student.name}!`,
       data: {
-        submission: submission.toJSON(),
-        review: review.toJSON(),
-        studentTask: updatedStudentTask.toJSON(),
-        nextTaskProgression,
+        submission: result.submission.toJSON(),
+        review: result.review.toJSON(),
+        studentTask: result.studentTask.toJSON(),
+        nextTaskProgression: result.nextTaskProgression,
       },
     });
   } catch (error) {
@@ -250,47 +301,102 @@ export const rejectSubmission = async (req, res, next) => {
       });
     }
 
-    const updatedStudentTask = await StudentTask.findByIdAndUpdate(
-      submission.studentTask,
-      {
-        $set: {
-          status: STUDENT_TASK_STATUS.REJECTED,
-        },
-      },
-      { returnDocument: 'after' }
-    );
-
-    submission.status = SUBMISSION_STATUS.REJECTED;
-    await submission.save();
-
-    const review = await TaskReview.create({
-      submission: submission._id,
-      studentTask: updatedStudentTask._id,
-      reviewer: req.user._id,
-      decision: REVIEW_DECISION.REJECTED,
-      feedback: feedback.trim(),
-      reviewedAt: new Date(),
-    });
-
-    await logAudit({
-      actorId: req.user._id,
-      action: AUDIT_ACTIONS.SUBMISSION_REJECTED,
-      resourceType: 'Submission',
-      resourceId: submission._id,
-      metadata: {
-        taskNumber: submission.task.taskNumber,
-        studentRegisterNumber: submission.student.registerNumber,
-      },
-    });
+    const result = await performRejection(submission, req.user._id, feedback);
 
     res.json({
       success: true,
       message: 'Submission rejected with mentor feedback',
       data: {
-        submission: submission.toJSON(),
-        review: review.toJSON(),
-        studentTask: updatedStudentTask.toJSON(),
+        submission: result.submission.toJSON(),
+        review: result.review.toJSON(),
+        studentTask: result.studentTask.toJSON(),
       },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const bulkApproveSubmissions = async (req, res, next) => {
+  try {
+    const { submissionIds, feedback = 'Work verified and approved.' } = req.body;
+
+    if (!Array.isArray(submissionIds) || submissionIds.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Provide a non-empty array of submissionIds',
+      });
+    }
+
+    const ids = submissionIds.filter((id) => mongoose.Types.ObjectId.isValid(id));
+
+    const submissions = await Submission.find({
+      _id: { $in: ids },
+      status: SUBMISSION_STATUS.SUBMITTED,
+    })
+      .populate('student', 'name registerNumber')
+      .populate('task', 'taskNumber title');
+
+    const failed = [];
+    let approvedCount = 0;
+
+    for (const submission of submissions) {
+      const result = await performApproval(submission, req.user._id, feedback);
+      if (result.ok) {
+        approvedCount += 1;
+      } else {
+        failed.push({ submissionId: submission._id, reason: result.reason });
+      }
+    }
+
+    res.json({
+      success: true,
+      message: `${approvedCount} submission(s) approved`,
+      data: { approvedCount, failedCount: failed.length, failed },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const bulkRejectSubmissions = async (req, res, next) => {
+  try {
+    const { submissionIds, feedback = 'Does not meet requirements yet.' } = req.body;
+
+    if (!Array.isArray(submissionIds) || submissionIds.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Provide a non-empty array of submissionIds',
+      });
+    }
+
+    if (!feedback || feedback.trim().length < 5) {
+      return res.status(400).json({
+        success: false,
+        message: 'Meaningful mentor feedback (at least 5 characters) is required when rejecting submissions',
+      });
+    }
+
+    const ids = submissionIds.filter((id) => mongoose.Types.ObjectId.isValid(id));
+
+    const submissions = await Submission.find({
+      _id: { $in: ids },
+      status: SUBMISSION_STATUS.SUBMITTED,
+    })
+      .populate('student', 'name registerNumber')
+      .populate('task', 'taskNumber title');
+
+    let rejectedCount = 0;
+
+    for (const submission of submissions) {
+      await performRejection(submission, req.user._id, feedback);
+      rejectedCount += 1;
+    }
+
+    res.json({
+      success: true,
+      message: `${rejectedCount} submission(s) rejected`,
+      data: { rejectedCount },
     });
   } catch (error) {
     next(error);

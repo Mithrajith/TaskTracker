@@ -22,7 +22,7 @@ export const StudentLayout = () => {
 
   const navItems = [
     { name: 'Dashboard', path: '/student', icon: LayoutDashboard, exact: true },
-    { name: 'Current Task', path: '/student#current-task', icon: CheckSquare },
+    // { name: 'Current Task', path: '/student#current-task', icon: CheckSquare },
     { name: 'Task History', path: '/student/history', icon: History },
   ];
 

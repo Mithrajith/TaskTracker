@@ -18,6 +18,7 @@ import {
   ExternalLink,
   Info,
 } from 'lucide-react';
+import { PasswordInput } from '../../components/common/PasswordInput';
 
 export const ImportStudentsPage = () => {
   const navigate = useNavigate();
@@ -432,12 +433,12 @@ export const ImportStudentsPage = () => {
                 <KeyRound className="w-3.5 h-3.5 text-[#2D806B]" />
                 <span>Default Initial Password</span>
               </label>
-              <input
-                type="text"
+              <PasswordInput
                 value={defaultPassword}
                 onChange={(e) => setDefaultPassword(e.target.value)}
                 placeholder="Student@123"
-                className="w-full px-3.5 py-2 rounded-xl bg-[#FAF8F0] border border-[#DDE8DF] text-xs text-[#172E2A] font-mono focus:outline-none focus:border-[#2D806B] focus:ring-2 focus:ring-[#2D806B]/20"
+                autoComplete="new-password"
+                className="w-full pl-3.5 pr-10 py-2 rounded-xl bg-[#FAF8F0] border border-[#DDE8DF] text-xs text-[#172E2A] font-mono focus:outline-none focus:border-[#2D806B] focus:ring-2 focus:ring-[#2D806B]/20"
               />
               <p className="text-[11px] text-[#71817B] mt-1">
                 Used if no password column is present in the CSV. Students must change this password

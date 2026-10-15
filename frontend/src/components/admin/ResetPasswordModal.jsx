@@ -3,6 +3,7 @@ import { Modal } from '../common/Modal';
 import apiClient from '../../api/client';
 import { useToast } from '../../context/ToastContext';
 import { Lock, AlertCircle, ShieldAlert } from 'lucide-react';
+import { PasswordInput } from '../common/PasswordInput';
 
 export const ResetPasswordModal = ({ isOpen, onClose, student, onReset }) => {
   const { success, error } = useToast();
@@ -69,17 +70,16 @@ export const ResetPasswordModal = ({ isOpen, onClose, student, onReset }) => {
           <label className="block text-xs font-bold text-[#064E45] mb-1.5">
             New Temporary Password
           </label>
-          <div className="relative">
-            <Lock className="w-4 h-4 absolute left-3 top-3 text-[#2D806B]" />
-            <input
-              type="text"
-              required
-              minLength={6}
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-sm text-[#172E2A] placeholder-[#A3B2AC] focus:outline-none focus:ring-2 focus:ring-[#2D806B]/30 focus:border-[#2D806B] font-mono"
-            />
-          </div>
+          <PasswordInput
+            leftIcon={Lock}
+            iconClassName="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#2D806B]"
+            required
+            minLength={6}
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            autoComplete="new-password"
+            className="w-full pl-9 pr-10 py-2 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-sm text-[#172E2A] placeholder-[#A3B2AC] focus:outline-none focus:ring-2 focus:ring-[#2D806B]/30 focus:border-[#2D806B] font-mono"
+          />
         </div>
 
         <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#DDE8DF]">

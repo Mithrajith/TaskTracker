@@ -7,8 +7,6 @@ import { optimizeImage, formatFileSize } from '../../utils/imageCompressor';
 import {
   Calendar,
   UploadCloud,
-  CheckSquare,
-  Square,
   AlertCircle,
   MessageSquare,
   Clock,
@@ -24,13 +22,12 @@ import { Github } from '../common/Icons';
 export const TaskCard = ({
   studentTask,
   onSubmitWork,
-  onToggleCheckbox,
   onImageClick,
   submitting = false,
   uploadProgress = 0,
 }) => {
   const { user } = useAuth();
-  const { task, status, isStudentCompleted, submissions = [] } = studentTask;
+  const { task, status, submissions = [] } = studentTask;
   const latestSubmission = submissions[0] || null;
 
   // Form states for submission
@@ -42,6 +39,13 @@ export const TaskCard = ({
   const [preserveLossless, setPreserveLossless] = useState(false);
   const [validationError, setValidationError] = useState('');
   const [dragActive, setDragActive] = useState(false);
+
+  // Sync GitHub URL from profile so "Current Practical Task" reflects latest value
+  React.useEffect(() => {
+    if (user?.githubRepoUrl !== undefined) {
+      setGithubUrl(user.githubRepoUrl || '');
+    }
+  }, [user]);
 
   const isApproved = status === 'approved';
   const isSubmitted = status === 'submitted';
@@ -203,37 +207,6 @@ export const TaskCard = ({
           </span>
         </div>
       )}
-
-      {/* Completion acknowledgement checklist */}
-      <div className="py-3 px-4 rounded-xl bg-[#FAF8F0] border border-[#DDE8DF] mb-6 flex items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            disabled={isApproved || isSubmitted}
-            onClick={() => onToggleCheckbox(studentTask._id, !isStudentCompleted)}
-            className="text-[#2D806B] hover:text-[#064E45] transition-colors disabled:opacity-50"
-          >
-            {isStudentCompleted ? (
-              <CheckSquare className="w-5 h-5 text-[#2D9B70]" />
-            ) : (
-              <Square className="w-5 h-5 text-[#A3B2AC]" />
-            )}
-          </button>
-          <div>
-            <p className="text-xs font-semibold text-[#172E2A]">
-              I have completed all the practical steps and verified locally
-            </p>
-            <p className="text-[11px] text-[#71817B]">
-              This acknowledgement does not approve the task — formal approval requires mentor review.
-            </p>
-          </div>
-        </div>
-        {isStudentCompleted && (
-          <span className="text-[11px] font-bold text-[#2D9B70] px-2 py-0.5 rounded-full bg-white border border-[#CDE5D6] shrink-0">
-            Checked
-          </span>
-        )}
-      </div>
 
       {/* Approved State View */}
       {isApproved ? (
@@ -472,18 +445,22 @@ export const TaskCard = ({
             <div className="flex items-center justify-between mb-1.5">
               <label className={`${labelClass} flex items-center gap-1.5`}>
                 <Github className="w-3.5 h-3.5 text-[#2D806B]" />
-                <span>GitHub Repository URL</span>
+                <span>GitHub Repository</span>
               </label>
-              <span className="text-[11px] text-[#71817B] font-medium">(Optional)</span>
+              <span className="text-[11px] text-[#71817B] font-medium">(Auto-filled from profile)</span>
             </div>
             <input
               type="url"
               value={githubUrl}
               onChange={(e) => setGithubUrl(e.target.value)}
-              disabled={submitting}
+              disabled
+              readOnly
               placeholder="https://github.com/username/repository"
-              className={`${inputClass} disabled:opacity-50`}
+              className={`${inputClass} bg-[#F4FAF6] text-[#71817B] disabled:opacity-70`}
             />
+            <span className="text-[11px] text-[#71817B] mt-1 block">
+              Update your GitHub link in Profile &amp; Settings to change this.
+            </span>
           </div>
 
           {/* Proof Image Upload & Optimization Zone */}

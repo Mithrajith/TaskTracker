@@ -4,12 +4,13 @@ import { Card } from '../../components/common/Card';
 import { AuthorizedImage } from '../../components/common/AuthorizedImage';
 import { ReviewSubmissionModal } from '../../components/admin/ReviewSubmissionModal';
 import { ImageModal } from '../../components/common/ImageModal';
+import { ConfirmationModal } from '../../components/common/ConfirmationModal';
 import { useToast } from '../../context/ToastContext';
-import { FileCheck2, Clock, ExternalLink, Loader2, RefreshCw, CheckCircle2, AlertTriangle } from 'lucide-react';
+import { FileCheck2, Clock, ExternalLink, Loader2, RefreshCw, CheckCircle2, AlertTriangle, CheckCheck, XCircle } from 'lucide-react';
 import { Github } from '../../components/common/Icons';
 
 export const ReviewsPage = () => {
-  const { error } = useToast();
+  const { error, success } = useToast();
   const [submissions, setSubmissions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('pending');
@@ -17,6 +18,8 @@ export const ReviewsPage = () => {
   // Modal states
   const [selectedSubmission, setSelectedSubmission] = useState(null);
   const [zoomImageId, setZoomImageId] = useState(null);
+  const [bulkAction, setBulkAction] = useState(null); // 'approve' | 'reject' | null
+  const [bulkLoading, setBulkLoading] = useState(false);
 
   const fetchPendingReviews = async () => {
     setLoading(true);
@@ -26,12 +29,32 @@ export const ReviewsPage = () => {
         setSubmissions(res.data.data);
       }
     } catch (err) {
-      console.error('Failed to load pending reviews:', err);
-      error('Failed to load pending review queue');
+      console.error('Failed to fetch pending reviews', err);
     } finally {
       setLoading(false);
     }
   };
+
+  const handleBulkReview = async () => {
+    if (!bulkAction) return;
+    const submissionIds = submissions.map((s) => s._id);
+    setBulkLoading(true);
+    try {
+      const res = await apiClient.post(`/reviews/bulk/${bulkAction}`, { submissionIds });
+      if (res.data?.success) {
+        success(res.data.message || 'Bulk review completed');
+        setBulkAction(null);
+        await fetchPendingReviews();
+      }
+    } catch (err) {
+      error(err.response?.data?.message || 'Bulk review failed');
+    } finally {
+      setBulkLoading(false);
+    }
+  };
+
+  const bulkCount = submissions.length;
+  const hasPending = activeTab === 'pending' && !loading && bulkCount > 0;
 
   useEffect(() => {
     fetchPendingReviews();
@@ -58,13 +81,35 @@ export const ReviewsPage = () => {
           </p>
         </div>
 
-        <button
-          onClick={fetchPendingReviews}
-          className="px-3.5 py-2 rounded-xl bg-white hover:bg-[#EAF7EF] text-[#064E45] font-bold text-xs border border-[#DDE8DF] transition-colors flex items-center gap-1.5 self-start sm:self-auto"
-        >
-          <RefreshCw className="w-3.5 h-3.5 text-[#2D806B]" />
-          <span>Refresh Queue</span>
-        </button>
+        <div className="flex items-center gap-2 flex-wrap self-start sm:self-auto">
+          {hasPending && (
+            <>
+              <button
+                onClick={() => setBulkAction('approve')}
+                disabled={bulkLoading}
+                className="px-3.5 py-2 rounded-xl bg-[#2D9B70] hover:bg-[#268a63] text-white font-bold text-xs transition-colors flex items-center gap-1.5 disabled:opacity-60"
+              >
+                <CheckCheck className="w-3.5 h-3.5" />
+                <span>Accept all ({bulkCount})</span>
+              </button>
+              <button
+                onClick={() => setBulkAction('reject')}
+                disabled={bulkLoading}
+                className="px-3.5 py-2 rounded-xl bg-[#E86A5B] hover:bg-[#d45849] text-white font-bold text-xs transition-colors flex items-center gap-1.5 disabled:opacity-60"
+              >
+                <XCircle className="w-3.5 h-3.5" />
+                <span>Decline all</span>
+              </button>
+            </>
+          )}
+          <button
+            onClick={fetchPendingReviews}
+            className="px-3.5 py-2 rounded-xl bg-white hover:bg-[#EAF7EF] text-[#064E45] font-bold text-xs border border-[#DDE8DF] transition-colors flex items-center gap-1.5"
+          >
+            <RefreshCw className="w-3.5 h-3.5 text-[#2D806B]" />
+            <span>Refresh Queue</span>
+          </button>
+        </div>
       </div>
 
       {/* Tabs */}
@@ -231,7 +276,23 @@ export const ReviewsPage = () => {
       <ImageModal
         isOpen={!!zoomImageId}
         onClose={() => setZoomImageId(null)}
-        imgSrc={zoomImageId ? `/api/v1/files/${zoomImageId}` : null}
+        fileId={zoomImageId}
+      />
+
+      {/* Bulk Confirmation */}
+      <ConfirmationModal
+        isOpen={!!bulkAction}
+        onClose={() => !bulkLoading && setBulkAction(null)}
+        onConfirm={handleBulkReview}
+        danger={bulkAction === 'reject'}
+        loading={bulkLoading}
+        title={bulkAction === 'reject' ? 'Decline all submissions?' : 'Accept all submissions?'}
+        confirmText={bulkAction === 'reject' ? 'Decline all' : 'Accept all'}
+        message={
+          bulkAction === 'reject'
+            ? `This will reject all ${bulkCount} pending submission${bulkCount === 1 ? '' : 's'} with the default reason "Does not meet requirements yet." This action cannot be undone.`
+            : `This will approve all ${bulkCount} pending submission${bulkCount === 1 ? '' : 's'} and unlock the next task for each student.`
+        }
       />
     </div>
   );

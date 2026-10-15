@@ -14,6 +14,7 @@ import { ImportStudentsPage } from '../pages/admin/ImportStudentsPage';
 import { TasksPage } from '../pages/admin/TasksPage';
 import { ReviewsPage } from '../pages/admin/ReviewsPage';
 import { AuditLogsPage } from '../pages/admin/AuditLogsPage';
+import { AddUserPage } from '../pages/admin/AddUserPage';
 import { StudentDashboard } from '../pages/student/StudentDashboard';
 import { StudentHistoryPage } from '../pages/student/StudentHistoryPage';
 import { ProfilePage } from '../pages/ProfilePage';
@@ -46,6 +47,7 @@ export const AppRoutes = () => {
           <Route path="/admin/tasks" element={<TasksPage />} />
           <Route path="/admin/reviews" element={<ReviewsPage />} />
           <Route path="/admin/audit-logs" element={<AuditLogsPage />} />
+          <Route path="/admin/add-user" element={<AddUserPage />} />
           <Route path="/admin/profile" element={<ProfilePage />} />
         </Route>
       </Route>

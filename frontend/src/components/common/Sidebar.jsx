@@ -12,6 +12,7 @@ import {
   UploadCloud,
   X,
   User,
+  UserPlus,
 } from 'lucide-react';
 
 export const Sidebar = ({ mobileOpen = false, onClose = () => {} }) => {

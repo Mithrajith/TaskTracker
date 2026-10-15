@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import apiClient from '../../api/client';
+import { getCachedFileUrl } from '../../utils/imageCache';
 import { Image as ImageIcon, Loader2 } from 'lucide-react';
 
 export const AuthorizedImage = ({
@@ -15,42 +15,32 @@ export const AuthorizedImage = ({
 
   useEffect(() => {
     let isMounted = true;
-    let objectUrl = null;
 
     if (!fileId) {
       setLoading(false);
       setError(true);
-      return;
+      return undefined;
     }
 
-    const fetchImage = async () => {
-      try {
-        setLoading(true);
-        setError(false);
-        const res = await apiClient.get(`/files/${fileId}`, {
-          responseType: 'blob',
-        });
-        objectUrl = URL.createObjectURL(res.data);
+    setLoading(true);
+    setError(false);
+
+    getCachedFileUrl(fileId)
+      .then((objectUrl) => {
         if (isMounted) {
           setImgSrc(objectUrl);
           setLoading(false);
         }
-      } catch (err) {
+      })
+      .catch(() => {
         if (isMounted) {
-          console.error(`Failed to load proof image ${fileId}:`, err);
           setError(true);
           setLoading(false);
         }
-      }
-    };
-
-    fetchImage();
+      });
 
     return () => {
       isMounted = false;
-      if (objectUrl) {
-        URL.revokeObjectURL(objectUrl);
-      }
     };
   }, [fileId]);
 

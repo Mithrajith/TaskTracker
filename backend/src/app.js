@@ -7,6 +7,7 @@ import { errorHandler } from './middleware/errorHandler.js';
 
 import authRoutes from './routes/authRoutes.js';
 import studentRoutes from './routes/studentRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 import taskRoutes from './routes/taskRoutes.js';
 import studentTaskRoutes from './routes/studentTaskRoutes.js';
 import submissionRoutes from './routes/submissionRoutes.js';
@@ -68,6 +69,7 @@ app.get(['/', '/api'], (req, res) => {
       health: '/api/v1/health',
       auth: '/api/v1/auth',
       students: '/api/v1/students',
+      users: '/api/v1/users',
       tasks: '/api/v1/tasks',
       studentTasks: '/api/v1/student-tasks',
       submissions: '/api/v1/submissions',
@@ -94,6 +96,7 @@ app.get('/api/v1/health', (req, res) => {
 // API v1 Routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/students', studentRoutes);
+app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/tasks', taskRoutes);
 app.use('/api/v1/student-tasks', studentTaskRoutes);
 app.use('/api/v1/submissions', submissionRoutes);

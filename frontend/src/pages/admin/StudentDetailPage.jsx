@@ -323,7 +323,7 @@ export const StudentDetailPage = () => {
       <ImageModal
         isOpen={!!zoomImageId}
         onClose={() => setZoomImageId(null)}
-        imgSrc={zoomImageId ? `/api/v1/files/${zoomImageId}` : null}
+        fileId={zoomImageId}
       />
     </div>
   );
