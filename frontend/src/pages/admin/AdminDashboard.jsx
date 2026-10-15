@@ -50,7 +50,7 @@ export const AdminDashboard = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="w-8 h-8 animate-spin text-[#2D806B]" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#233DFF]" />
       </div>
     );
   }
@@ -62,7 +62,7 @@ export const AdminDashboard = () => {
         <p>{error || 'Unable to load dashboard'}</p>
         <button
           onClick={fetchOverview}
-          className="mt-4 px-4 py-2 bg-[#064E45] hover:bg-[#085f54] text-xs font-bold rounded-xl text-white"
+          className="mt-4 px-4 py-2 bg-[#233DFF] hover:bg-[#1B2FCC] text-xs font-bold rounded-xl text-white"
         >
           Retry
         </button>
@@ -76,7 +76,7 @@ export const AdminDashboard = () => {
       value: data.totalStudents,
       sub: `${data.activeStudents} active accounts`,
       icon: Users,
-      tone: 'bg-[#EAF7EF] text-[#2D806B] border-[#CDE5D6]',
+      tone: 'bg-[#E5DED2] text-[#233DFF] border-[#D6CEC1]',
       link: '/admin/students',
     },
     {
@@ -84,7 +84,7 @@ export const AdminDashboard = () => {
       value: data.activeStudents,
       sub: 'Currently enrolled',
       icon: UserCheck,
-      tone: 'bg-[#EAF7EF] text-[#2D9B70] border-[#CDE5D6]',
+      tone: 'bg-[#E5DED2] text-[#2D9B70] border-[#D6CEC1]',
       link: '/admin/students',
     },
     {
@@ -100,14 +100,14 @@ export const AdminDashboard = () => {
       value: data.tasksApprovedToday,
       sub: 'Verified submissions today',
       icon: Award,
-      tone: 'bg-[#EAF7EF] text-[#2D9B70] border-[#CDE5D6]',
+      tone: 'bg-[#E5DED2] text-[#2D9B70] border-[#D6CEC1]',
     },
     {
       title: 'Tasks Published',
       value: data.tasksPublished,
       sub: 'Dynamic daily tasks',
       icon: CheckSquare,
-      tone: 'bg-[#EAF7EF] text-[#2D806B] border-[#CDE5D6]',
+      tone: 'bg-[#E5DED2] text-[#233DFF] border-[#D6CEC1]',
       link: '/admin/tasks',
     },
     {
@@ -124,11 +124,11 @@ export const AdminDashboard = () => {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold tracking-tight text-[#064E45] flex items-center gap-2">
+          <h1 className="text-2xl font-extrabold tracking-tight text-[#233DFF] flex items-center gap-2">
             <span>Mentor Control Center</span>
-            <Sparkles className="w-5 h-5 text-[#2D806B]" />
+            <Sparkles className="w-5 h-5 text-[#233DFF]" />
           </h1>
-          <p className="text-sm text-[#71817B] mt-1">
+          <p className="text-sm text-[#77766F] mt-1">
             Real-time monitoring of AI Engineer roadmap student submissions and daily assignments.
           </p>
         </div>
@@ -136,17 +136,17 @@ export const AdminDashboard = () => {
         <div className="flex items-center gap-3">
           <Link
             to="/admin/tasks"
-            className="px-4 py-2.5 text-xs font-bold rounded-xl bg-[#064E45] hover:bg-[#085f54] text-white transition-all"
+            className="px-4 py-2.5 text-xs font-bold rounded-xl bg-[#233DFF] hover:bg-[#1B2FCC] text-white transition-all"
           >
             + Create New Task
           </Link>
           <Link
             to="/admin/reviews"
-            className="px-4 py-2.5 text-xs font-bold rounded-xl bg-white hover:bg-[#EAF7EF] text-[#064E45] border border-[#DDE8DF] transition-all flex items-center gap-1.5"
+            className="px-4 py-2.5 text-xs font-bold rounded-xl bg-white hover:bg-[#E5DED2] text-[#233DFF] border border-[#D6CEC1] transition-all flex items-center gap-1.5"
           >
             <span>Review Queue</span>
             {data.submissionsAwaitingReview > 0 && (
-              <span className="min-w-5 h-5 px-1 rounded-full bg-[#064E45] text-white font-bold text-[10px] flex items-center justify-center">
+              <span className="min-w-5 h-5 px-1 rounded-full bg-[#233DFF] text-white font-bold text-[10px] flex items-center justify-center">
                 {data.submissionsAwaitingReview}
               </span>
             )}
@@ -159,9 +159,9 @@ export const AdminDashboard = () => {
         {statCards.map((card, idx) => {
           const Icon = card.icon;
           const CardContent = (
-            <div className="p-5 rounded-2xl bg-white border border-[#DDE8DF] h-full flex flex-col justify-between hover:border-[#CDE5D6] transition-colors">
+            <div className="p-5 rounded-2xl bg-white border border-[#D6CEC1] h-full flex flex-col justify-between hover:border-[#D6CEC1] transition-colors">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-[#71817B]">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#77766F]">
                   {card.title}
                 </span>
                 <span className={`w-8 h-8 rounded-xl border flex items-center justify-center ${card.tone}`}>
@@ -169,8 +169,8 @@ export const AdminDashboard = () => {
                 </span>
               </div>
               <div className="mt-3">
-                <div className="text-2xl font-black text-[#064E45]">{card.value}</div>
-                <div className="text-[11px] text-[#71817B] mt-0.5">{card.sub}</div>
+                <div className="text-2xl font-black text-[#233DFF]">{card.value}</div>
+                <div className="text-[11px] text-[#77766F] mt-0.5">{card.sub}</div>
               </div>
             </div>
           );
@@ -194,7 +194,7 @@ export const AdminDashboard = () => {
           action={
             <Link
               to="/admin/reviews"
-              className="text-xs font-bold text-[#2D806B] hover:text-[#064E45] flex items-center gap-1"
+              className="text-xs font-bold text-[#233DFF] hover:text-[#233DFF] flex items-center gap-1"
             >
               <span>View Queue</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -202,7 +202,7 @@ export const AdminDashboard = () => {
           }
         >
           {data.recentlySubmitted.length === 0 ? (
-            <p className="text-sm text-[#71817B] text-center py-8">
+            <p className="text-sm text-[#77766F] text-center py-8">
               No recent student submissions.
             </p>
           ) : (
@@ -210,22 +210,22 @@ export const AdminDashboard = () => {
               {data.recentlySubmitted.map((sub) => (
                 <div
                   key={sub._id}
-                  className="p-3.5 rounded-xl bg-[#FAF8F0] border border-[#DDE8DF] flex items-center justify-between gap-3 hover:border-[#CDE5D6] transition-colors"
+                  className="p-3.5 rounded-xl bg-[#F5F0E8] border border-[#D6CEC1] flex items-center justify-between gap-3 hover:border-[#D6CEC1] transition-colors"
                 >
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-xs font-bold text-[#064E45]">
+                      <span className="text-xs font-bold text-[#233DFF]">
                         {sub.student?.name}
                       </span>
-                      <span className="text-[10px] text-[#71817B] font-mono">
+                      <span className="text-[10px] text-[#77766F] font-mono">
                         ({sub.student?.registerNumber})
                       </span>
                       <Badge status={sub.status} />
                     </div>
-                    <p className="text-xs text-[#2D806B] truncate mt-0.5 font-medium">
+                    <p className="text-xs text-[#233DFF] truncate mt-0.5 font-medium">
                       Task #{sub.task?.taskNumber}: {sub.task?.title} (v{sub.version})
                     </p>
-                    <span className="text-[10px] text-[#71817B] block mt-0.5">
+                    <span className="text-[10px] text-[#77766F] block mt-0.5">
                       Submitted{' '}
                       {new Date(sub.submittedAt).toLocaleTimeString([], {
                         hour: '2-digit',
@@ -236,7 +236,7 @@ export const AdminDashboard = () => {
 
                   <button
                     onClick={() => setSelectedSubmission(sub)}
-                    className="px-3 py-1.5 rounded-lg text-xs font-bold bg-[#064E45] hover:bg-[#085f54] text-white transition-all shrink-0"
+                    className="px-3 py-1.5 rounded-lg text-xs font-bold bg-[#233DFF] hover:bg-[#1B2FCC] text-white transition-all shrink-0"
                   >
                     Evaluate
                   </button>
@@ -253,7 +253,7 @@ export const AdminDashboard = () => {
           action={
             <Link
               to="/admin/students"
-              className="text-xs font-bold text-[#2D806B] hover:text-[#064E45] flex items-center gap-1"
+              className="text-xs font-bold text-[#233DFF] hover:text-[#233DFF] flex items-center gap-1"
             >
               <span>All Students</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -261,8 +261,8 @@ export const AdminDashboard = () => {
           }
         >
           {data.fallingBehindStudents.length === 0 ? (
-            <div className="py-8 text-center text-[#71817B]">
-              <div className="w-10 h-10 rounded-full bg-[#EAF7EF] border border-[#CDE5D6] flex items-center justify-center mx-auto mb-2 text-[#2D9B70] font-bold">
+            <div className="py-8 text-center text-[#77766F]">
+              <div className="w-10 h-10 rounded-full bg-[#E5DED2] border border-[#D6CEC1] flex items-center justify-center mx-auto mb-2 text-[#2D9B70] font-bold">
                 ✓
               </div>
               <p className="text-xs">
@@ -278,14 +278,14 @@ export const AdminDashboard = () => {
                 >
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-[#064E45]">
+                      <span className="text-xs font-bold text-[#233DFF]">
                         {item.student?.name}
                       </span>
-                      <span className="text-[10px] text-[#71817B] font-mono">
+                      <span className="text-[10px] text-[#77766F] font-mono">
                         {item.student?.registerNumber}
                       </span>
                     </div>
-                    <p className="text-xs text-[#172E2A] mt-0.5">
+                    <p className="text-xs text-[#242424] mt-0.5">
                       Stuck on Task #{item.currentTaskNumber}
                     </p>
                     <span className="text-[10px] text-[#E86A5B] font-semibold inline-block mt-0.5">
@@ -295,7 +295,7 @@ export const AdminDashboard = () => {
 
                   <Link
                     to={`/admin/students/${item.student?._id}`}
-                    className="p-2 rounded-lg text-[#71817B] hover:text-[#064E45] hover:bg-white transition-colors"
+                    className="p-2 rounded-lg text-[#77766F] hover:text-[#233DFF] hover:bg-white transition-colors"
                     title="View Profile"
                   >
                     <ExternalLink className="w-4 h-4" />

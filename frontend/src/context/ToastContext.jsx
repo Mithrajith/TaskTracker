@@ -31,11 +31,11 @@ export const ToastProvider = ({ children }) => {
       {children}
       <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2 max-w-md w-full px-4 pointer-events-none">
         {toasts.map((toast) => {
-          let bgClass = 'bg-white border-[#DDE8DF] text-[#172E2A]';
-          let icon = <Info className="w-5 h-5 text-[#2D806B] shrink-0" />;
+          let bgClass = 'bg-white border-[#D6CEC1] text-[#242424]';
+          let icon = <Info className="w-5 h-5 text-[#233DFF] shrink-0" />;
 
           if (toast.type === 'success') {
-            bgClass = 'bg-[#EAF7EF] border-[#CDE5D6] text-[#064E45]';
+            bgClass = 'bg-[#E5DED2] border-[#D6CEC1] text-[#233DFF]';
             icon = <CheckCircle2 className="w-5 h-5 text-[#2D9B70] shrink-0" />;
           } else if (toast.type === 'error') {
             bgClass = 'bg-[#FFF0ED] border-[#FAD3CC] text-[#E86A5B]';

@@ -5,7 +5,7 @@ export const PasswordInput = ({
   value,
   onChange,
   leftIcon: LeftIcon,
-  iconClassName = 'w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#71817B]',
+  iconClassName = 'w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#77766F]',
   className = '',
   placeholder,
   required = false,
@@ -42,7 +42,7 @@ export const PasswordInput = ({
         tabIndex={-1}
         title={visible ? 'Hide password' : 'Show password'}
         aria-label={visible ? 'Hide password' : 'Show password'}
-        className="absolute right-3 top-1/2 -translate-y-1/2 text-[#71817B] hover:text-[#064E45] transition-colors disabled:opacity-50"
+        className="absolute right-3 top-1/2 -translate-y-1/2 text-[#77766F] hover:text-[#233DFF] transition-colors disabled:opacity-50"
       >
         {visible ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
       </button>

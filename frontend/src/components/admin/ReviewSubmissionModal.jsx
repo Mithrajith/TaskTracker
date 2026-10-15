@@ -83,21 +83,21 @@ export const ReviewSubmissionModal = ({
       )}
 
       {/* Task & Instructions Summary */}
-      <div className="p-3.5 rounded-xl bg-[#EAF7EF] border border-[#CDE5D6]">
-        <h4 className="text-xs font-bold uppercase tracking-wider text-[#2D806B] mb-1">
+      <div className="p-3.5 rounded-xl bg-[#E5DED2] border border-[#D6CEC1]">
+        <h4 className="text-xs font-bold uppercase tracking-wider text-[#233DFF] mb-1">
           {submission.task?.title}
         </h4>
-        <p className="text-xs text-[#71817B] line-clamp-2">{submission.task?.instructions}</p>
+        <p className="text-xs text-[#77766F] line-clamp-2">{submission.task?.instructions}</p>
       </div>
 
       {/* Proof Screenshot & GitHub Link */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Proof Image Box */}
         <div className="space-y-1.5">
-          <label className="text-xs font-bold uppercase tracking-wider text-[#71817B]">
+          <label className="text-xs font-bold uppercase tracking-wider text-[#77766F]">
             Submitted Proof Image
           </label>
-          <div className="relative group rounded-xl border border-[#DDE8DF] bg-[#FAF8F0] p-2 flex items-center justify-center min-h-[160px]">
+          <div className="relative group rounded-xl border border-[#D6CEC1] bg-[#F5F0E8] p-2 flex items-center justify-center min-h-[160px]">
             <AuthorizedImage
               fileId={submission.fileId}
               alt="Student Proof"
@@ -105,7 +105,7 @@ export const ReviewSubmissionModal = ({
               onClick={() => onImageZoom && onImageZoom(submission.fileId)}
             />
           </div>
-          <span className="text-[10px] text-[#71817B] block text-center">
+          <span className="text-[10px] text-[#77766F] block text-center">
             Click image to view in full resolution
           </span>
         </div>
@@ -114,14 +114,14 @@ export const ReviewSubmissionModal = ({
         <div className="space-y-3 flex flex-col justify-between">
           {submission.githubUrl ? (
             <div>
-              <label className="text-xs font-bold uppercase tracking-wider text-[#71817B] block mb-1.5">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#77766F] block mb-1.5">
                 GitHub Repository / Commit
               </label>
               <a
                 href={submission.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2 p-2.5 rounded-xl bg-white border border-[#DDE8DF] text-[#2D806B] hover:text-[#064E45] hover:border-[#2D806B] text-xs font-medium transition-colors"
+                className="flex items-center gap-2 p-2.5 rounded-xl bg-white border border-[#D6CEC1] text-[#233DFF] hover:text-[#233DFF] hover:border-[#233DFF] text-xs font-medium transition-colors"
               >
                 <Github className="w-4 h-4 shrink-0" />
                 <span className="truncate flex-1">{submission.githubUrl}</span>
@@ -130,20 +130,20 @@ export const ReviewSubmissionModal = ({
             </div>
           ) : (
             <div>
-              <label className="text-xs font-bold uppercase tracking-wider text-[#71817B] block mb-1.5">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#77766F] block mb-1.5">
                 GitHub Link
               </label>
-              <span className="text-xs text-[#71817B] italic">Not provided</span>
+              <span className="text-xs text-[#77766F] italic">Not provided</span>
             </div>
           )}
 
           <div>
-            <label className="text-xs font-bold uppercase tracking-wider text-[#71817B] block mb-1.5">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#77766F] block mb-1.5">
               Student's Explanation
             </label>
-            <div className="p-3 rounded-xl bg-[#FAF8F0] border border-[#DDE8DF] text-xs text-[#172E2A] leading-relaxed max-h-28 overflow-y-auto">
+            <div className="p-3 rounded-xl bg-[#F5F0E8] border border-[#D6CEC1] text-xs text-[#242424] leading-relaxed max-h-28 overflow-y-auto">
               {submission.explanation || (
-                <span className="text-[#71817B] italic">No additional explanation provided.</span>
+                <span className="text-[#77766F] italic">No additional explanation provided.</span>
               )}
             </div>
           </div>
@@ -152,24 +152,24 @@ export const ReviewSubmissionModal = ({
 
       {/* Previous Review Notes if Version > 1 */}
       {submission.previousReviews && submission.previousReviews.length > 0 && (
-        <div className="space-y-2 border-t border-[#DDE8DF] pt-3">
-          <div className="flex items-center gap-1.5 text-xs font-bold text-[#71817B]">
-            <History className="w-3.5 h-3.5 text-[#71817B]" />
+        <div className="space-y-2 border-t border-[#D6CEC1] pt-3">
+          <div className="flex items-center gap-1.5 text-xs font-bold text-[#77766F]">
+            <History className="w-3.5 h-3.5 text-[#77766F]" />
             <span>Previous Review Feedback</span>
           </div>
           <div className="space-y-2 max-h-28 overflow-y-auto">
             {submission.previousReviews.map((pr) => (
               <div
                 key={pr._id}
-                className="p-2.5 rounded-lg bg-[#FAF8F0] border border-[#DDE8DF] text-xs"
+                className="p-2.5 rounded-lg bg-[#F5F0E8] border border-[#D6CEC1] text-xs"
               >
                 <div className="flex items-center justify-between mb-1">
                   <Badge status={pr.decision} />
-                  <span className="text-[10px] text-[#71817B]">
+                  <span className="text-[10px] text-[#77766F]">
                     {new Date(pr.reviewedAt).toLocaleDateString()}
                   </span>
                 </div>
-                <p className="text-[#172E2A] text-[11px] italic">"{pr.feedback}"</p>
+                <p className="text-[#242424] text-[11px] italic">"{pr.feedback}"</p>
               </div>
             ))}
           </div>
@@ -177,9 +177,9 @@ export const ReviewSubmissionModal = ({
       )}
 
       {/* Mentor Feedback Input */}
-      <div className="border-t border-[#DDE8DF] pt-3">
-        <label className="block text-xs font-bold uppercase tracking-wider text-[#064E45] mb-1.5 flex items-center gap-1.5">
-          <MessageSquare className="w-3.5 h-3.5 text-[#2D806B]" />
+      <div className="border-t border-[#D6CEC1] pt-3">
+        <label className="block text-xs font-bold uppercase tracking-wider text-[#233DFF] mb-1.5 flex items-center gap-1.5">
+          <MessageSquare className="w-3.5 h-3.5 text-[#233DFF]" />
           <span>Mentor Feedback / Correction Notes</span>
         </label>
         <textarea
@@ -187,17 +187,17 @@ export const ReviewSubmissionModal = ({
           value={feedback}
           onChange={(e) => setFeedback(e.target.value)}
           placeholder="Provide encouraging and constructive feedback, highlight edge cases, or explain exactly what must be corrected..."
-          className="w-full p-3 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-xs text-[#172E2A] placeholder-[#A3B2AC] focus:outline-none focus:ring-2 focus:ring-[#2D806B]/30 focus:border-[#2D806B] leading-relaxed"
+          className="w-full p-3 bg-[#F5F0E8] border border-[#D6CEC1] rounded-xl text-xs text-[#242424] placeholder-[#9A9890] focus:outline-none focus:ring-2 focus:ring-[#233DFF]/30 focus:border-[#233DFF] leading-relaxed"
         />
       </div>
 
       {/* Review Actions */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[#DDE8DF]">
+      <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[#D6CEC1]">
         <button
           type="button"
           onClick={onClose}
           disabled={loading}
-          className="px-4 py-2 rounded-xl text-xs font-bold text-[#71817B] hover:text-[#064E45] hover:bg-[#EAF7EF] transition-colors"
+          className="px-4 py-2 rounded-xl text-xs font-bold text-[#77766F] hover:text-[#233DFF] hover:bg-[#E5DED2] transition-colors"
         >
           Close
         </button>

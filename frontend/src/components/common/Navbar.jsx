@@ -14,19 +14,19 @@ export const Navbar = () => {
   const { user, logout } = useAuth();
 
   return (
-    <header className="bg-white/90 border-b border-[#DDE8DF] sticky top-0 z-30 backdrop-blur-xl">
+    <header className="bg-white/90 border-b border-[#D6CEC1] sticky top-0 z-30 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           {/* Logo & Title */}
           <div className="flex items-center gap-6">
             <NavLink to="/student" className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#064E45] to-[#2D806B] flex items-center justify-center">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#233DFF] to-[#233DFF] flex items-center justify-center">
                 <Sparkles className="w-5 h-5 text-white" />
               </div>
               <div>
-                <span className="text-sm font-bold tracking-tight text-[#064E45] uppercase block">
+                <span className="text-sm font-bold tracking-tight text-[#233DFF] uppercase block">
                   AI Engineer Roadmap
                 </span>
-                <span className="text-[11px] text-[#2D806B] font-medium">Student Portal</span>
+                <span className="text-[11px] text-[#233DFF] font-medium">Student Portal</span>
               </div>
             </NavLink>
 
@@ -38,8 +38,8 @@ export const Navbar = () => {
                 className={({ isActive }) =>
                   `flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                     isActive
-                      ? 'bg-[#EAF7EF] text-[#064E45] border border-[#CDE5D6]'
-                      : 'text-[#71817B] hover:text-[#064E45] hover:bg-[#EAF7EF]'
+                      ? 'bg-[#E5DED2] text-[#233DFF] border border-[#D6CEC1]'
+                      : 'text-[#77766F] hover:text-[#233DFF] hover:bg-[#E5DED2]'
                   }`
                 }
               >
@@ -51,8 +51,8 @@ export const Navbar = () => {
                 className={({ isActive }) =>
                   `flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                     isActive
-                      ? 'bg-[#EAF7EF] text-[#064E45] border border-[#CDE5D6]'
-                      : 'text-[#71817B] hover:text-[#064E45] hover:bg-[#EAF7EF]'
+                      ? 'bg-[#E5DED2] text-[#233DFF] border border-[#D6CEC1]'
+                      : 'text-[#77766F] hover:text-[#233DFF] hover:bg-[#E5DED2]'
                   }`
                 }
               >
@@ -69,26 +69,26 @@ export const Navbar = () => {
                 href={user.githubRepoUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="hidden sm:flex items-center gap-1.5 text-xs text-[#71817B] hover:text-[#2D806B] transition-colors px-2.5 py-1 rounded-lg bg-[#FAF8F0] border border-[#DDE8DF]"
+                className="hidden sm:flex items-center gap-1.5 text-xs text-[#77766F] hover:text-[#233DFF] transition-colors px-2.5 py-1 rounded-lg bg-[#F5F0E8] border border-[#D6CEC1]"
               >
                 <span>Repo</span>
                 <ExternalLink className="w-3 h-3" />
               </a>
             )}
 
-            <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-[#FAF8F0] border border-[#DDE8DF]">
-              <div className="w-7 h-7 rounded-lg bg-[#EAF7EF] border border-[#CDE5D6] flex items-center justify-center text-xs font-bold text-[#2D806B]">
+            <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-[#F5F0E8] border border-[#D6CEC1]">
+              <div className="w-7 h-7 rounded-lg bg-[#E5DED2] border border-[#D6CEC1] flex items-center justify-center text-xs font-bold text-[#233DFF]">
                 {user?.name?.slice(0, 2) || 'ST'}
               </div>
               <div className="text-left hidden sm:block">
-                <p className="text-xs font-semibold text-[#172E2A] leading-tight">{user?.name}</p>
-                <p className="text-[10px] text-[#71817B] leading-tight">{user?.registerNumber}</p>
+                <p className="text-xs font-semibold text-[#242424] leading-tight">{user?.name}</p>
+                <p className="text-[10px] text-[#77766F] leading-tight">{user?.registerNumber}</p>
               </div>
             </div>
 
             <NavLink
               to="/student/profile"
-              className="p-2 text-[#71817B] hover:text-[#2D806B] hover:bg-[#EAF7EF] rounded-lg transition-colors border border-transparent hover:border-[#DDE8DF]"
+              className="p-2 text-[#77766F] hover:text-[#233DFF] hover:bg-[#E5DED2] rounded-lg transition-colors border border-transparent hover:border-[#D6CEC1]"
               title="Profile & Password"
             >
               <User className="w-4 h-4" />
@@ -96,7 +96,7 @@ export const Navbar = () => {
 
             <button
               onClick={logout}
-              className="p-2 text-[#71817B] hover:text-[#E86A5B] hover:bg-[#FFF0ED] rounded-lg transition-colors border border-transparent hover:border-[#FAD3CC]"
+              className="p-2 text-[#77766F] hover:text-[#E86A5B] hover:bg-[#FFF0ED] rounded-lg transition-colors border border-transparent hover:border-[#FAD3CC]"
               title="Sign Out"
             >
               <LogOut className="w-4 h-4" />

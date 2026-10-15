@@ -47,9 +47,9 @@ export const AuthorizedImage = ({
   if (loading) {
     return (
       <div
-        className={`flex items-center justify-center bg-[#EAF7EF] rounded-lg border border-[#CDE5D6] text-[#71817B] ${className}`}
+        className={`flex items-center justify-center bg-[#E5DED2] rounded-lg border border-[#D6CEC1] text-[#77766F] ${className}`}
       >
-        <Loader2 className="w-5 h-5 animate-spin text-[#2D806B]" />
+        <Loader2 className="w-5 h-5 animate-spin text-[#233DFF]" />
       </div>
     );
   }
@@ -57,7 +57,7 @@ export const AuthorizedImage = ({
   if (error || !imgSrc) {
     return (
       <div
-        className={`flex flex-col items-center justify-center bg-[#FAF8F0] rounded-lg border border-[#DDE8DF] text-[#A3B2AC] p-2 text-center text-xs ${className}`}
+        className={`flex flex-col items-center justify-center bg-[#F5F0E8] rounded-lg border border-[#D6CEC1] text-[#9A9890] p-2 text-center text-xs ${className}`}
       >
         <ImageIcon className="w-5 h-5 mb-1 opacity-50" />
         <span>No image</span>

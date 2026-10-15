@@ -3,13 +3,13 @@ import React from 'react';
 export const Badge = ({ status, className = '' }) => {
   const norm = (status || '').toLowerCase().replace(/[\s-]/g, '_');
 
-  let style = 'bg-[#FAF8F0] text-[#71817B] border-[#DDE8DF]';
-  let dotColor = 'bg-[#71817B]';
+  let style = 'bg-[#F5F0E8] text-[#77766F] border-[#D6CEC1]';
+  let dotColor = 'bg-[#77766F]';
   let label = status || 'Unknown';
 
   switch (norm) {
     case 'approved':
-      style = 'bg-[#EAF7EF] text-[#2D9B70] border-[#CDE5D6]';
+      style = 'bg-[#E5DED2] text-[#2D9B70] border-[#D6CEC1]';
       dotColor = 'bg-[#2D9B70]';
       label = 'Approved';
       break;
@@ -31,27 +31,27 @@ export const Badge = ({ status, className = '' }) => {
       label = 'Rejected';
       break;
     case 'in_progress':
-      style = 'bg-[#EAF7EF] text-[#2D806B] border-[#CDE5D6]';
-      dotColor = 'bg-[#064E45]';
+      style = 'bg-[#E5DED2] text-[#233DFF] border-[#D6CEC1]';
+      dotColor = 'bg-[#233DFF]';
       label = 'In Progress';
       break;
     case 'assigned':
-      style = 'bg-[#EAF7EF] text-[#064E45] border-[#CDE5D6]';
-      dotColor = 'bg-[#064E45]';
+      style = 'bg-[#E5DED2] text-[#233DFF] border-[#D6CEC1]';
+      dotColor = 'bg-[#233DFF]';
       label = 'Assigned';
       break;
     case 'published':
-      style = 'bg-[#EAF7EF] text-[#2D806B] border-[#CDE5D6]';
-      dotColor = 'bg-[#2D806B]';
+      style = 'bg-[#E5DED2] text-[#233DFF] border-[#D6CEC1]';
+      dotColor = 'bg-[#233DFF]';
       label = 'Published';
       break;
     case 'draft':
-      style = 'bg-[#F2F4F2] text-[#71817B] border-[#DDE8DF]';
-      dotColor = 'bg-[#71817B]';
+      style = 'bg-[#EFEAE0] text-[#77766F] border-[#D6CEC1]';
+      dotColor = 'bg-[#77766F]';
       label = 'Draft';
       break;
     case 'active':
-      style = 'bg-[#EAF7EF] text-[#2D9B70] border-[#CDE5D6]';
+      style = 'bg-[#E5DED2] text-[#2D9B70] border-[#D6CEC1]';
       dotColor = 'bg-[#2D9B70]';
       label = 'Active';
       break;
@@ -61,8 +61,8 @@ export const Badge = ({ status, className = '' }) => {
       label = 'Deactivated';
       break;
     case 'locked':
-      style = 'bg-[#F0F2F0] text-[#8C9B95] border-[#DDE8DF]';
-      dotColor = 'bg-[#A3B2AC]';
+      style = 'bg-[#EFEAE0] text-[#8A887F] border-[#D6CEC1]';
+      dotColor = 'bg-[#9A9890]';
       label = 'Locked';
       break;
     default:

@@ -80,18 +80,18 @@ export const AddUserPage = () => {
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-[#064E45] tracking-tight flex items-center gap-2.5">
-            <UserPlus className="w-6 h-6 text-[#2D806B]" />
+          <h1 className="text-2xl font-extrabold text-[#233DFF] tracking-tight flex items-center gap-2.5">
+            <UserPlus className="w-6 h-6 text-[#233DFF]" />
             <span>Add User</span>
           </h1>
-          <p className="text-sm text-[#71817B] mt-1">
+          <p className="text-sm text-[#77766F] mt-1">
             Create a new student or admin account. They will be asked to set their own password on
             first login.
           </p>
         </div>
         <Link
           to="/admin/students"
-          className="hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white hover:bg-[#EAF7EF] text-[#064E45] font-bold text-xs border border-[#DDE8DF] transition-colors"
+          className="hidden sm:flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white hover:bg-[#E5DED2] text-[#233DFF] font-bold text-xs border border-[#D6CEC1] transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back</span>
@@ -99,7 +99,7 @@ export const AddUserPage = () => {
       </div>
 
       {createdUser && (
-        <div className="flex items-start gap-3 p-4 rounded-2xl bg-[#EAF7EF] border border-[#CDE5D6] text-[#064E45] text-sm">
+        <div className="flex items-start gap-3 p-4 rounded-2xl bg-[#E5DED2] border border-[#D6CEC1] text-[#233DFF] text-sm">
           <CheckCircle2 className="w-5 h-5 text-[#2D9B70] shrink-0 mt-0.5" />
           <span>
             <strong>{createdUser.name}</strong> ({createdUser.registerNumber}) was created as{' '}
@@ -119,27 +119,27 @@ export const AddUserPage = () => {
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Role selector */}
           <div>
-            <label className="block text-xs font-bold text-[#064E45] mb-2">Account Role</label>
+            <label className="block text-xs font-bold text-[#233DFF] mb-2">Account Role</label>
             <div className="grid grid-cols-2 gap-3">
               <button
                 type="button"
                 onClick={() => setRole('student')}
                 className={`flex items-center gap-3 p-3.5 rounded-2xl border text-left transition-all ${
                   role === 'student'
-                    ? 'border-[#2D806B] bg-[#EAF7EF]'
-                    : 'border-[#DDE8DF] bg-[#FAF8F0] hover:border-[#CDE5D6]'
+                    ? 'border-[#233DFF] bg-[#E5DED2]'
+                    : 'border-[#D6CEC1] bg-[#F5F0E8] hover:border-[#D6CEC1]'
                 }`}
               >
                 <div
                   className={`w-9 h-9 rounded-xl flex items-center justify-center ${
-                    role === 'student' ? 'bg-[#064E45] text-white' : 'bg-white text-[#71817B]'
+                    role === 'student' ? 'bg-[#233DFF] text-white' : 'bg-white text-[#77766F]'
                   }`}
                 >
                   <GraduationCap className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-sm font-bold text-[#064E45] block">Student</span>
-                  <span className="text-[11px] text-[#71817B]">Follows the roadmap</span>
+                  <span className="text-sm font-bold text-[#233DFF] block">Student</span>
+                  <span className="text-[11px] text-[#77766F]">Follows the roadmap</span>
                 </div>
               </button>
 
@@ -148,20 +148,20 @@ export const AddUserPage = () => {
                 onClick={() => setRole('admin')}
                 className={`flex items-center gap-3 p-3.5 rounded-2xl border text-left transition-all ${
                   role === 'admin'
-                    ? 'border-[#2D806B] bg-[#EAF7EF]'
-                    : 'border-[#DDE8DF] bg-[#FAF8F0] hover:border-[#CDE5D6]'
+                    ? 'border-[#233DFF] bg-[#E5DED2]'
+                    : 'border-[#D6CEC1] bg-[#F5F0E8] hover:border-[#D6CEC1]'
                 }`}
               >
                 <div
                   className={`w-9 h-9 rounded-xl flex items-center justify-center ${
-                    role === 'admin' ? 'bg-[#064E45] text-white' : 'bg-white text-[#71817B]'
+                    role === 'admin' ? 'bg-[#233DFF] text-white' : 'bg-white text-[#77766F]'
                   }`}
                 >
                   <ShieldCheck className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-sm font-bold text-[#064E45] block">Admin</span>
-                  <span className="text-[11px] text-[#71817B]">Reviews &amp; manages</span>
+                  <span className="text-sm font-bold text-[#233DFF] block">Admin</span>
+                  <span className="text-[11px] text-[#77766F]">Reviews &amp; manages</span>
                 </div>
               </button>
             </div>
@@ -170,39 +170,39 @@ export const AddUserPage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {/* Name */}
             <div>
-              <label className="block text-xs font-bold text-[#064E45] mb-1.5">
+              <label className="block text-xs font-bold text-[#233DFF] mb-1.5">
                 Full Name <span className="text-[#E86A5B]">*</span>
               </label>
               <div className="relative">
-                <User className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#2D806B]" />
+                <User className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#233DFF]" />
                 <input
                   type="text"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Priya Sharma"
-                  className="w-full pl-10 pr-3 py-2.5 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-sm text-[#172E2A] placeholder-[#A3B2AC] focus:outline-none focus:ring-2 focus:ring-[#2D806B]/30 focus:border-[#2D806B]"
+                  className="w-full pl-10 pr-3 py-2.5 bg-[#F5F0E8] border border-[#D6CEC1] rounded-xl text-sm text-[#242424] placeholder-[#9A9890] focus:outline-none focus:ring-2 focus:ring-[#233DFF]/30 focus:border-[#233DFF]"
                 />
               </div>
             </div>
 
             {/* Register number */}
             <div>
-              <label className="block text-xs font-bold text-[#064E45] mb-1.5">
+              <label className="block text-xs font-bold text-[#233DFF] mb-1.5">
                 Register / Employee ID <span className="text-[#E86A5B]">*</span>
               </label>
               <div className="relative">
-                <Hash className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#2D806B]" />
+                <Hash className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#233DFF]" />
                 <input
                   type="text"
                   required
                   value={registerNumber}
                   onChange={(e) => setRegisterNumber(e.target.value)}
                   placeholder="e.g. STU-1001"
-                  className="w-full pl-9 pr-3 py-2.5 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-sm text-[#172E2A] placeholder-[#A3B2AC] focus:outline-none focus:ring-2 focus:ring-[#2D806B]/30 focus:border-[#2D806B]"
+                  className="w-full pl-9 pr-3 py-2.5 bg-[#F5F0E8] border border-[#D6CEC1] rounded-xl text-sm text-[#242424] placeholder-[#9A9890] focus:outline-none focus:ring-2 focus:ring-[#233DFF]/30 focus:border-[#233DFF]"
                 />
               </div>
-              <span className="text-[11px] text-[#71817B] mt-1 block">
+              <span className="text-[11px] text-[#77766F] mt-1 block">
                 Used as the login ID and must be unique.
               </span>
             </div>
@@ -211,21 +211,21 @@ export const AddUserPage = () => {
           {/* GitHub (students only) */}
           {role === 'student' && (
             <div>
-              <label className="block text-xs font-bold text-[#064E45] mb-1.5">
+              <label className="block text-xs font-bold text-[#233DFF] mb-1.5">
                 GitHub Repository URL{' '}
-                <span className="text-[#71817B] font-medium">(optional)</span>
+                <span className="text-[#77766F] font-medium">(optional)</span>
               </label>
               <div className="relative">
-                <Github className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#2D806B]" />
+                <Github className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#233DFF]" />
                 <input
                   type="url"
                   value={githubRepoUrl}
                   onChange={(e) => setGithubRepoUrl(e.target.value)}
                   placeholder="https://github.com/username/repo"
-                  className="w-full pl-9 pr-3 py-2.5 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-sm text-[#172E2A] placeholder-[#A3B2AC] focus:outline-none focus:ring-2 focus:ring-[#2D806B]/30 focus:border-[#2D806B]"
+                  className="w-full pl-9 pr-3 py-2.5 bg-[#F5F0E8] border border-[#D6CEC1] rounded-xl text-sm text-[#242424] placeholder-[#9A9890] focus:outline-none focus:ring-2 focus:ring-[#233DFF]/30 focus:border-[#233DFF]"
                 />
               </div>
-              <span className="text-[11px] text-[#71817B] mt-1 block">
+              <span className="text-[11px] text-[#77766F] mt-1 block">
                 Leave blank if unknown — the student can add it later from their profile.
               </span>
             </div>
@@ -233,38 +233,38 @@ export const AddUserPage = () => {
 
           {/* Password */}
           <div>
-            <label className="block text-xs font-bold text-[#064E45] mb-1.5">
+            <label className="block text-xs font-bold text-[#233DFF] mb-1.5">
               Initial Temporary Password <span className="text-[#E86A5B]">*</span>
             </label>
             <PasswordInput
               leftIcon={Lock}
-              iconClassName="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#2D806B]"
+              iconClassName="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#233DFF]"
               required
               minLength={6}
               value={initialPassword}
               onChange={(e) => setInitialPassword(e.target.value)}
               placeholder="Minimum 6 characters"
               autoComplete="new-password"
-              className="w-full pl-9 pr-10 py-2.5 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-sm text-[#172E2A] placeholder-[#A3B2AC] focus:outline-none focus:ring-2 focus:ring-[#2D806B]/30 focus:border-[#2D806B] font-mono"
+              className="w-full pl-9 pr-10 py-2.5 bg-[#F5F0E8] border border-[#D6CEC1] rounded-xl text-sm text-[#242424] placeholder-[#9A9890] focus:outline-none focus:ring-2 focus:ring-[#233DFF]/30 focus:border-[#233DFF] font-mono"
             />
             <span className="text-[11px] text-[#D88918] mt-1 block">
               The user will be required to change this password on first login.
             </span>
           </div>
 
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#DDE8DF]">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#D6CEC1]">
             <button
               type="button"
               onClick={resetForm}
               disabled={loading}
-              className="px-4 py-2.5 rounded-xl text-sm font-bold text-[#71817B] hover:text-[#064E45] hover:bg-[#EAF7EF] transition-colors"
+              className="px-4 py-2.5 rounded-xl text-sm font-bold text-[#77766F] hover:text-[#233DFF] hover:bg-[#E5DED2] transition-colors"
             >
               Reset
             </button>
             <button
               type="submit"
               disabled={loading}
-              className={`px-6 py-2.5 rounded-xl text-sm font-bold text-white bg-[#064E45] hover:bg-[#085f54] transition-all flex items-center gap-2 ${
+              className={`px-6 py-2.5 rounded-xl text-sm font-bold text-white bg-[#233DFF] hover:bg-[#1B2FCC] transition-all flex items-center gap-2 ${
                 loading ? 'opacity-50 cursor-not-allowed' : ''
               }`}
             >

@@ -22,21 +22,21 @@ export const Modal = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#172E2A]/40 backdrop-blur-xs animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#242424]/40 backdrop-blur-xs animate-fade-in">
       <div
-        className={`bg-white border border-[#DDE8DF] rounded-2xl sm:rounded-3xl w-full ${maxWidth} overflow-hidden flex flex-col max-h-[90vh]`}
+        className={`bg-white border border-[#D6CEC1] rounded-2xl sm:rounded-3xl w-full ${maxWidth} overflow-hidden flex flex-col max-h-[90vh]`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between p-5 sm:p-6 border-b border-[#DDE8DF] shrink-0 bg-[#FAF8F0]/70">
+        <div className="flex items-center justify-between p-5 sm:p-6 border-b border-[#D6CEC1] shrink-0 bg-[#F5F0E8]/70">
           <div>
-            <h3 className="text-lg font-bold text-[#064E45]">{title}</h3>
+            <h3 className="text-lg font-bold text-[#233DFF]">{title}</h3>
             {subtitle && (
-              <p className="text-xs text-[#71817B] mt-0.5">{subtitle}</p>
+              <p className="text-xs text-[#77766F] mt-0.5">{subtitle}</p>
             )}
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-full text-[#71817B] hover:text-[#172E2A] hover:bg-[#EAF7EF] transition-colors"
+            className="p-1.5 rounded-full text-[#77766F] hover:text-[#242424] hover:bg-[#E5DED2] transition-colors"
           >
             <X className="w-5 h-5" />
           </button>

@@ -14,7 +14,7 @@ import {
 import { Github } from '../components/common/Icons';
 
 const fieldClass =
-  'w-full pl-9 pr-10 py-2.5 bg-white border border-[#DDE8DF] rounded-xl text-sm text-[#172E2A] placeholder-[#71817B]/60 focus:outline-none focus:ring-2 focus:ring-[#2D806B]/30 focus:border-[#2D806B] transition-colors';
+  'w-full pl-9 pr-10 py-2.5 bg-white border border-[#D6CEC1] rounded-xl text-sm text-[#242424] placeholder-[#77766F]/60 focus:outline-none focus:ring-2 focus:ring-[#233DFF]/30 focus:border-[#233DFF] transition-colors';
 
 export const ProfilePage = () => {
   const { user, changePassword, updateProfile, mustChangePassword, needsGithubSetup } = useAuth();
@@ -107,10 +107,10 @@ export const ProfilePage = () => {
     <div className="space-y-6 max-w-4xl">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-extrabold tracking-tight text-[#064E45]">
+        <h1 className="text-2xl font-extrabold tracking-tight text-[#233DFF]">
           Profile &amp; Settings
         </h1>
-        <p className="text-sm text-[#71817B] mt-1">
+        <p className="text-sm text-[#77766F] mt-1">
           Manage your account details and login credentials.
         </p>
       </div>
@@ -131,27 +131,27 @@ export const ProfilePage = () => {
         <div className="space-y-6">
           {/* Account Information */}
           <Card>
-            <h2 className="text-base font-bold text-[#064E45] mb-5">Account Information</h2>
+            <h2 className="text-base font-bold text-[#233DFF] mb-5">Account Information</h2>
 
-            <div className="flex items-center gap-4 pb-5 border-b border-[#DDE8DF]">
-              <div className="w-14 h-14 rounded-2xl bg-[#064E45] text-white flex items-center justify-center text-lg font-black shrink-0">
+            <div className="flex items-center gap-4 pb-5 border-b border-[#D6CEC1]">
+              <div className="w-14 h-14 rounded-2xl bg-[#233DFF] text-white flex items-center justify-center text-lg font-black shrink-0">
                 {initials}
               </div>
               <div className="min-w-0">
-                <p className="text-sm font-bold text-[#064E45] truncate">{user?.name}</p>
-                <p className="text-xs text-[#2D806B] font-semibold">{roleLabel}</p>
+                <p className="text-sm font-bold text-[#233DFF] truncate">{user?.name}</p>
+                <p className="text-xs text-[#233DFF] font-semibold">{roleLabel}</p>
               </div>
             </div>
 
-            <dl className="divide-y divide-[#DDE8DF]">
+            <dl className="divide-y divide-[#D6CEC1]">
               <div className="flex items-center justify-between gap-4 py-3">
-                <dt className="text-xs font-semibold text-[#71817B]">Register Number</dt>
-                <dd className="text-xs font-bold text-[#172E2A] font-mono">
+                <dt className="text-xs font-semibold text-[#77766F]">Register Number</dt>
+                <dd className="text-xs font-bold text-[#242424] font-mono">
                   {user?.registerNumber || '—'}
                 </dd>
               </div>
               <div className="flex items-center justify-between gap-4 py-3">
-                <dt className="text-xs font-semibold text-[#71817B]">Account Status</dt>
+                <dt className="text-xs font-semibold text-[#77766F]">Account Status</dt>
                 <dd className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2D9B70]">
                   <ShieldCheck className="w-3.5 h-3.5" />
                   Active
@@ -163,14 +163,14 @@ export const ProfilePage = () => {
           {/* GitHub Repository */}
           <Card>
             <div className="flex items-center justify-between gap-3 mb-1">
-              <h2 className="text-base font-bold text-[#064E45]">GitHub Repository</h2>
+              <h2 className="text-base font-bold text-[#233DFF]">GitHub Repository</h2>
               {needsGithubSetup && (
                 <span className="text-[10px] font-bold uppercase tracking-wider text-[#D88918] bg-[#FFF8EA] border border-[#FCE6BD] px-2 py-0.5 rounded">
                   Required
                 </span>
               )}
             </div>
-            <p className="text-xs text-[#71817B] mb-4">
+            <p className="text-xs text-[#77766F] mb-4">
               {isStudent
                 ? 'Link the repository where you push your daily task work.'
                 : 'Your public GitHub profile or repository.'}
@@ -185,7 +185,7 @@ export const ProfilePage = () => {
 
             <form onSubmit={handleGithubSubmit} className="space-y-3">
               <div className="relative">
-                <Github className="w-4 h-4 absolute left-3 top-3.5 text-[#71817B]" />
+                <Github className="w-4 h-4 absolute left-3 top-3.5 text-[#77766F]" />
                 <input
                   type="url"
                   value={githubRepoUrl}
@@ -201,20 +201,20 @@ export const ProfilePage = () => {
                     href={user.githubRepoUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#064E45] hover:text-[#2D806B] transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#233DFF] hover:text-[#233DFF] transition-colors"
                   >
                     <Github className="w-3.5 h-3.5" />
                     <span>Open current repository</span>
-                    <ExternalLink className="w-3 h-3 text-[#71817B]" />
+                    <ExternalLink className="w-3 h-3 text-[#77766F]" />
                   </a>
                 ) : (
-                  <span className="text-[11px] text-[#71817B] italic">Not set yet</span>
+                  <span className="text-[11px] text-[#77766F] italic">Not set yet</span>
                 )}
 
                 <button
                   type="submit"
                   disabled={savingGithub}
-                  className={`px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-[#064E45] hover:bg-[#085f54] transition-colors ${
+                  className={`px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-[#233DFF] hover:bg-[#1B2FCC] transition-colors ${
                     savingGithub ? 'opacity-50 cursor-not-allowed' : ''
                   }`}
                 >
@@ -227,10 +227,10 @@ export const ProfilePage = () => {
 
         {/* Change Password */}
         <Card>
-          <h2 className="text-base font-bold text-[#064E45] mb-1">
+          <h2 className="text-base font-bold text-[#233DFF] mb-1">
             {mustChangePassword ? 'Set New Password' : 'Change Password'}
           </h2>
-          <p className="text-xs text-[#71817B] mb-5">
+          <p className="text-xs text-[#77766F] mb-5">
             {mustChangePassword
               ? 'Choose a strong personal password to secure your account.'
               : 'Update your account login password.'}
@@ -246,12 +246,12 @@ export const ProfilePage = () => {
           <form onSubmit={handlePasswordSubmit} className="space-y-4">
             {!mustChangePassword && (
               <div>
-                <label className="block text-xs font-bold text-[#064E45] mb-1.5">
+                <label className="block text-xs font-bold text-[#233DFF] mb-1.5">
                   Current Password
                 </label>
                 <PasswordInput
                   leftIcon={KeyRound}
-                  iconClassName="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#71817B]"
+                  iconClassName="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#77766F]"
                   required
                   value={currentPassword}
                   onChange={(e) => setCurrentPassword(e.target.value)}
@@ -263,12 +263,12 @@ export const ProfilePage = () => {
             )}
 
             <div>
-              <label className="block text-xs font-bold text-[#064E45] mb-1.5">
+              <label className="block text-xs font-bold text-[#233DFF] mb-1.5">
                 New Password
               </label>
               <PasswordInput
                 leftIcon={Lock}
-                iconClassName="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#71817B]"
+                iconClassName="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#77766F]"
                 required
                 minLength={6}
                 value={newPassword}
@@ -280,12 +280,12 @@ export const ProfilePage = () => {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-[#064E45] mb-1.5">
+              <label className="block text-xs font-bold text-[#233DFF] mb-1.5">
                 Confirm New Password
               </label>
               <PasswordInput
                 leftIcon={Lock}
-                iconClassName="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#71817B]"
+                iconClassName="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#77766F]"
                 required
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
@@ -299,7 +299,7 @@ export const ProfilePage = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className={`w-full px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-[#064E45] hover:bg-[#085f54] transition-colors ${
+                className={`w-full px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-[#233DFF] hover:bg-[#1B2FCC] transition-colors ${
                   loading ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
               >

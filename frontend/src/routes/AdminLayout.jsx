@@ -9,11 +9,11 @@ export const AdminLayout = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#FAF8F0] text-[#172E2A] flex antialiased selection:bg-[#064E45]/30 selection:text-[#064E45]">
+    <div className="min-h-screen bg-[#F5F0E8] text-[#242424] flex antialiased selection:bg-[#233DFF]/30 selection:text-[#233DFF]">
       {/* Mobile Drawer Overlay */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 z-30 bg-[#172E2A]/40 backdrop-blur-xs md:hidden animate-fade-in"
+          className="fixed inset-0 z-30 bg-[#242424]/40 backdrop-blur-xs md:hidden animate-fade-in"
           onClick={() => setMobileOpen(false)}
         />
       )}
@@ -23,27 +23,27 @@ export const AdminLayout = () => {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Mobile Top Bar */}
-        <header className="md:hidden sticky top-0 z-20 bg-[#FAF8F0]/90 backdrop-blur-md border-b border-[#DDE8DF] px-4 h-16 flex items-center justify-between gap-3">
+        <header className="md:hidden sticky top-0 z-20 bg-[#F5F0E8]/90 backdrop-blur-md border-b border-[#D6CEC1] px-4 h-16 flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={() => setMobileOpen(true)}
-              className="p-2 rounded-xl bg-white border border-[#DDE8DF] text-[#064E45] hover:bg-[#EAF7EF] transition-colors"
+              className="p-2 rounded-xl bg-white border border-[#D6CEC1] text-[#233DFF] hover:bg-[#E5DED2] transition-colors"
               aria-label="Open navigation"
             >
               <Menu className="w-5 h-5" />
             </button>
             <Link to="/admin" className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-xl bg-[#064E45] flex items-center justify-center text-white">
+              <div className="w-8 h-8 rounded-xl bg-[#233DFF] flex items-center justify-center text-white">
                 <Sparkles className="w-4 h-4 text-white" />
               </div>
-              <span className="text-sm font-extrabold text-[#064E45]">Mentor Console</span>
+              <span className="text-sm font-extrabold text-[#233DFF]">Mentor Console</span>
             </Link>
           </div>
 
           <Link
             to="/admin/profile"
-            className="w-8 h-8 rounded-xl bg-[#EAF7EF] border border-[#CDE5D6] text-[#064E45] flex items-center justify-center text-xs font-black shrink-0 hover:border-[#2D806B] transition-colors"
+            className="w-8 h-8 rounded-xl bg-[#E5DED2] border border-[#D6CEC1] text-[#233DFF] flex items-center justify-center text-xs font-black shrink-0 hover:border-[#233DFF] transition-colors"
             aria-label="Open profile"
           >
             {user?.name?.slice(0, 2).toUpperCase() || 'AD'}

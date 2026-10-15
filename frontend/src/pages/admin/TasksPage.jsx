@@ -110,11 +110,11 @@ export const TasksPage = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold tracking-tight text-[#064E45] flex items-center gap-2">
-            <CheckSquare className="w-6 h-6 text-[#2D806B]" />
+          <h1 className="text-2xl font-extrabold tracking-tight text-[#233DFF] flex items-center gap-2">
+            <CheckSquare className="w-6 h-6 text-[#233DFF]" />
             <span>Dynamic Daily Practical Tasks</span>
           </h1>
-          <p className="text-sm text-[#71817B] mt-1">
+          <p className="text-sm text-[#77766F] mt-1">
             Author sequential practical tasks. Publishing assigns tasks strictly to students who
             completed preceding work.
           </p>
@@ -122,7 +122,7 @@ export const TasksPage = () => {
 
         <button
           onClick={() => setShowCreateModal(true)}
-          className="px-4 py-2.5 rounded-xl bg-[#064E45] hover:bg-[#085f54] text-white font-bold text-xs transition-all flex items-center gap-2 self-start sm:self-auto"
+          className="px-4 py-2.5 rounded-xl bg-[#233DFF] hover:bg-[#1B2FCC] text-white font-bold text-xs transition-all flex items-center gap-2 self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" />
           <span>Create Task</span>
@@ -132,19 +132,19 @@ export const TasksPage = () => {
       {/* Task List */}
       {loading ? (
         <div className="flex items-center justify-center py-24">
-          <Loader2 className="w-8 h-8 animate-spin text-[#2D806B]" />
+          <Loader2 className="w-8 h-8 animate-spin text-[#233DFF]" />
         </div>
       ) : tasks.length === 0 ? (
         <Card className="text-center py-12">
-          <CheckSquare className="w-12 h-12 text-[#CDE5D6] mx-auto mb-3" />
-          <h3 className="text-base font-bold text-[#064E45]">No Tasks Created Yet</h3>
-          <p className="text-xs text-[#71817B] mt-1 max-w-sm mx-auto">
+          <CheckSquare className="w-12 h-12 text-[#D6CEC1] mx-auto mb-3" />
+          <h3 className="text-base font-bold text-[#233DFF]">No Tasks Created Yet</h3>
+          <p className="text-xs text-[#77766F] mt-1 max-w-sm mx-auto">
             Get started by creating Task #1 to initiate the AI Engineer practical roadmap for your
             students.
           </p>
           <button
             onClick={() => setShowCreateModal(true)}
-            className="mt-4 px-4 py-2 bg-[#064E45] hover:bg-[#085f54] text-xs font-bold text-white rounded-xl"
+            className="mt-4 px-4 py-2 bg-[#233DFF] hover:bg-[#1B2FCC] text-xs font-bold text-white rounded-xl"
           >
             Create Task #1
           </button>
@@ -159,24 +159,24 @@ export const TasksPage = () => {
               <Card
                 key={task._id}
                 className={`transition-all ${
-                  isDraft ? 'border-dashed border-[#CDE5D6] bg-[#FAF8F0]' : 'bg-white'
+                  isDraft ? 'border-dashed border-[#D6CEC1] bg-[#F5F0E8]' : 'bg-white'
                 }`}
               >
-                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-[#DDE8DF]">
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-[#D6CEC1]">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-xs font-bold uppercase tracking-wider text-[#2D806B] bg-[#EAF7EF] px-2.5 py-0.5 rounded-md border border-[#CDE5D6]">
+                      <span className="text-xs font-bold uppercase tracking-wider text-[#233DFF] bg-[#E5DED2] px-2.5 py-0.5 rounded-md border border-[#D6CEC1]">
                         Task #{task.taskNumber}
                       </span>
                       <Badge status={task.status} />
                       {task.deadline && (
-                        <span className="text-xs text-[#71817B] font-medium flex items-center gap-1 bg-[#FAF8F0] px-2.5 py-0.5 rounded-md border border-[#DDE8DF]">
-                          <Calendar className="w-3.5 h-3.5 text-[#2D806B]" />
+                        <span className="text-xs text-[#77766F] font-medium flex items-center gap-1 bg-[#F5F0E8] px-2.5 py-0.5 rounded-md border border-[#D6CEC1]">
+                          <Calendar className="w-3.5 h-3.5 text-[#233DFF]" />
                           Due: {new Date(task.deadline).toLocaleDateString()}
                         </span>
                       )}
                     </div>
-                    <h2 className="text-lg font-bold text-[#064E45]">{task.title}</h2>
+                    <h2 className="text-lg font-bold text-[#233DFF]">{task.title}</h2>
                   </div>
 
                   {/* Task Management Actions */}
@@ -185,29 +185,29 @@ export const TasksPage = () => {
                       <>
                         <button
                           onClick={() => handlePreviewEligible(task)}
-                          className="px-3 py-1.5 rounded-xl text-xs font-bold bg-white hover:bg-[#EAF7EF] text-[#064E45] border border-[#DDE8DF] flex items-center gap-1.5 transition-colors"
+                          className="px-3 py-1.5 rounded-xl text-xs font-bold bg-white hover:bg-[#E5DED2] text-[#233DFF] border border-[#D6CEC1] flex items-center gap-1.5 transition-colors"
                         >
-                          <Users className="w-3.5 h-3.5 text-[#2D806B]" />
+                          <Users className="w-3.5 h-3.5 text-[#233DFF]" />
                           <span>Eligible ({stats.eligibleCount || 0})</span>
                         </button>
 
                         <button
                           onClick={() => setPublishTaskTarget(task)}
-                          className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#064E45] hover:bg-[#085f54] text-white flex items-center gap-1.5 transition-all"
+                          className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-[#233DFF] hover:bg-[#1B2FCC] text-white flex items-center gap-1.5 transition-all"
                         >
                           <Send className="w-3.5 h-3.5" />
                           <span>Publish Task</span>
                         </button>
                       </>
                     ) : (
-                      <span className="text-xs font-bold text-[#2D9B70] bg-[#EAF7EF] px-3 py-1.5 rounded-xl border border-[#CDE5D6] flex items-center gap-1.5">
+                      <span className="text-xs font-bold text-[#2D9B70] bg-[#E5DED2] px-3 py-1.5 rounded-xl border border-[#D6CEC1] flex items-center gap-1.5">
                         <span>Published</span>
                       </span>
                     )}
 
                     <button
                       onClick={() => setEditTask(task)}
-                      className="p-2 rounded-xl text-[#71817B] hover:text-[#2D806B] hover:bg-[#EAF7EF] transition-colors"
+                      className="p-2 rounded-xl text-[#77766F] hover:text-[#233DFF] hover:bg-[#E5DED2] transition-colors"
                       title="Edit Task Details"
                     >
                       <Edit2 className="w-4 h-4" />
@@ -215,7 +215,7 @@ export const TasksPage = () => {
 
                     <button
                       onClick={() => setDeleteTaskTarget(task)}
-                      className="p-2 rounded-xl text-[#71817B] hover:text-[#E86A5B] hover:bg-[#FFF0ED] transition-colors"
+                      className="p-2 rounded-xl text-[#77766F] hover:text-[#E86A5B] hover:bg-[#FFF0ED] transition-colors"
                       title="Delete Task from Database"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -225,22 +225,22 @@ export const TasksPage = () => {
 
                 {/* Description & Instructions Preview */}
                 <div className="py-4 space-y-3">
-                  <p className="text-xs text-[#172E2A] leading-relaxed">{task.description}</p>
-                  <div className="bg-[#EAF7EF] rounded-xl p-3 border border-[#D1E8D9]">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#064E45] block mb-1">
+                  <p className="text-xs text-[#242424] leading-relaxed">{task.description}</p>
+                  <div className="bg-[#E5DED2] rounded-xl p-3 border border-[#D6CEC1]">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#233DFF] block mb-1">
                       Instructions Preview
                     </span>
-                    <pre className="text-xs font-mono text-[#172E2A] whitespace-pre-wrap line-clamp-3">
+                    <pre className="text-xs font-mono text-[#242424] whitespace-pre-wrap line-clamp-3">
                       {task.instructions}
                     </pre>
                   </div>
                 </div>
 
                 {/* Statistics Footer */}
-                <div className="pt-3 border-t border-[#DDE8DF] flex flex-wrap items-center gap-6 text-xs text-[#71817B]">
+                <div className="pt-3 border-t border-[#D6CEC1] flex flex-wrap items-center gap-6 text-xs text-[#77766F]">
                   <div>
                     <span className="font-medium mr-1.5">Assigned:</span>
-                    <span className="font-bold text-[#064E45]">
+                    <span className="font-bold text-[#233DFF]">
                       {stats.totalAssigned || 0} students
                     </span>
                   </div>
@@ -311,13 +311,13 @@ export const TasksPage = () => {
         >
           {loadingEligible ? (
             <div className="flex items-center justify-center py-8">
-              <Loader2 className="w-6 h-6 animate-spin text-[#2D806B]" />
+              <Loader2 className="w-6 h-6 animate-spin text-[#233DFF]" />
             </div>
           ) : eligibleStudentsList.length === 0 ? (
-            <div className="text-center py-8 text-[#71817B] text-xs">
+            <div className="text-center py-8 text-[#77766F] text-xs">
               <AlertCircle className="w-8 h-8 text-[#F3B74F] mx-auto mb-2" />
               <p>No students are currently eligible for this task.</p>
-              <p className="text-[11px] text-[#8C9B95] mt-1">
+              <p className="text-[11px] text-[#8A887F] mt-1">
                 Students must have their previous task approved before receiving this task.
               </p>
             </div>
@@ -326,11 +326,11 @@ export const TasksPage = () => {
               {eligibleStudentsList.map((st) => (
                 <div
                   key={st._id}
-                  className="p-3 rounded-xl bg-[#FAF8F0] border border-[#DDE8DF] flex items-center justify-between text-xs"
+                  className="p-3 rounded-xl bg-[#F5F0E8] border border-[#D6CEC1] flex items-center justify-between text-xs"
                 >
                   <div>
-                    <span className="font-bold text-[#064E45]">{st.name}</span>
-                    <span className="text-[11px] font-mono text-[#2D806B] ml-2">
+                    <span className="font-bold text-[#233DFF]">{st.name}</span>
+                    <span className="text-[11px] font-mono text-[#233DFF] ml-2">
                       ({st.registerNumber})
                     </span>
                   </div>
