@@ -372,4 +372,73 @@ describe('AI Engineer Task Tracker API Tests', () => {
     const deleted = await Task.findById(sampleTaskId);
     assert.equal(deleted, null);
   });
+
+  test('18. First-time setup: GitHub link is required before accessing tasks', async () => {
+    // Ensure a clean slate if a previous run was interrupted
+    await User.deleteMany({ registerNumber: 'TEST_NOGIT_001' });
+
+    // Admin creates a student without a GitHub link
+    const createRes = await request(app)
+      .post('/api/v1/students')
+      .set('Authorization', `Bearer ${adminToken}`)
+      .send({
+        name: 'No Github Student',
+        registerNumber: 'TEST_NOGIT_001',
+        initialPassword: 'TempPassword123!',
+      });
+
+    assert.equal(createRes.status, 201);
+    assert.equal(createRes.body.data.mustSetGithub, true);
+
+    // Login with the temporary password
+    const loginRes = await request(app)
+      .post('/api/v1/auth/login')
+      .send({ registerNumber: 'TEST_NOGIT_001', password: 'TempPassword123!' });
+
+    assert.equal(loginRes.status, 200);
+    assert.equal(loginRes.body.user.mustChangePassword, true);
+    assert.equal(loginRes.body.user.mustSetGithub, true);
+    const token = loginRes.body.token;
+
+    // Change the initial password
+    const changeRes = await request(app)
+      .post('/api/v1/auth/change-password')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ newPassword: 'BrandNewSecurePassword123!' });
+
+    assert.equal(changeRes.status, 200);
+
+    // Still blocked from tasks until the GitHub link is provided
+    const blockedRes = await request(app)
+      .get('/api/v1/student-tasks')
+      .set('Authorization', `Bearer ${token}`);
+
+    assert.equal(blockedRes.status, 403);
+    assert.equal(blockedRes.body.requireProfileCompletion, true);
+
+    // Invalid GitHub URL is rejected
+    const badRes = await request(app)
+      .patch('/api/v1/auth/profile')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ githubRepoUrl: 'https://gitlab.com/not-github' });
+
+    assert.equal(badRes.status, 400);
+
+    // Valid GitHub URL is saved and clears the requirement
+    const patchRes = await request(app)
+      .patch('/api/v1/auth/profile')
+      .set('Authorization', `Bearer ${token}`)
+      .send({ githubRepoUrl: 'https://github.com/nogit-student/repo' });
+
+    assert.equal(patchRes.status, 200);
+    assert.equal(patchRes.body.user.githubRepoUrl, 'https://github.com/nogit-student/repo');
+    assert.equal(patchRes.body.user.mustSetGithub, false);
+
+    // Tasks are now accessible
+    const afterRes = await request(app)
+      .get('/api/v1/student-tasks')
+      .set('Authorization', `Bearer ${token}`);
+
+    assert.equal(afterRes.status, 200);
+  });
 });

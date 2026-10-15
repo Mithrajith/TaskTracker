@@ -2,6 +2,7 @@ import express from 'express';
 import {
   login,
   changePassword,
+  updateProfile,
   getMe,
   logout,
 } from '../controllers/authController.js';
@@ -12,6 +13,7 @@ const router = express.Router();
 
 router.post('/login', loginLimiter, login);
 router.post('/change-password', authenticate, changePassword);
+router.patch('/profile', authenticate, updateProfile);
 router.get('/me', authenticate, getMe);
 router.post('/logout', authenticate, logout);
 

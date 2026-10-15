@@ -15,7 +15,7 @@ import {
 import { Github } from '../components/common/Icons';
 
 export const StudentLayout = () => {
-  const { user, logout, mustChangePassword } = useAuth();
+  const { user, logout, mustChangePassword, needsGithubSetup } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
@@ -36,8 +36,8 @@ export const StudentLayout = () => {
     }
   };
 
-  // Force first-time users to set a permanent password on the profile page
-  if (mustChangePassword && location.pathname !== '/student/profile') {
+  // Force first-time users to set a permanent password and GitHub link on the profile page
+  if ((mustChangePassword || needsGithubSetup) && location.pathname !== '/student/profile') {
     return <Navigate to="/student/profile" replace />;
   }
 

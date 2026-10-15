@@ -72,6 +72,7 @@ export const login = async (req, res, next) => {
         githubRepoUrl: user.githubRepoUrl,
         role: user.role,
         mustChangePassword: user.mustChangePassword,
+        mustSetGithub: user.mustSetGithub,
         stats,
       },
     });
@@ -131,6 +132,76 @@ export const changePassword = async (req, res, next) => {
   }
 };
 
+export const updateProfile = async (req, res, next) => {
+  try {
+    const { githubRepoUrl } = req.body;
+    const user = await User.findById(req.user._id);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: 'User account not found',
+      });
+    }
+
+    if (githubRepoUrl !== undefined) {
+      const clean = (githubRepoUrl || '').trim();
+
+      if (clean) {
+        let parsed;
+        try {
+          parsed = new URL(clean);
+        } catch {
+          return res.status(400).json({
+            success: false,
+            message: 'Please provide a valid GitHub repository URL',
+          });
+        }
+
+        const isGithub = /(^|\.)github\.com$/i.test(parsed.hostname);
+        if (!['http:', 'https:'].includes(parsed.protocol) || !isGithub) {
+          return res.status(400).json({
+            success: false,
+            message: 'GitHub repository URL must be a valid github.com link',
+          });
+        }
+      }
+
+      user.githubRepoUrl = clean;
+
+      if (user.role === ROLES.STUDENT) {
+        user.mustSetGithub = !clean;
+      }
+
+      await logAudit({
+        actorId: user._id,
+        action: AUDIT_ACTIONS.PROFILE_UPDATED,
+        resourceType: 'User',
+        resourceId: user._id,
+        metadata: { registerNumber: user.registerNumber, githubRepoUrl: clean },
+      });
+    }
+
+    await user.save();
+
+    res.json({
+      success: true,
+      message: 'Profile updated successfully',
+      user: {
+        _id: user._id,
+        name: user.name,
+        registerNumber: user.registerNumber,
+        githubRepoUrl: user.githubRepoUrl,
+        role: user.role,
+        mustChangePassword: user.mustChangePassword,
+        mustSetGithub: user.mustSetGithub,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getMe = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id);
@@ -149,6 +220,7 @@ export const getMe = async (req, res, next) => {
         githubRepoUrl: user.githubRepoUrl,
         role: user.role,
         mustChangePassword: user.mustChangePassword,
+        mustSetGithub: user.mustSetGithub,
         status: user.status,
         lastActivityAt: user.lastActivityAt,
         stats,

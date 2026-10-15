@@ -83,9 +83,7 @@ export const Login = () => {
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#064E45]">
             Sign In to Task Tracker
           </h1>
-          <p className="text-sm text-[#71817B] mt-1">
-            Access your student roadmap or admin mentor dashboard
-          </p>
+    
         </div>
 
         {/* Login Card */}
@@ -145,46 +143,9 @@ export const Login = () => {
           </form>
 
           {/* Quick Demo Logins Pill Box */}
-          <div className="mt-6 pt-5 border-t border-[#DDE8DF]">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-[#71817B] block mb-2.5 text-center">
-              Quick Test Credentials
-            </span>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => handleQuickFill('ADMIN001', 'AdminPassword123!')}
-                className="p-3 rounded-xl bg-[#EAF7EF] border border-[#D1E8D9] hover:border-[#2D806B] hover:bg-[#deefe4] text-left transition-all group"
-              >
-                <div className="flex items-center gap-1.5 text-xs font-bold text-[#064E45]">
-                  <ShieldCheck className="w-3.5 h-3.5 text-[#2D806B]" />
-                  <span>Lead Mentor</span>
-                </div>
-                <div className="text-[11px] text-[#71817B] font-mono mt-0.5">
-                  ADMIN001
-                </div>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handleQuickFill('AI2026001', 'StudentPassword123!')}
-                className="p-3 rounded-xl bg-[#EAF7EF] border border-[#CDE5D6] hover:border-[#2D806B] hover:bg-[#EAF7EF] text-left transition-all group"
-              >
-                <div className="flex items-center gap-1.5 text-xs font-bold text-[#2D806B]">
-                  <GraduationCap className="w-3.5 h-3.5 text-[#2D806B]" />
-                  <span>Student (Rohan)</span>
-                </div>
-                <div className="text-[11px] text-[#71817B] font-mono mt-0.5">
-                  AI2026001
-                </div>
-              </button>
-            </div>
-          </div>
+         
         </div>
 
-        {/* Footer info */}
-        <p className="text-center text-xs text-[#71817B] mt-6">
-          Encrypted credentials with Argon2/bcrypt &amp; JWT session tokens
-        </p>
       </div>
     </div>
   );

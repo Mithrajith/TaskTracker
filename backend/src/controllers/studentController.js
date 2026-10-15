@@ -168,6 +168,7 @@ export const createStudent = async (req, res, next) => {
       role: ROLES.STUDENT,
       status: ACCOUNT_STATUS.ACTIVE,
       mustChangePassword: true,
+      mustSetGithub: !(githubRepoUrl || '').trim(),
     });
 
     // Check if Task 1 is published; if so, assign it to the new student
@@ -213,7 +214,10 @@ export const updateStudent = async (req, res, next) => {
     }
 
     if (name) student.name = name.trim();
-    if (githubRepoUrl !== undefined) student.githubRepoUrl = githubRepoUrl.trim();
+    if (githubRepoUrl !== undefined) {
+      student.githubRepoUrl = githubRepoUrl.trim();
+      student.mustSetGithub = !student.githubRepoUrl;
+    }
     if (status && Object.values(ACCOUNT_STATUS).includes(status)) {
       student.status = status;
     }
@@ -462,6 +466,7 @@ export const importStudentsFromCSV = async (req, res, next) => {
         role: ROLES.STUDENT,
         status: ACCOUNT_STATUS.ACTIVE,
         mustChangePassword: true,
+        mustSetGithub: !cleanGithub,
       });
 
       if (task1) {

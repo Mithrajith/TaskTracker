@@ -96,6 +96,23 @@ export const AuthProvider = ({ children }) => {
     throw new Error(res.data.message || 'Failed to update password');
   };
 
+  const updateProfile = async (payload) => {
+    const res = await apiClient.patch('/auth/profile', payload);
+
+    if (res.data.success) {
+      let updatedUser = null;
+      setUser((prev) => {
+        updatedUser = { ...prev, ...res.data.user };
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+        return updatedUser;
+      });
+      return updatedUser;
+    }
+    throw new Error(res.data.message || 'Failed to update profile');
+  };
+
+  const isStudent = user?.role === 'student';
+
   return (
     <AuthContext.Provider
       value={{
@@ -106,9 +123,11 @@ export const AuthProvider = ({ children }) => {
         logout,
         refreshUser,
         changePassword,
+        updateProfile,
         isAdmin: user?.role === 'admin',
-        isStudent: user?.role === 'student',
+        isStudent,
         mustChangePassword: user?.mustChangePassword === true,
+        needsGithubSetup: isStudent && user?.mustSetGithub === true,
       }}
     >
       {children}

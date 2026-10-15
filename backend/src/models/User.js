@@ -45,6 +45,10 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    mustSetGithub: {
+      type: Boolean,
+      default: false,
+    },
     lastActivityAt: {
       type: Date,
       default: Date.now,

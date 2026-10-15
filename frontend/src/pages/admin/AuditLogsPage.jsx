@@ -79,6 +79,8 @@ export const AuditLogsPage = () => {
             <option value="STUDENT_CREATED">STUDENT_CREATED</option>
             <option value="STUDENT_UPDATED">STUDENT_UPDATED</option>
             <option value="PASSWORD_RESET">PASSWORD_RESET</option>
+            <option value="PASSWORD_CHANGED">PASSWORD_CHANGED</option>
+            <option value="PROFILE_UPDATED">PROFILE_UPDATED</option>
             <option value="TASK_CREATED">TASK_CREATED</option>
             <option value="TASK_PUBLISHED">TASK_PUBLISHED</option>
             <option value="SUBMISSION_APPROVED">SUBMISSION_APPROVED</option>

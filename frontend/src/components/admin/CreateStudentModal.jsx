@@ -105,7 +105,8 @@ export const CreateStudentModal = ({ isOpen, onClose, onCreated }) => {
 
         <div>
           <label className="block text-xs font-bold text-[#064E45] mb-1.5">
-            Student GitHub Repository URL
+            Student GitHub Repository URL{' '}
+            <span className="text-[#71817B] font-medium">(optional)</span>
           </label>
           <div className="relative">
             <Github className="w-4 h-4 absolute left-3 top-3 text-[#2D806B]" />
@@ -117,6 +118,9 @@ export const CreateStudentModal = ({ isOpen, onClose, onCreated }) => {
               className="w-full pl-9 pr-3 py-2 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-sm text-[#172E2A] placeholder-[#A3B2AC] focus:outline-none focus:ring-2 focus:ring-[#2D806B]/30 focus:border-[#2D806B]"
             />
           </div>
+          <span className="text-[10px] text-[#71817B] mt-1 block">
+            Leave blank if unknown — the student can add it on first login from their profile.
+          </span>
         </div>
 
         <div>

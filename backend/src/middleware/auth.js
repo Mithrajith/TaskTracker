@@ -78,6 +78,15 @@ export const requirePasswordChanged = (req, res, next) => {
       message: 'You must change your initial password before accessing other features.',
     });
   }
+
+  if (req.user && req.user.role === ROLES.STUDENT && req.user.mustSetGithub) {
+    return res.status(403).json({
+      success: false,
+      requireProfileCompletion: true,
+      message: 'Please add your GitHub repository link in your profile before accessing tasks.',
+    });
+  }
+
   next();
 };
 
