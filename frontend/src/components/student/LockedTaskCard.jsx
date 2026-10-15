@@ -1,31 +1,27 @@
 import React from 'react';
 import { Card } from '../common/Card';
-import { Lock, Sparkles } from 'lucide-react';
+import { Lock } from 'lucide-react';
 
 export const LockedTaskCard = ({ lockedTask }) => {
   return (
-    <Card className="bg-slate-950/40 border-slate-800/60 opacity-80 hover:opacity-100 transition-opacity">
+    <Card className="bg-white/70 border-[#DDE8DF] hover:border-[#CDE5D6] transition-colors">
       <div className="flex items-start gap-4">
-        <div className="w-10 h-10 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center justify-center shrink-0 text-slate-400">
+        <div className="w-10 h-10 rounded-xl bg-[#F2F4F2] border border-[#DDE8DF] flex items-center justify-center shrink-0 text-[#8C9B95]">
           <Lock className="w-5 h-5" />
         </div>
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-400 bg-slate-800/80 px-2.5 py-0.5 rounded-md border border-slate-700/60">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#71817B] bg-[#F2F4F2] px-2.5 py-0.5 rounded-md border border-[#DDE8DF]">
               Task #{lockedTask.taskNumber}
             </span>
-            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-slate-800/80 text-slate-400 border border-slate-700/60">
+            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold text-[#8C9B95] bg-[#F2F4F2] border border-[#DDE8DF]">
               Locked
             </span>
           </div>
-          <h3 className="text-base font-semibold text-slate-300">
-            {lockedTask.title}
-          </h3>
-          <p className="text-xs text-slate-400 mt-1 line-clamp-2">
-            {lockedTask.description}
-          </p>
-          <div className="mt-3 flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-xs text-slate-400">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
+          <h3 className="text-base font-bold text-[#064E45]">{lockedTask.title}</h3>
+          <p className="text-xs text-[#71817B] mt-1 line-clamp-2">{lockedTask.description}</p>
+          <div className="mt-3 flex items-center gap-2 p-2.5 rounded-xl bg-[#FFF8EA] border border-[#FCE6BD] text-xs text-[#D88918] font-medium">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#F3B74F] shrink-0" />
             <span>{lockedTask.lockReason}</span>
           </div>
         </div>
@@ -33,4 +29,3 @@ export const LockedTaskCard = ({ lockedTask }) => {
     </Card>
   );
 };
-

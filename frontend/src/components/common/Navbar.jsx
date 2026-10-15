@@ -1,37 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import {
   Sparkles,
   LogOut,
-  KeyRound,
   ExternalLink,
   BookOpen,
   History,
+  User,
 } from 'lucide-react';
-import { ChangePasswordModal } from './ChangePasswordModal';
 
 export const Navbar = () => {
   const { user, logout } = useAuth();
-  const [showPasswordModal, setShowPasswordModal] = useState(false);
 
   return (
-    <>
-      <header className="bg-slate-950/80 border-b border-slate-800/80 sticky top-0 z-30 backdrop-blur-xl">
+    <header className="bg-white/90 border-b border-[#DDE8DF] sticky top-0 z-30 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           {/* Logo & Title */}
           <div className="flex items-center gap-6">
             <NavLink to="/student" className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-purple-500/20">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#064E45] to-[#2D806B] flex items-center justify-center">
                 <Sparkles className="w-5 h-5 text-white" />
               </div>
               <div>
-                <span className="text-sm font-bold tracking-tight text-white uppercase block">
+                <span className="text-sm font-bold tracking-tight text-[#064E45] uppercase block">
                   AI Engineer Roadmap
                 </span>
-                <span className="text-[11px] text-purple-400 font-medium">
-                  Student Portal
-                </span>
+                <span className="text-[11px] text-[#2D806B] font-medium">Student Portal</span>
               </div>
             </NavLink>
 
@@ -43,8 +38,8 @@ export const Navbar = () => {
                 className={({ isActive }) =>
                   `flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                     isActive
-                      ? 'bg-purple-600/15 text-purple-300 border border-purple-500/30'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60'
+                      ? 'bg-[#EAF7EF] text-[#064E45] border border-[#CDE5D6]'
+                      : 'text-[#71817B] hover:text-[#064E45] hover:bg-[#EAF7EF]'
                   }`
                 }
               >
@@ -56,8 +51,8 @@ export const Navbar = () => {
                 className={({ isActive }) =>
                   `flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                     isActive
-                      ? 'bg-purple-600/15 text-purple-300 border border-purple-500/30'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60'
+                      ? 'bg-[#EAF7EF] text-[#064E45] border border-[#CDE5D6]'
+                      : 'text-[#71817B] hover:text-[#064E45] hover:bg-[#EAF7EF]'
                   }`
                 }
               >
@@ -74,38 +69,34 @@ export const Navbar = () => {
                 href={user.githubRepoUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="hidden sm:flex items-center gap-1.5 text-xs text-slate-400 hover:text-purple-400 transition-colors px-2.5 py-1 rounded-lg bg-slate-900/80 border border-slate-800"
+                className="hidden sm:flex items-center gap-1.5 text-xs text-[#71817B] hover:text-[#2D806B] transition-colors px-2.5 py-1 rounded-lg bg-[#FAF8F0] border border-[#DDE8DF]"
               >
                 <span>Repo</span>
                 <ExternalLink className="w-3 h-3" />
               </a>
             )}
 
-            <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-slate-900/80 border border-slate-800">
-              <div className="w-7 h-7 rounded-lg bg-purple-950 border border-purple-700/50 flex items-center justify-center text-xs font-bold text-purple-300">
+            <div className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-[#FAF8F0] border border-[#DDE8DF]">
+              <div className="w-7 h-7 rounded-lg bg-[#EAF7EF] border border-[#CDE5D6] flex items-center justify-center text-xs font-bold text-[#2D806B]">
                 {user?.name?.slice(0, 2) || 'ST'}
               </div>
               <div className="text-left hidden sm:block">
-                <p className="text-xs font-semibold text-slate-200 leading-tight">
-                  {user?.name}
-                </p>
-                <p className="text-[10px] text-slate-400 leading-tight">
-                  {user?.registerNumber}
-                </p>
+                <p className="text-xs font-semibold text-[#172E2A] leading-tight">{user?.name}</p>
+                <p className="text-[10px] text-[#71817B] leading-tight">{user?.registerNumber}</p>
               </div>
             </div>
 
-            <button
-              onClick={() => setShowPasswordModal(true)}
-              className="p-2 text-slate-400 hover:text-purple-300 hover:bg-slate-900 rounded-lg transition-colors border border-transparent hover:border-slate-800"
-              title="Change Password"
+            <NavLink
+              to="/student/profile"
+              className="p-2 text-[#71817B] hover:text-[#2D806B] hover:bg-[#EAF7EF] rounded-lg transition-colors border border-transparent hover:border-[#DDE8DF]"
+              title="Profile & Password"
             >
-              <KeyRound className="w-4 h-4" />
-            </button>
+              <User className="w-4 h-4" />
+            </NavLink>
 
             <button
               onClick={logout}
-              className="p-2 text-slate-400 hover:text-rose-400 hover:bg-rose-950/30 rounded-lg transition-colors border border-transparent hover:border-rose-900/40"
+              className="p-2 text-[#71817B] hover:text-[#E86A5B] hover:bg-[#FFF0ED] rounded-lg transition-colors border border-transparent hover:border-[#FAD3CC]"
               title="Sign Out"
             >
               <LogOut className="w-4 h-4" />
@@ -113,12 +104,5 @@ export const Navbar = () => {
           </div>
         </div>
       </header>
-
-      <ChangePasswordModal
-        isOpen={showPasswordModal}
-        onClose={() => setShowPasswordModal(false)}
-      />
-    </>
   );
 };
-

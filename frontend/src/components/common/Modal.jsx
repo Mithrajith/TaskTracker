@@ -24,7 +24,7 @@ export const Modal = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#172E2A]/40 backdrop-blur-xs animate-fade-in">
       <div
-        className={`bg-white border border-[#DDE8DF] rounded-2xl sm:rounded-3xl w-full ${maxWidth} shadow-[0_20px_50px_rgba(23,46,42,0.15)] overflow-hidden flex flex-col max-h-[90vh]`}
+        className={`bg-white border border-[#DDE8DF] rounded-2xl sm:rounded-3xl w-full ${maxWidth} overflow-hidden flex flex-col max-h-[90vh]`}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between p-5 sm:p-6 border-b border-[#DDE8DF] shrink-0 bg-[#FAF8F0]/70">

@@ -31,8 +31,8 @@ export const Badge = ({ status, className = '' }) => {
       label = 'Rejected';
       break;
     case 'in_progress':
-      style = 'bg-[#FFF3EC] text-[#D46C38] border-[#FFDFD0]';
-      dotColor = 'bg-[#FFA77E]';
+      style = 'bg-[#EAF7EF] text-[#2D806B] border-[#CDE5D6]';
+      dotColor = 'bg-[#064E45]';
       label = 'In Progress';
       break;
     case 'assigned':

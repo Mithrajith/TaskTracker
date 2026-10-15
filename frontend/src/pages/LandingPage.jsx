@@ -17,14 +17,14 @@ import {
 
 export const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-[#FAF8F0] text-[#172E2A] flex flex-col selection:bg-[#FFA77E]/40 selection:text-[#064E45]">
+    <div className="min-h-screen bg-[#FAF8F0] text-[#172E2A] flex flex-col selection:bg-[#064E45]/40 selection:text-[#064E45]">
       {/* Top Navigation */}
       <header className="sticky top-0 z-40 bg-[#FAF8F0]/90 backdrop-blur-md border-b border-[#DDE8DF]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-11 h-11 rounded-2xl bg-[#064E45] flex items-center justify-center text-white shadow-xs group-hover:scale-105 transition-transform">
-              <Sparkles className="w-6 h-6 text-[#FFA77E]" />
+            <div className="w-11 h-11 rounded-2xl bg-[#064E45] flex items-center justify-center text-white group-hover:scale-105 transition-transform">
+              <Sparkles className="w-6 h-6 text-white" />
             </div>
             <div>
               <span className="text-lg font-extrabold text-[#064E45] tracking-tight block leading-tight">
@@ -62,7 +62,7 @@ export const LandingPage = () => {
             </Link>
             <Link
               to="/login"
-              className="px-5 py-2.5 rounded-xl text-sm font-bold text-[#172E2A] bg-[#FFA77E] hover:bg-[#ff9666] shadow-[0_4px_14px_rgba(255,167,126,0.35)] transition-all flex items-center gap-1.5"
+              className="px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-[#064E45] hover:bg-[#085f54] transition-all flex items-center gap-1.5"
             >
               <span>Get Started</span>
               <ChevronRight className="w-4 h-4" />
@@ -75,21 +75,21 @@ export const LandingPage = () => {
       <section id="home" className="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-32">
         {/* Soft Organic Background Elements */}
         <div className="absolute top-0 right-0 -translate-y-12 translate-x-24 w-96 h-96 rounded-full bg-[#E0F3E8]/70 blur-3xl pointer-events-none" />
-        <div className="absolute bottom-10 left-0 -translate-x-20 w-80 h-80 rounded-full bg-[#FFF3EC]/80 blur-3xl pointer-events-none" />
+        <div className="absolute bottom-10 left-0 -translate-x-20 w-80 h-80 rounded-full bg-[#EAF7EF]/80 blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
             {/* Left Content */}
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EAF7EF] border border-[#CDE5D6] text-[#064E45] text-xs font-bold uppercase tracking-wider">
-                <Sparkles className="w-3.5 h-3.5 text-[#FFA77E]" />
+                <Sparkles className="w-3.5 h-3.5 text-[#2D806B]" />
                 <span>Hands-On AI Roadmap Mentorship</span>
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#064E45] tracking-tight leading-[1.12]">
                 Track Tasks. <br className="hidden sm:inline" />
                 Build Skills. <br className="hidden sm:inline" />
-                <span className="text-[#2D806B] underline decoration-[#FFA77E] decoration-wavy decoration-2">
+                <span className="text-[#2D806B] underline decoration-[#2D806B] decoration-wavy decoration-2">
                   Become an AI Engineer.
                 </span>
               </h1>
@@ -102,10 +102,10 @@ export const LandingPage = () => {
               <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
                 <Link
                   to="/login"
-                  className="w-full sm:w-auto px-7 py-3.5 rounded-2xl text-base font-bold text-white bg-[#064E45] hover:bg-[#085f54] shadow-[0_8px_20px_rgba(6,78,69,0.25)] transition-all flex items-center justify-center gap-2 group"
+                  className="w-full sm:w-auto px-7 py-3.5 rounded-2xl text-base font-bold text-white bg-[#064E45] hover:bg-[#085f54] transition-all flex items-center justify-center gap-2 group"
                 >
                   <span>Get Started Free</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-[#FFA77E]" />
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-white" />
                 </Link>
                 <a
                   href="#features"
@@ -134,7 +134,7 @@ export const LandingPage = () => {
 
             {/* Right Illustration & Floating UI Elements */}
             <div className="lg:col-span-5 relative flex items-center justify-center">
-              <div className="w-full max-w-md bg-[#EAF7EF] border border-[#D1E8D9] rounded-3xl p-6 sm:p-8 shadow-[0_10px_30px_rgba(45,128,107,0.08)] relative">
+              <div className="w-full max-w-md bg-[#EAF7EF] border border-[#D1E8D9] rounded-3xl p-6 sm:p-8 relative">
                 {/* Organic Decorative Leaf Accents */}
                 <svg
                   className="absolute -top-6 -right-6 w-20 h-20 text-[#2D806B]/20 pointer-events-none"
@@ -145,7 +145,7 @@ export const LandingPage = () => {
                 </svg>
 
                 {/* Friendly Developer Vector Art */}
-                <div className="bg-white rounded-2xl p-5 border border-[#DDE8DF] shadow-xs space-y-4">
+                <div className="bg-white rounded-2xl p-5 border border-[#DDE8DF] space-y-4">
                   <div className="flex items-center justify-between pb-3 border-b border-[#DDE8DF]">
                     <div className="flex items-center gap-2.5">
                       <div className="w-9 h-9 rounded-xl bg-[#064E45] flex items-center justify-center text-white font-bold text-xs">
@@ -170,8 +170,8 @@ export const LandingPage = () => {
                   </div>
 
                   {/* Mentor Review Pill */}
-                  <div className="p-3 bg-[#FFF3EC] rounded-xl border border-[#FFDFD0] flex items-start gap-2.5">
-                    <div className="w-6 h-6 rounded-full bg-[#FFA77E] text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
+                  <div className="p-3 bg-[#EAF7EF] rounded-xl border border-[#CDE5D6] flex items-start gap-2.5">
+                    <div className="w-6 h-6 rounded-full bg-[#064E45] text-white flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">
                       ★
                     </div>
                     <div>
@@ -186,7 +186,7 @@ export const LandingPage = () => {
                 </div>
 
                 {/* Floating Metric Pill 1 */}
-                <div className="absolute -bottom-4 -left-4 bg-white border border-[#DDE8DF] rounded-2xl p-3 shadow-md flex items-center gap-3">
+                <div className="absolute -bottom-4 -left-4 bg-white border border-[#DDE8DF] rounded-2xl p-3 flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-[#EAF7EF] text-[#2D9B70] flex items-center justify-center font-bold">
                     92%
                   </div>
@@ -218,7 +218,7 @@ export const LandingPage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Feature 1 */}
-            <div className="bg-white rounded-2xl p-7 border border-[#DDE8DF] shadow-[0_2px_12px_rgba(23,46,42,0.03)] space-y-4 hover:border-[#2D806B]/50 transition-all">
+            <div className="bg-white rounded-2xl p-7 border border-[#DDE8DF] space-y-4 hover:border-[#2D806B]/50 transition-all">
               <div className="w-12 h-12 rounded-2xl bg-[#EAF7EF] border border-[#CDE5D6] flex items-center justify-center text-[#064E45]">
                 <BookOpen className="w-6 h-6 text-[#2D806B]" />
               </div>
@@ -231,9 +231,9 @@ export const LandingPage = () => {
             </div>
 
             {/* Feature 2 */}
-            <div className="bg-white rounded-2xl p-7 border border-[#DDE8DF] shadow-[0_2px_12px_rgba(23,46,42,0.03)] space-y-4 hover:border-[#2D806B]/50 transition-all">
-              <div className="w-12 h-12 rounded-2xl bg-[#FFF3EC] border border-[#FFDFD0] flex items-center justify-center text-[#FFA77E]">
-                <TrendingUp className="w-6 h-6 text-[#FFA77E]" />
+            <div className="bg-white rounded-2xl p-7 border border-[#DDE8DF] space-y-4 hover:border-[#2D806B]/50 transition-all">
+              <div className="w-12 h-12 rounded-2xl bg-[#EAF7EF] border border-[#CDE5D6] flex items-center justify-center text-[#2D806B]">
+                <TrendingUp className="w-6 h-6 text-[#2D806B]" />
               </div>
               <h3 className="text-lg font-bold text-[#064E45]">
                 Track Progress
@@ -244,7 +244,7 @@ export const LandingPage = () => {
             </div>
 
             {/* Feature 3 */}
-            <div className="bg-white rounded-2xl p-7 border border-[#DDE8DF] shadow-[0_2px_12px_rgba(23,46,42,0.03)] space-y-4 hover:border-[#2D806B]/50 transition-all">
+            <div className="bg-white rounded-2xl p-7 border border-[#DDE8DF] space-y-4 hover:border-[#2D806B]/50 transition-all">
               <div className="w-12 h-12 rounded-2xl bg-[#EAF7EF] border border-[#CDE5D6] flex items-center justify-center text-[#2D9B70]">
                 <Award className="w-6 h-6 text-[#2D9B70]" />
               </div>
@@ -262,7 +262,7 @@ export const LandingPage = () => {
       {/* CTA Footer Banner */}
       <section className="py-16 bg-[#FAF8F0]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-[#064E45] rounded-3xl p-8 sm:p-12 text-white shadow-xl relative overflow-hidden space-y-6">
+          <div className="bg-[#064E45] rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden space-y-6">
             <div className="relative z-10 max-w-xl mx-auto space-y-4">
               <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
                 Ready to accelerate your AI Engineering journey?
@@ -273,7 +273,7 @@ export const LandingPage = () => {
               <div className="pt-2">
                 <Link
                   to="/login"
-                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-2xl text-base font-bold text-[#172E2A] bg-[#FFA77E] hover:bg-[#ff9666] shadow-lg transition-all"
+                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-2xl text-base font-bold text-white bg-[#064E45] hover:bg-[#085f54] transition-all"
                 >
                   <span>Access Student Portal</span>
                   <ArrowRight className="w-4 h-4" />

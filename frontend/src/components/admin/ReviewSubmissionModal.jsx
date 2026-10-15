@@ -76,38 +76,36 @@ export const ReviewSubmissionModal = ({
       maxWidth="max-w-3xl"
     >
       {formError && (
-        <div className="flex items-center gap-2 p-3 rounded-xl bg-rose-950/50 border border-rose-800/50 text-rose-200 text-xs">
-          <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
+        <div className="flex items-center gap-2 p-3 rounded-xl bg-[#FFF0ED] border border-[#FAD3CC] text-[#E86A5B] text-xs">
+          <AlertCircle className="w-4 h-4 shrink-0 text-[#E86A5B]" />
           <span>{formError}</span>
         </div>
       )}
 
       {/* Task & Instructions Summary */}
-      <div className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800">
-        <h4 className="text-xs font-semibold uppercase tracking-wider text-purple-300 mb-1">
+      <div className="p-3.5 rounded-xl bg-[#EAF7EF] border border-[#CDE5D6]">
+        <h4 className="text-xs font-bold uppercase tracking-wider text-[#2D806B] mb-1">
           {submission.task?.title}
         </h4>
-        <p className="text-xs text-slate-400 line-clamp-2">
-          {submission.task?.instructions}
-        </p>
+        <p className="text-xs text-[#71817B] line-clamp-2">{submission.task?.instructions}</p>
       </div>
 
       {/* Proof Screenshot & GitHub Link */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Proof Image Box */}
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+          <label className="text-xs font-bold uppercase tracking-wider text-[#71817B]">
             Submitted Proof Image
           </label>
-          <div className="relative group rounded-xl border border-slate-700/80 bg-slate-950/80 p-2 flex items-center justify-center min-h-[160px]">
+          <div className="relative group rounded-xl border border-[#DDE8DF] bg-[#FAF8F0] p-2 flex items-center justify-center min-h-[160px]">
             <AuthorizedImage
               fileId={submission.fileId}
               alt="Student Proof"
-              className="max-h-48 w-auto rounded-lg shadow-md cursor-zoom-in"
+              className="max-h-48 w-auto rounded-lg cursor-zoom-in"
               onClick={() => onImageZoom && onImageZoom(submission.fileId)}
             />
           </div>
-          <span className="text-[10px] text-slate-500 block text-center">
+          <span className="text-[10px] text-[#71817B] block text-center">
             Click image to view in full resolution
           </span>
         </div>
@@ -116,14 +114,14 @@ export const ReviewSubmissionModal = ({
         <div className="space-y-3 flex flex-col justify-between">
           {submission.githubUrl ? (
             <div>
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 block mb-1.5">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#71817B] block mb-1.5">
                 GitHub Repository / Commit
               </label>
               <a
                 href={submission.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-950/60 border border-slate-700/80 text-purple-400 hover:text-purple-300 hover:border-purple-500 text-xs font-medium transition-colors"
+                className="flex items-center gap-2 p-2.5 rounded-xl bg-white border border-[#DDE8DF] text-[#2D806B] hover:text-[#064E45] hover:border-[#2D806B] text-xs font-medium transition-colors"
               >
                 <Github className="w-4 h-4 shrink-0" />
                 <span className="truncate flex-1">{submission.githubUrl}</span>
@@ -132,19 +130,21 @@ export const ReviewSubmissionModal = ({
             </div>
           ) : (
             <div>
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 block mb-1.5">
+              <label className="text-xs font-bold uppercase tracking-wider text-[#71817B] block mb-1.5">
                 GitHub Link
               </label>
-              <span className="text-xs text-slate-500 italic">Not provided</span>
+              <span className="text-xs text-[#71817B] italic">Not provided</span>
             </div>
           )}
 
           <div>
-            <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 block mb-1.5">
+            <label className="text-xs font-bold uppercase tracking-wider text-[#71817B] block mb-1.5">
               Student's Explanation
             </label>
-            <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 text-xs text-slate-300 leading-relaxed max-h-28 overflow-y-auto">
-              {submission.explanation || <span className="text-slate-500 italic">No additional explanation provided.</span>}
+            <div className="p-3 rounded-xl bg-[#FAF8F0] border border-[#DDE8DF] text-xs text-[#172E2A] leading-relaxed max-h-28 overflow-y-auto">
+              {submission.explanation || (
+                <span className="text-[#71817B] italic">No additional explanation provided.</span>
+              )}
             </div>
           </div>
         </div>
@@ -152,26 +152,24 @@ export const ReviewSubmissionModal = ({
 
       {/* Previous Review Notes if Version > 1 */}
       {submission.previousReviews && submission.previousReviews.length > 0 && (
-        <div className="space-y-2 border-t border-slate-800 pt-3">
-          <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-400">
-            <History className="w-3.5 h-3.5 text-slate-500" />
+        <div className="space-y-2 border-t border-[#DDE8DF] pt-3">
+          <div className="flex items-center gap-1.5 text-xs font-bold text-[#71817B]">
+            <History className="w-3.5 h-3.5 text-[#71817B]" />
             <span>Previous Review Feedback</span>
           </div>
           <div className="space-y-2 max-h-28 overflow-y-auto">
             {submission.previousReviews.map((pr) => (
               <div
                 key={pr._id}
-                className="p-2.5 rounded-lg bg-slate-950/40 border border-slate-800/80 text-xs"
+                className="p-2.5 rounded-lg bg-[#FAF8F0] border border-[#DDE8DF] text-xs"
               >
                 <div className="flex items-center justify-between mb-1">
                   <Badge status={pr.decision} />
-                  <span className="text-[10px] text-slate-500">
+                  <span className="text-[10px] text-[#71817B]">
                     {new Date(pr.reviewedAt).toLocaleDateString()}
                   </span>
                 </div>
-                <p className="text-slate-300 text-[11px] italic">
-                  "{pr.feedback}"
-                </p>
+                <p className="text-[#172E2A] text-[11px] italic">"{pr.feedback}"</p>
               </div>
             ))}
           </div>
@@ -179,9 +177,9 @@ export const ReviewSubmissionModal = ({
       )}
 
       {/* Mentor Feedback Input */}
-      <div className="border-t border-slate-800 pt-3">
-        <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5 flex items-center gap-1.5">
-          <MessageSquare className="w-3.5 h-3.5 text-purple-400" />
+      <div className="border-t border-[#DDE8DF] pt-3">
+        <label className="block text-xs font-bold uppercase tracking-wider text-[#064E45] mb-1.5 flex items-center gap-1.5">
+          <MessageSquare className="w-3.5 h-3.5 text-[#2D806B]" />
           <span>Mentor Feedback / Correction Notes</span>
         </label>
         <textarea
@@ -189,17 +187,17 @@ export const ReviewSubmissionModal = ({
           value={feedback}
           onChange={(e) => setFeedback(e.target.value)}
           placeholder="Provide encouraging and constructive feedback, highlight edge cases, or explain exactly what must be corrected..."
-          className="w-full p-3 bg-slate-950/70 border border-slate-700/80 rounded-xl text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 leading-relaxed"
+          className="w-full p-3 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-xs text-[#172E2A] placeholder-[#A3B2AC] focus:outline-none focus:ring-2 focus:ring-[#2D806B]/30 focus:border-[#2D806B] leading-relaxed"
         />
       </div>
 
       {/* Review Actions */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-800">
+      <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[#DDE8DF]">
         <button
           type="button"
           onClick={onClose}
           disabled={loading}
-          className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors"
+          className="px-4 py-2 rounded-xl text-xs font-bold text-[#71817B] hover:text-[#064E45] hover:bg-[#EAF7EF] transition-colors"
         >
           Close
         </button>
@@ -209,7 +207,7 @@ export const ReviewSubmissionModal = ({
             type="button"
             onClick={() => handleAction('reject')}
             disabled={loading}
-            className="px-3.5 py-2 rounded-xl text-xs font-semibold text-rose-300 bg-rose-950/50 hover:bg-rose-900/60 border border-rose-800/60 transition-colors flex items-center gap-1.5 disabled:opacity-50"
+            className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#E86A5B] bg-[#FFF0ED] hover:bg-[#FDE2DC] border border-[#FAD3CC] transition-colors flex items-center gap-1.5 disabled:opacity-50"
           >
             <XCircle className="w-3.5 h-3.5" />
             <span>Reject</span>
@@ -219,7 +217,7 @@ export const ReviewSubmissionModal = ({
             type="button"
             onClick={() => handleAction('changes')}
             disabled={loading}
-            className="px-3.5 py-2 rounded-xl text-xs font-semibold text-amber-300 bg-amber-950/50 hover:bg-amber-900/60 border border-amber-800/60 transition-colors flex items-center gap-1.5 disabled:opacity-50"
+            className="px-3.5 py-2 rounded-xl text-xs font-bold text-[#D88918] bg-[#FFF8EA] hover:bg-[#FDEFD3] border border-[#FCE6BD] transition-colors flex items-center gap-1.5 disabled:opacity-50"
           >
             <AlertTriangle className="w-3.5 h-3.5" />
             <span>Request Changes</span>
@@ -229,7 +227,7 @@ export const ReviewSubmissionModal = ({
             type="button"
             onClick={() => handleAction('approve')}
             disabled={loading}
-            className="px-4 py-2 rounded-xl text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-500 shadow-lg shadow-emerald-900/30 transition-all flex items-center gap-1.5 disabled:opacity-50"
+            className="px-4 py-2 rounded-xl text-xs font-bold text-white bg-[#2D9B70] hover:bg-[#268a63] transition-all flex items-center gap-1.5 disabled:opacity-50"
           >
             <CheckCircle2 className="w-3.5 h-3.5" />
             <span>{loading ? 'Processing...' : 'Approve & Unlock Next'}</span>

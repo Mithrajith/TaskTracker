@@ -2,10 +2,9 @@ import React from 'react';
 
 export const Card = ({ children, className = '', title, subtitle, action, variant = 'white' }) => {
   const variantStyles = {
-    white: 'bg-white border-[#DDE8DF] shadow-[0_2px_10px_rgba(23,46,42,0.03)]',
-    mint: 'bg-[#EAF7EF] border-[#D1E8D9] shadow-[0_2px_10px_rgba(45,128,107,0.04)]',
-    cream: 'bg-[#FAF8F0] border-[#E8E2D2] shadow-[0_2px_8px_rgba(23,46,42,0.02)]',
-    peach: 'bg-[#FFF3EC] border-[#FFDFD0] shadow-[0_2px_10px_rgba(255,167,126,0.05)]',
+    white: 'bg-white border-[#DDE8DF]',
+    mint: 'bg-[#EAF7EF] border-[#D1E8D9]',
+    cream: 'bg-[#FAF8F0] border-[#E8E2D2]',
   };
 
   const selectedVariant = variantStyles[variant] || variantStyles.white;

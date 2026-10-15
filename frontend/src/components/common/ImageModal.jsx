@@ -10,7 +10,7 @@ export const ImageModal = ({ isOpen, onClose, imgSrc, title = 'Proof Screenshot'
       onClick={onClose}
     >
       <div
-        className="relative max-w-5xl max-h-[90vh] bg-white border border-[#DDE8DF] rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(23,46,42,0.25)] flex flex-col"
+        className="relative max-w-5xl max-h-[90vh] bg-white border border-[#DDE8DF] rounded-2xl overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between px-5 py-3.5 border-b border-[#DDE8DF] bg-[#FAF8F0] shrink-0">
@@ -37,7 +37,7 @@ export const ImageModal = ({ isOpen, onClose, imgSrc, title = 'Proof Screenshot'
           <img
             src={imgSrc}
             alt="Enlarged Proof"
-            className="max-h-full max-w-full object-contain rounded-xl shadow-md"
+            className="max-h-full max-w-full object-contain rounded-xl"
           />
         </div>
       </div>

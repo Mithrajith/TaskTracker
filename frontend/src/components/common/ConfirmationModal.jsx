@@ -40,7 +40,7 @@ export const ConfirmationModal = ({
           type="button"
           onClick={onConfirm}
           disabled={loading}
-          className={`px-5 py-2 rounded-xl text-sm font-bold text-white transition-all shadow-xs ${
+          className={`px-5 py-2 rounded-xl text-sm font-bold text-white transition-all ${
             danger
               ? 'bg-[#E86A5B] hover:bg-[#d45849]'
               : 'bg-[#064E45] hover:bg-[#085f54]'

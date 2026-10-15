@@ -5,7 +5,7 @@
   --color-secondary-green: #2D806B;
   --color-mint-bg: #E0F3E8;
   --color-mint-card: #EAF7EF;
-  --color-peach-accent: #FFA77E;
+  --color-accent-green: #2D806B;
   --color-cream-bg: #FAF8F0;
   --color-main-text: #172E2A;
   --color-secondary-text: #71817B;
@@ -13,7 +13,7 @@
   --color-success-green: #2D9B70;
   --color-warning-amber: #F3B74F;
   --color-error-rose: #E86A5B;
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: 'IBM Plex Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 @layer base {
@@ -25,7 +25,7 @@
   }
 }
 
-/* Custom scrollbar for fresh pastel aesthetics */
+/* Custom scrollbar for a clean professional look */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;

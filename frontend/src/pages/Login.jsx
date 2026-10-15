@@ -58,10 +58,10 @@ export const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F0] text-[#172E2A] flex flex-col justify-center items-center p-4 relative overflow-hidden selection:bg-[#FFA77E]/30 selection:text-[#064E45]">
+    <div className="min-h-screen bg-[#FAF8F0] text-[#172E2A] flex flex-col justify-center items-center p-4 relative overflow-hidden selection:bg-[#064E45]/30 selection:text-[#064E45]">
       {/* Organic Background Blobs */}
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#E0F3E8] rounded-full blur-3xl pointer-events-none opacity-80" />
-      <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-[#FFF3EC] rounded-full blur-3xl pointer-events-none opacity-80" />
+      <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-[#EAF7EF] rounded-full blur-3xl pointer-events-none opacity-80" />
 
       {/* Back to Home Link */}
       <div className="w-full max-w-md mb-4 relative z-10 flex justify-start">
@@ -77,8 +77,8 @@ export const Login = () => {
       <div className="w-full max-w-md relative z-10">
         {/* Header Branding */}
         <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#064E45] shadow-[0_8px_20px_rgba(6,78,69,0.2)] mb-3">
-            <Sparkles className="w-7 h-7 text-[#FFA77E]" />
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-[#064E45] mb-3">
+            <Sparkles className="w-7 h-7 text-white" />
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#064E45]">
             Sign In to Task Tracker
@@ -89,7 +89,7 @@ export const Login = () => {
         </div>
 
         {/* Login Card */}
-        <div className="bg-white border border-[#DDE8DF] rounded-3xl p-7 sm:p-8 shadow-[0_10px_35px_rgba(23,46,42,0.06)]">
+        <div className="bg-white border border-[#DDE8DF] rounded-3xl p-7 sm:p-8">
           {errorMessage && (
             <div className="mb-5 flex items-center gap-2.5 p-3.5 rounded-xl bg-[#FFF0ED] border border-[#FAD3CC] text-[#E86A5B] text-xs leading-relaxed animate-shake">
               <AlertCircle className="w-4 h-4 shrink-0 text-[#E86A5B]" />
@@ -135,12 +135,12 @@ export const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full py-3.5 px-4 rounded-xl text-sm font-bold text-white bg-[#064E45] hover:bg-[#085f54] shadow-[0_6px_18px_rgba(6,78,69,0.2)] transition-all flex items-center justify-center gap-2 mt-2 ${
+              className={`w-full py-3.5 px-4 rounded-xl text-sm font-bold text-white bg-[#064E45] hover:bg-[#085f54] transition-all flex items-center justify-center gap-2 mt-2 ${
                 loading ? 'opacity-50 cursor-not-allowed' : ''
               }`}
             >
               <span>{loading ? 'Authenticating...' : 'Sign In'}</span>
-              <ArrowRight className="w-4 h-4 text-[#FFA77E]" />
+              <ArrowRight className="w-4 h-4 text-white" />
             </button>
           </form>
 
@@ -167,10 +167,10 @@ export const Login = () => {
               <button
                 type="button"
                 onClick={() => handleQuickFill('AI2026001', 'StudentPassword123!')}
-                className="p-3 rounded-xl bg-[#FFF3EC] border border-[#FFDFD0] hover:border-[#FFA77E] hover:bg-[#ffe7db] text-left transition-all group"
+                className="p-3 rounded-xl bg-[#EAF7EF] border border-[#CDE5D6] hover:border-[#2D806B] hover:bg-[#EAF7EF] text-left transition-all group"
               >
-                <div className="flex items-center gap-1.5 text-xs font-bold text-[#D46C38]">
-                  <GraduationCap className="w-3.5 h-3.5 text-[#FFA77E]" />
+                <div className="flex items-center gap-1.5 text-xs font-bold text-[#2D806B]">
+                  <GraduationCap className="w-3.5 h-3.5 text-[#2D806B]" />
                   <span>Student (Rohan)</span>
                 </div>
                 <div className="text-[11px] text-[#71817B] font-mono mt-0.5">

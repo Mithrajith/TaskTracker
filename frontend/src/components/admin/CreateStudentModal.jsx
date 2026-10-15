@@ -59,99 +59,99 @@ export const CreateStudentModal = ({ isOpen, onClose, onCreated }) => {
       maxWidth="max-w-lg"
     >
       {formError && (
-        <div className="flex items-center gap-2 p-3 rounded-xl bg-rose-950/50 border border-rose-800/50 text-rose-200 text-xs">
-          <AlertCircle className="w-4 h-4 shrink-0 text-rose-400" />
+        <div className="flex items-center gap-2 p-3 rounded-xl bg-[#FFF0ED] border border-[#FAD3CC] text-[#E86A5B] text-xs">
+          <AlertCircle className="w-4 h-4 shrink-0 text-[#E86A5B]" />
           <span>{formError}</span>
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-xs font-medium text-slate-300 mb-1.5">
-            Student Full Name <span className="text-rose-400">*</span>
+          <label className="block text-xs font-bold text-[#064E45] mb-1.5">
+            Student Full Name <span className="text-[#E86A5B]">*</span>
           </label>
           <div className="relative">
-            <User className="w-4 h-4 absolute left-3 top-3 text-slate-500" />
+            <User className="w-4 h-4 absolute left-3 top-3 text-[#2D806B]" />
             <input
               type="text"
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Priya Sharma"
-              className="w-full pl-9 pr-3 py-2 bg-slate-950/70 border border-slate-700/80 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500"
+              className="w-full pl-9 pr-3 py-2 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-sm text-[#172E2A] placeholder-[#A3B2AC] focus:outline-none focus:ring-2 focus:ring-[#2D806B]/30 focus:border-[#2D806B]"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-slate-300 mb-1.5">
-            Register / Student ID <span className="text-rose-400">*</span>
+          <label className="block text-xs font-bold text-[#064E45] mb-1.5">
+            Register / Student ID <span className="text-[#E86A5B]">*</span>
           </label>
           <div className="relative">
-            <Hash className="w-4 h-4 absolute left-3 top-3 text-slate-500" />
+            <Hash className="w-4 h-4 absolute left-3 top-3 text-[#2D806B]" />
             <input
               type="text"
               required
               value={registerNumber}
               onChange={(e) => setRegisterNumber(e.target.value)}
               placeholder="e.g. AI2026005"
-              className="w-full pl-9 pr-3 py-2 bg-slate-950/70 border border-slate-700/80 rounded-xl text-sm text-slate-100 placeholder-slate-500 uppercase focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500"
+              className="w-full pl-9 pr-3 py-2 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-sm text-[#172E2A] placeholder-[#A3B2AC] uppercase focus:outline-none focus:ring-2 focus:ring-[#2D806B]/30 focus:border-[#2D806B]"
             />
           </div>
-          <span className="text-[10px] text-slate-500 mt-1 block">
+          <span className="text-[10px] text-[#71817B] mt-1 block">
             Used as the login username. Must be unique.
           </span>
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-slate-300 mb-1.5">
+          <label className="block text-xs font-bold text-[#064E45] mb-1.5">
             Student GitHub Repository URL
           </label>
           <div className="relative">
-            <Github className="w-4 h-4 absolute left-3 top-3 text-slate-500" />
+            <Github className="w-4 h-4 absolute left-3 top-3 text-[#2D806B]" />
             <input
               type="url"
               value={githubRepoUrl}
               onChange={(e) => setGithubRepoUrl(e.target.value)}
               placeholder="https://github.com/username/ai-engineer-roadmap"
-              className="w-full pl-9 pr-3 py-2 bg-slate-950/70 border border-slate-700/80 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500"
+              className="w-full pl-9 pr-3 py-2 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-sm text-[#172E2A] placeholder-[#A3B2AC] focus:outline-none focus:ring-2 focus:ring-[#2D806B]/30 focus:border-[#2D806B]"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-slate-300 mb-1.5">
-            Initial Temporary Password <span className="text-rose-400">*</span>
+          <label className="block text-xs font-bold text-[#064E45] mb-1.5">
+            Initial Temporary Password <span className="text-[#E86A5B]">*</span>
           </label>
           <div className="relative">
-            <Lock className="w-4 h-4 absolute left-3 top-3 text-slate-500" />
+            <Lock className="w-4 h-4 absolute left-3 top-3 text-[#2D806B]" />
             <input
               type="text"
               required
               minLength={6}
               value={initialPassword}
               onChange={(e) => setInitialPassword(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 bg-slate-950/70 border border-slate-700/80 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500 font-mono"
+              className="w-full pl-9 pr-3 py-2 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-sm text-[#172E2A] placeholder-[#A3B2AC] focus:outline-none focus:ring-2 focus:ring-[#2D806B]/30 focus:border-[#2D806B] font-mono"
             />
           </div>
-          <span className="text-[10px] text-amber-400/90 mt-1 block">
+          <span className="text-[10px] text-[#D88918] mt-1 block">
             Student will be required to change this password on their first login.
           </span>
         </div>
 
-        <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
+        <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#DDE8DF]">
           <button
             type="button"
             onClick={onClose}
             disabled={loading}
-            className="px-4 py-2 rounded-xl text-sm font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors"
+            className="px-4 py-2 rounded-xl text-sm font-bold text-[#71817B] hover:text-[#064E45] hover:bg-[#EAF7EF] transition-colors"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={loading}
-            className={`px-5 py-2 rounded-xl text-sm font-semibold text-white bg-purple-600 hover:bg-purple-500 shadow-lg shadow-purple-900/30 transition-all ${
+            className={`px-5 py-2 rounded-xl text-sm font-bold text-white bg-[#064E45] hover:bg-[#085f54] transition-all ${
               loading ? 'opacity-50 cursor-not-allowed' : ''
             }`}
           >

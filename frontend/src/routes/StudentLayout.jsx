@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Outlet, NavLink, Link, useNavigate } from 'react-router-dom';
+import { Outlet, NavLink, Link, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { ChangePasswordModal } from '../components/common/ChangePasswordModal';
 import {
   LayoutDashboard,
   CheckSquare,
@@ -10,10 +9,7 @@ import {
   LogOut,
   Sparkles,
   Search,
-  Bell,
   Home,
-  BookOpen,
-  KeyRound,
   ExternalLink,
 } from 'lucide-react';
 import { Github } from '../components/common/Icons';
@@ -21,7 +17,7 @@ import { Github } from '../components/common/Icons';
 export const StudentLayout = () => {
   const { user, logout, mustChangePassword } = useAuth();
   const navigate = useNavigate();
-  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const location = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
 
   const navItems = [
@@ -40,16 +36,21 @@ export const StudentLayout = () => {
     }
   };
 
+  // Force first-time users to set a permanent password on the profile page
+  if (mustChangePassword && location.pathname !== '/student/profile') {
+    return <Navigate to="/student/profile" replace />;
+  }
+
   return (
-    <div className="min-h-screen bg-[#FAF8F0] text-[#172E2A] flex flex-col md:flex-row antialiased selection:bg-[#FFA77E]/30 selection:text-[#064E45]">
+    <div className="min-h-screen bg-[#FAF8F0] text-[#172E2A] flex flex-col md:flex-row antialiased selection:bg-[#064E45]/30 selection:text-[#064E45]">
       {/* Desktop Pale Mint Sidebar */}
       <aside className="hidden md:flex w-64 lg:w-72 bg-[#EAF7EF] border-r border-[#DDE8DF] flex-col justify-between h-screen sticky top-0 shrink-0 z-30">
         <div>
           {/* Logo Header */}
           <div className="p-6 border-b border-[#DDE8DF] flex items-center gap-3">
             <Link to="/" className="flex items-center gap-3 group">
-              <div className="w-10 h-10 rounded-2xl bg-[#064E45] flex items-center justify-center text-white shadow-xs group-hover:scale-105 transition-transform">
-                <Sparkles className="w-5 h-5 text-[#FFA77E]" />
+              <div className="w-10 h-10 rounded-2xl bg-[#064E45] flex items-center justify-center text-white group-hover:scale-105 transition-transform">
+                <Sparkles className="w-5 h-5 text-white" />
               </div>
               <div>
                 <h1 className="text-sm font-extrabold text-[#064E45] tracking-tight leading-tight">
@@ -90,7 +91,7 @@ export const StudentLayout = () => {
                   className={({ isActive }) =>
                     `flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold transition-all ${
                       isActive
-                        ? 'bg-[#FFA77E] text-[#172E2A] shadow-xs'
+                        ? 'bg-[#064E45] text-white'
                         : 'text-[#71817B] hover:text-[#064E45] hover:bg-[#FAF8F0]/70'
                     }`
                   }
@@ -101,21 +102,29 @@ export const StudentLayout = () => {
               );
             })}
 
-            {/* Profile / Change Password Item */}
-            <button
-              type="button"
-              onClick={() => setShowPasswordModal(true)}
-              className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-[#71817B] hover:text-[#064E45] hover:bg-[#FAF8F0]/70 transition-all text-left"
+            {/* Profile Page Item */}
+            <NavLink
+              to="/student/profile"
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold transition-all ${
+                  isActive
+                    ? 'bg-[#064E45] text-white'
+                    : 'text-[#71817B] hover:text-[#064E45] hover:bg-[#FAF8F0]/70'
+                }`
+              }
             >
-              <User className="w-4 h-4 shrink-0 text-[#2D806B]" />
-              <span>Profile &amp; Password</span>
-            </button>
+              <User className="w-4 h-4 shrink-0" />
+              <span>Profile &amp; Settings</span>
+            </NavLink>
           </nav>
         </div>
 
         {/* User Card & Logout Button */}
         <div className="p-4 border-t border-[#DDE8DF] space-y-2">
-          <div className="flex items-center gap-3 p-3 rounded-2xl bg-white border border-[#DDE8DF] shadow-2xs">
+          <Link
+            to="/student/profile"
+            className="flex items-center gap-3 p-3 rounded-2xl bg-white border border-[#DDE8DF] hover:border-[#2D806B] transition-colors"
+          >
             <div className="w-9 h-9 rounded-xl bg-[#064E45] text-white flex items-center justify-center text-xs font-bold shrink-0">
               {user?.name?.slice(0, 2).toUpperCase() || 'ST'}
             </div>
@@ -127,7 +136,7 @@ export const StudentLayout = () => {
                 {user?.registerNumber}
               </p>
             </div>
-          </div>
+          </Link>
 
           <button
             onClick={logout}
@@ -147,7 +156,7 @@ export const StudentLayout = () => {
           <div className="flex items-center gap-3 flex-1 max-w-md">
             <Link to="/student" className="md:hidden flex items-center gap-2 shrink-0">
               <div className="w-9 h-9 rounded-xl bg-[#064E45] flex items-center justify-center text-white">
-                <Sparkles className="w-4 h-4 text-[#FFA77E]" />
+                <Sparkles className="w-4 h-4 text-white" />
               </div>
             </Link>
 
@@ -164,7 +173,7 @@ export const StudentLayout = () => {
             </div>
           </div>
 
-          {/* Top Actions: GitHub Link, Notification, User Profile Avatar */}
+          {/* Top Actions: GitHub Link, User Profile Avatar */}
           <div className="flex items-center gap-3 shrink-0">
             {user?.githubRepoUrl && (
               <a
@@ -180,20 +189,9 @@ export const StudentLayout = () => {
               </a>
             )}
 
-            {/* Notification Bell */}
-            <button
-              type="button"
-              onClick={() => navigate('/student/history')}
-              className="relative p-2 rounded-xl bg-white border border-[#DDE8DF] text-[#71817B] hover:text-[#064E45] hover:bg-[#EAF7EF] transition-colors"
-              title="Recent Review Notifications"
-            >
-              <Bell className="w-4 h-4" />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#FFA77E] ring-2 ring-white" />
-            </button>
-
             {/* Student Avatar and Role */}
-            <button
-              onClick={() => setShowPasswordModal(true)}
+            <Link
+              to="/student/profile"
               className="flex items-center gap-2.5 p-1.5 sm:px-3 sm:py-1.5 rounded-2xl bg-white border border-[#DDE8DF] hover:border-[#2D806B] transition-colors text-left"
             >
               <div className="w-8 h-8 rounded-xl bg-[#EAF7EF] border border-[#CDE5D6] text-[#064E45] flex items-center justify-center text-xs font-black shrink-0">
@@ -207,7 +205,7 @@ export const StudentLayout = () => {
                   AI Engineer Trainee
                 </span>
               </div>
-            </button>
+            </Link>
           </div>
         </header>
 
@@ -218,7 +216,7 @@ export const StudentLayout = () => {
       </div>
 
       {/* Mobile Bottom Navigation Bar matching reference */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#DDE8DF] px-3 py-2 flex items-center justify-around shadow-[0_-4px_20px_rgba(23,46,42,0.06)]">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#DDE8DF] px-3 py-2 flex items-center justify-around">
         <NavLink
           to="/student"
           end
@@ -253,14 +251,17 @@ export const StudentLayout = () => {
           <span>History</span>
         </NavLink>
 
-        <button
-          type="button"
-          onClick={() => setShowPasswordModal(true)}
-          className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl text-[11px] font-bold text-[#71817B] hover:text-[#064E45]"
+        <NavLink
+          to="/student/profile"
+          className={({ isActive }) =>
+            `flex flex-col items-center gap-1 py-1 px-3 rounded-xl text-[11px] font-bold transition-colors ${
+              isActive ? 'text-[#064E45] bg-[#EAF7EF]' : 'text-[#71817B]'
+            }`
+          }
         >
           <User className="w-4 h-4" />
           <span>Profile</span>
-        </button>
+        </NavLink>
 
         <button
           type="button"
@@ -271,12 +272,6 @@ export const StudentLayout = () => {
           <span>Exit</span>
         </button>
       </nav>
-
-      {/* Change Password Modal */}
-      <ChangePasswordModal
-        isOpen={showPasswordModal || mustChangePassword}
-        onClose={() => setShowPasswordModal(false)}
-      />
     </div>
   );
 };

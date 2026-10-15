@@ -40,28 +40,31 @@ export const StudentsPage = () => {
   const [zoomImageId, setZoomImageId] = useState(null);
   const [togglingLoading, setTogglingLoading] = useState(false);
 
-  const fetchStudents = useCallback(async (page = 1) => {
-    setLoading(true);
-    try {
-      const params = {
-        page,
-        limit: 10,
-        search: searchTerm.trim(),
-      };
-      if (statusFilter) params.status = statusFilter;
+  const fetchStudents = useCallback(
+    async (page = 1) => {
+      setLoading(true);
+      try {
+        const params = {
+          page,
+          limit: 10,
+          search: searchTerm.trim(),
+        };
+        if (statusFilter) params.status = statusFilter;
 
-      const res = await apiClient.get('/students', { params });
-      if (res.data?.success) {
-        setStudents(res.data.data);
-        setPagination(res.data.pagination);
+        const res = await apiClient.get('/students', { params });
+        if (res.data?.success) {
+          setStudents(res.data.data);
+          setPagination(res.data.pagination);
+        }
+      } catch (err) {
+        console.error('Failed to load students:', err);
+        error('Failed to fetch students list');
+      } finally {
+        setLoading(false);
       }
-    } catch (err) {
-      console.error('Failed to load students:', err);
-      error('Failed to fetch students list');
-    } finally {
-      setLoading(false);
-    }
-  }, [searchTerm, statusFilter, error]);
+    },
+    [searchTerm, statusFilter, error]
+  );
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -109,11 +112,11 @@ export const StudentsPage = () => {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-            <Users className="w-6 h-6 text-purple-400" />
+          <h1 className="text-2xl font-extrabold tracking-tight text-[#064E45] flex items-center gap-2">
+            <Users className="w-6 h-6 text-[#2D806B]" />
             <span>Student Management</span>
           </h1>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-sm text-[#71817B] mt-1">
             Manage student enrollments, reset credentials, and track daily practical progress.
           </p>
         </div>
@@ -121,15 +124,15 @@ export const StudentsPage = () => {
         <div className="flex items-center gap-2 self-start sm:self-auto">
           <button
             onClick={() => navigate('/admin/students/import')}
-            className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-xs transition-all flex items-center gap-2 shadow-sm"
+            className="px-4 py-2.5 rounded-xl bg-white hover:bg-[#EAF7EF] text-[#064E45] border border-[#DDE8DF] font-bold text-xs transition-all flex items-center gap-2"
           >
-            <UploadCloud className="w-4 h-4 text-purple-400" />
+            <UploadCloud className="w-4 h-4 text-[#2D806B]" />
             <span>Import CSV</span>
           </button>
 
           <button
             onClick={() => setShowCreateModal(true)}
-            className="px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs shadow-lg shadow-purple-900/30 transition-all flex items-center gap-2"
+            className="px-4 py-2.5 rounded-xl bg-[#064E45] hover:bg-[#085f54] text-white font-bold text-xs transition-all flex items-center gap-2"
           >
             <UserPlus className="w-4 h-4" />
             <span>New Student</span>
@@ -138,27 +141,27 @@ export const StudentsPage = () => {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 backdrop-blur-md">
+      <div className="p-4 rounded-2xl bg-white border border-[#DDE8DF] flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="relative w-full sm:w-80">
-          <Search className="w-4 h-4 absolute left-3.5 top-3 text-slate-500" />
+          <Search className="w-4 h-4 absolute left-3.5 top-3 text-[#71817B]" />
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search by student name or register no..."
-            className="w-full pl-10 pr-3 py-2 bg-slate-950/70 border border-slate-700/80 rounded-xl text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500"
+            className="w-full pl-10 pr-3 py-2.5 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-xs text-[#172E2A] placeholder-[#71817B]/60 focus:outline-none focus:ring-2 focus:ring-[#2D806B]/30 focus:border-[#2D806B]"
           />
         </div>
 
         <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
-          <div className="flex items-center gap-2 text-xs text-slate-400">
-            <Filter className="w-3.5 h-3.5" />
+          <div className="flex items-center gap-2 text-xs text-[#71817B] font-semibold">
+            <Filter className="w-3.5 h-3.5 text-[#2D806B]" />
             <span>Status:</span>
           </div>
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="p-2 bg-slate-950/70 border border-slate-700/80 rounded-xl text-xs text-slate-200 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
+            className="p-2.5 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-xs text-[#172E2A] font-medium focus:outline-none focus:ring-2 focus:ring-[#2D806B]/30"
           >
             <option value="">All Statuses</option>
             <option value="active">Active Only</option>
@@ -167,7 +170,7 @@ export const StudentsPage = () => {
 
           <button
             onClick={() => fetchStudents(pagination.page)}
-            className="p-2 text-slate-400 hover:text-slate-100 hover:bg-slate-800 rounded-xl border border-slate-800 transition-colors"
+            className="p-2.5 text-[#71817B] hover:text-[#064E45] hover:bg-[#EAF7EF] rounded-xl border border-[#DDE8DF] transition-colors"
             title="Refresh Table"
           >
             <RefreshCw className="w-4 h-4" />
@@ -178,7 +181,7 @@ export const StudentsPage = () => {
       {/* Students Table */}
       {loading ? (
         <div className="flex items-center justify-center py-24">
-          <Loader2 className="w-8 h-8 animate-spin text-purple-400" />
+          <Loader2 className="w-8 h-8 animate-spin text-[#2D806B]" />
         </div>
       ) : (
         <StudentTable
@@ -263,4 +266,3 @@ export const StudentsPage = () => {
     </div>
   );
 };
-

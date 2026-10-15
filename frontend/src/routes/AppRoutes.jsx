@@ -16,6 +16,7 @@ import { ReviewsPage } from '../pages/admin/ReviewsPage';
 import { AuditLogsPage } from '../pages/admin/AuditLogsPage';
 import { StudentDashboard } from '../pages/student/StudentDashboard';
 import { StudentHistoryPage } from '../pages/student/StudentHistoryPage';
+import { ProfilePage } from '../pages/ProfilePage';
 import { LandingPage } from '../pages/LandingPage';
 
 export const AppRoutes = () => {
@@ -45,6 +46,7 @@ export const AppRoutes = () => {
           <Route path="/admin/tasks" element={<TasksPage />} />
           <Route path="/admin/reviews" element={<ReviewsPage />} />
           <Route path="/admin/audit-logs" element={<AuditLogsPage />} />
+          <Route path="/admin/profile" element={<ProfilePage />} />
         </Route>
       </Route>
 
@@ -53,6 +55,7 @@ export const AppRoutes = () => {
         <Route element={<StudentLayout />}>
           <Route path="/student" element={<StudentDashboard />} />
           <Route path="/student/history" element={<StudentHistoryPage />} />
+          <Route path="/student/profile" element={<ProfilePage />} />
         </Route>
       </Route>
 
