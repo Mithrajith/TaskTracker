@@ -22,24 +22,9 @@ export const StudentLayout = () => {
 
   const navItems = [
     { name: 'Dashboard', path: '/student', icon: LayoutDashboard, exact: true },
-    // { name: 'Current Task', path: '/student#current-task', icon: CheckSquare },
+    { name: 'Current Task', path: '/student/tasks', icon: CheckSquare },
     { name: 'Task History', path: '/student/history', icon: History },
   ];
-
-  const handleNavClick = (path) => {
-    if (path.includes('#')) {
-      navigate('/student');
-      setTimeout(() => {
-        const el = document.getElementById('current-task');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    }
-  };
-
-  // Force first-time users to set a permanent password and GitHub link on the profile page
-  if ((mustChangePassword || needsGithubSetup) && location.pathname !== '/student/profile') {
-    return <Navigate to="/student/profile" replace />;
-  }
 
   return (
     <div className="min-h-screen bg-[#FAF8F0] text-[#172E2A] flex flex-col md:flex-row antialiased selection:bg-[#064E45]/20 selection:text-[#064E45]">
@@ -67,22 +52,6 @@ export const StudentLayout = () => {
           <nav className="p-4 space-y-2">
             {navItems.map((item) => {
               const Icon = item.icon;
-              const isHashLink = item.path.includes('#');
-
-              if (isHashLink) {
-                return (
-                  <button
-                    key={item.path}
-                    type="button"
-                    onClick={() => handleNavClick(item.path)}
-                    className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-[#71817B] hover:text-[#064E45] hover:bg-[#E0F3E8] transition-all text-left"
-                  >
-                    <Icon className="w-4 h-4 shrink-0 text-[#064E45]" />
-                    <span>{item.name}</span>
-                  </button>
-                );
-              }
-
               return (
                 <NavLink
                   key={item.path}
@@ -230,14 +199,17 @@ export const StudentLayout = () => {
           <span>Home</span>
         </NavLink>
 
-        <button
-          type="button"
-          onClick={() => handleNavClick('#current-task')}
-          className="flex flex-col items-center gap-1 py-1 px-3 rounded-xl text-[11px] font-bold text-[#71817B] hover:text-[#064E45]"
+        <NavLink
+          to="/student/tasks"
+          className={({ isActive }) =>
+            `flex flex-col items-center gap-1 py-1 px-3 rounded-xl text-[11px] font-bold transition-colors ${
+              isActive ? 'text-[#064E45] bg-[#FFA77E]' : 'text-[#71817B]'
+            }`
+          }
         >
           <CheckSquare className="w-4 h-4" />
           <span>Tasks</span>
-        </button>
+        </NavLink>
 
         <NavLink
           to="/student/history"

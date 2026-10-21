@@ -3,7 +3,7 @@ import StudentTask from '../models/StudentTask.js';
 import Submission from '../models/Submission.js';
 import TaskReview from '../models/TaskReview.js';
 import Task from '../models/Task.js';
-import { ROLES, ACCOUNT_STATUS, AUDIT_ACTIONS } from '../config/constants.js';
+import { ROLES, ACCOUNT_STATUS, AUDIT_ACTIONS, STUDENT_TASK_STATUS } from '../config/constants.js';
 import {
   getStudentProgressionStats,
   assignTaskToEligibleStudents,
@@ -507,6 +507,130 @@ export const importStudentsFromCSV = async (req, res, next) => {
         skipped,
         errors,
       },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const exportStudentsByTask = async (req, res, next) => {
+  try {
+    const taskNumber = parseInt(req.query.taskNumber || req.query.n || '1', 10);
+    const filter = (req.query.filter || 'all').toLowerCase(); // 'all' | 'done' | 'not_done'
+    const format = (req.query.format || 'json').toLowerCase(); // 'json' | 'csv'
+
+    // Find the task by taskNumber if it exists
+    const targetTask = await Task.findOne({ taskNumber });
+
+    // Fetch all active/existing students
+    const students = await User.find({ role: ROLES.STUDENT }).sort({ registerNumber: 1 });
+
+    const results = await Promise.all(
+      students.map(async (student) => {
+        let studentTask = null;
+        if (targetTask) {
+          studentTask = await StudentTask.findOne({
+            student: student._id,
+            task: targetTask._id,
+          });
+        }
+
+        const stats = await getStudentProgressionStats(student._id);
+
+        const isTaskApproved = studentTask?.status === STUDENT_TASK_STATUS.APPROVED;
+        const hasDone = isTaskApproved || stats.approvedTasksCount >= taskNumber;
+
+        let taskStatusLabel = 'Not Assigned';
+        if (studentTask) {
+          if (studentTask.status === STUDENT_TASK_STATUS.APPROVED) taskStatusLabel = 'Approved';
+          else if (studentTask.status === STUDENT_TASK_STATUS.SUBMITTED) taskStatusLabel = 'Submitted';
+          else if (studentTask.status === STUDENT_TASK_STATUS.CHANGES_REQUESTED) taskStatusLabel = 'Changes Requested';
+          else taskStatusLabel = 'In Progress';
+        } else if (stats.approvedTasksCount >= taskNumber) {
+          taskStatusLabel = 'Approved';
+        }
+
+        const currentTaskLabel = stats.currentTaskNumber > 0
+          ? `Task #${stats.currentTaskNumber}`
+          : 'None';
+
+        return {
+          id: student._id,
+          name: student.name,
+          registerNumber: student.registerNumber,
+          currentTask: currentTaskLabel,
+          currentTaskNumber: stats.currentTaskNumber,
+          currentTaskTitle: stats.currentTaskTitle,
+          currentTaskStatus: stats.currentTaskStatus,
+          taskStatus: taskStatusLabel,
+          hasDoneTask: hasDone,
+          githubRepoUrl: student.githubRepoUrl || '',
+          status: student.status,
+          approvedTasksCount: stats.approvedTasksCount,
+          assignedTasksCount: stats.assignedTasksCount,
+          approvedPercentage: stats.approvedPercentage,
+          lastActivityAt: student.lastActivityAt ? new Date(student.lastActivityAt).toISOString() : '',
+        };
+      })
+    );
+
+    // Apply filter
+    let filteredResults = results;
+    if (filter === 'done' || filter === 'completed') {
+      filteredResults = results.filter((r) => r.hasDoneTask);
+    } else if (filter === 'not_done' || filter === 'incomplete' || filter === 'pending') {
+      filteredResults = results.filter((r) => !r.hasDoneTask);
+    }
+
+    const summary = {
+      taskNumber,
+      taskTitle: targetTask?.title || `Task #${taskNumber}`,
+      totalStudents: students.length,
+      doneCount: results.filter((r) => r.hasDoneTask).length,
+      notDoneCount: results.filter((r) => !r.hasDoneTask).length,
+      filter,
+      filteredCount: filteredResults.length,
+    };
+
+    if (format === 'csv' || req.query.download === 'true') {
+      const headers = [
+        'Student',
+        'Register No',
+        'Current Task',
+        'Task Status',
+      ];
+
+      const escapeCsv = (val) => {
+        if (val === null || val === undefined) return '""';
+        const str = String(val).replace(/"/g, '""');
+        return `"${str}"`;
+      };
+
+      const csvRows = [headers.join(',')];
+      for (const row of filteredResults) {
+        csvRows.push(
+          [
+            escapeCsv(row.name),
+            escapeCsv(row.registerNumber),
+            escapeCsv(row.currentTask),
+            escapeCsv(row.taskStatus),
+          ].join(',')
+        );
+      }
+
+      const csvData = csvRows.join('\r\n');
+      res.setHeader('Content-Type', 'text/csv; charset=utf-8');
+      res.setHeader(
+        'Content-Disposition',
+        `attachment; filename="students_task_${taskNumber}_${filter}.csv"`
+      );
+      return res.status(200).send(csvData);
+    }
+
+    return res.json({
+      success: true,
+      summary,
+      data: filteredResults,
     });
   } catch (error) {
     next(error);

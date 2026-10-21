@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
 import apiClient from '../../api/client';
@@ -19,6 +20,8 @@ import {
   UploadCloud,
   MessageSquare,
   TrendingUp,
+  ShieldAlert,
+  ArrowRight,
 } from 'lucide-react';
 import { Github } from '../../components/common/Icons';
 
@@ -63,8 +66,9 @@ const CircularProgress = ({ percentage = 0, size = 148, stroke = 14 }) => {
 };
 
 export const StudentDashboard = () => {
-  const { user, refreshUser } = useAuth();
+  const { user, refreshUser, mustChangePassword, needsGithubSetup } = useAuth();
   const { success, error } = useToast();
+  const location = useLocation();
 
   const [assignedTasks, setAssignedTasks] = useState([]);
   const [lockedTasks, setLockedTasks] = useState([]);
@@ -86,8 +90,17 @@ export const StudentDashboard = () => {
         setStats(res.data.data.stats || null);
       }
     } catch (err) {
-      console.error('Failed to load student dashboard:', err);
-      error('Failed to load your assigned tasks');
+      if (
+        err.response?.status === 403 &&
+        (err.response?.data?.requirePasswordChange || err.response?.data?.requireProfileCompletion)
+      ) {
+        // First login setup required - display gracefully without throwing error toast
+        setAssignedTasks([]);
+        setLockedTasks([]);
+      } else {
+        console.error('Failed to load student dashboard:', err);
+        error('Failed to load your assigned tasks');
+      }
     } finally {
       setLoading(false);
     }
@@ -96,6 +109,17 @@ export const StudentDashboard = () => {
   useEffect(() => {
     fetchStudentData();
   }, []);
+
+  useEffect(() => {
+    if (location.pathname === '/student/tasks' || location.hash === '#current-task') {
+      const el = document.getElementById('current-task');
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 150);
+      }
+    }
+  }, [location.pathname, location.hash, loading]);
 
   const handleSubmitWork = async ({
     studentTaskId,
@@ -222,6 +246,34 @@ export const StudentDashboard = () => {
 
   return (
     <div className="space-y-8 max-w-5xl mx-auto">
+      {/* First-time setup notice if password or github repo needs setting */}
+      {(mustChangePassword || needsGithubSetup) && (
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-3xl bg-[#FFF8EA] border border-[#FCE6BD] shadow-sm animate-fade-in">
+          <div className="flex items-start gap-3.5">
+            <ShieldAlert className="w-5 h-5 text-[#F3B74F] shrink-0 mt-0.5" />
+            <div>
+              <h3 className="text-sm font-bold text-[#172E2A]">
+                First-time setup required
+              </h3>
+              <p className="text-xs text-[#71817B] mt-0.5">
+                {mustChangePassword && needsGithubSetup
+                  ? 'Please set a permanent password and link your GitHub repository to enable task submissions.'
+                  : mustChangePassword
+                  ? 'Please update your temporary password to secure your account.'
+                  : 'Please add your GitHub repository link in your profile to enable task submissions.'}
+              </p>
+            </div>
+          </div>
+          <Link
+            to="/student/profile"
+            className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white bg-[#064E45] hover:bg-[#053d36] transition-all shrink-0 shadow-sm"
+          >
+            <span>Complete Profile</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+      )}
+
       {/* Welcome Section */}
       <div className="bg-[#EAF7EF] border border-[#DDE8DF] rounded-3xl p-6 sm:p-8 relative overflow-hidden">
         <div className="absolute -right-10 -top-10 w-56 h-56 rounded-full bg-[#E0F3E8] pointer-events-none" />

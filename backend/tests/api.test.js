@@ -33,8 +33,10 @@ const validPngBuffer = Buffer.from([
 describe('AI Engineer Task Tracker API Tests', () => {
   before(async () => {
     await connectDB();
+    await Task.deleteMany({});
+    await StudentTask.deleteMany({});
     // Create dedicated test students
-    await User.deleteMany({ registerNumber: /^TEST_SUITE_/ });
+    await User.deleteMany({ registerNumber: /^TEST_/ });
     await User.create({
       name: 'Test Student One',
       registerNumber: 'TEST_SUITE_001',
@@ -440,5 +442,52 @@ describe('AI Engineer Task Tracker API Tests', () => {
       .set('Authorization', `Bearer ${token}`);
 
     assert.equal(afterRes.status, 200);
+  });
+
+  test('19. Admin Export Students: Exports students who done task N and who didn\'t (JSON & CSV)', async () => {
+    // Student cannot access export
+    const studentBlocked = await request(app)
+      .get('/api/v1/students/export?taskNumber=1')
+      .set('Authorization', `Bearer ${student1Token}`);
+    assert.equal(studentBlocked.status, 403);
+
+    // Admin can export JSON
+    const jsonRes = await request(app)
+      .get('/api/v1/students/export?taskNumber=1&format=json')
+      .set('Authorization', `Bearer ${adminToken}`);
+
+    assert.equal(jsonRes.status, 200);
+    assert.equal(jsonRes.body.success, true);
+    assert.ok(jsonRes.body.summary);
+    assert.equal(jsonRes.body.summary.taskNumber, 1);
+    assert.ok(Array.isArray(jsonRes.body.data));
+    assert.ok(typeof jsonRes.body.summary.doneCount === 'number');
+    assert.ok(typeof jsonRes.body.summary.notDoneCount === 'number');
+
+    // Admin can filter by "done"
+    const doneRes = await request(app)
+      .get('/api/v1/students/export?taskNumber=1&filter=done&format=json')
+      .set('Authorization', `Bearer ${adminToken}`);
+    assert.equal(doneRes.status, 200);
+    assert.ok(doneRes.body.data.every((s) => s.hasDoneTask === true));
+
+    // Admin can filter by "not_done"
+    const notDoneRes = await request(app)
+      .get('/api/v1/students/export?taskNumber=1&filter=not_done&format=json')
+      .set('Authorization', `Bearer ${adminToken}`);
+    assert.equal(notDoneRes.status, 200);
+    assert.ok(notDoneRes.body.data.every((s) => s.hasDoneTask === false));
+
+    // Admin can export as CSV
+    const csvRes = await request(app)
+      .get('/api/v1/students/export?taskNumber=1&format=csv')
+      .set('Authorization', `Bearer ${adminToken}`);
+
+    assert.equal(csvRes.status, 200);
+    assert.match(csvRes.headers['content-type'], /text\/csv/);
+    assert.match(csvRes.text, /Student/);
+    assert.match(csvRes.text, /Register No/);
+    assert.match(csvRes.text, /Current Task/);
+    assert.match(csvRes.text, /Task Status/);
   });
 });

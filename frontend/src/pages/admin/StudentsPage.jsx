@@ -5,6 +5,7 @@ import { StudentTable } from '../../components/admin/StudentTable';
 import { CreateStudentModal } from '../../components/admin/CreateStudentModal';
 import { EditStudentModal } from '../../components/admin/EditStudentModal';
 import { ResetPasswordModal } from '../../components/admin/ResetPasswordModal';
+import { ExportStudentsModal } from '../../components/admin/ExportStudentsModal';
 import { ConfirmationModal } from '../../components/common/ConfirmationModal';
 import { ImageModal } from '../../components/common/ImageModal';
 import { useToast } from '../../context/ToastContext';
@@ -12,6 +13,7 @@ import {
   Users,
   UserPlus,
   UploadCloud,
+  Download,
   Search,
   Filter,
   Loader2,
@@ -32,6 +34,7 @@ export const StudentsPage = () => {
 
   // Modals state
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showExportModal, setShowExportModal] = useState(false);
   const [editStudent, setEditStudent] = useState(null);
   const [resetPassStudent, setResetPassStudent] = useState(null);
   const [toggleStudent, setToggleStudent] = useState(null);
@@ -121,10 +124,18 @@ export const StudentsPage = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-2 self-start sm:self-auto">
+        <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
+          <button
+            onClick={() => setShowExportModal(true)}
+            className="px-4 py-2.5 rounded-xl bg-white hover:bg-[#EAF7EF] text-[#064E45] border border-[#DDE8DF] font-bold text-xs transition-all flex items-center gap-2 shadow-sm cursor-pointer"
+          >
+            <Download className="w-4 h-4 text-[#064E45]" />
+            <span>Export by Task</span>
+          </button>
+
           <button
             onClick={() => navigate('/admin/students/import')}
-            className="px-4 py-2.5 rounded-xl bg-white hover:bg-[#EAF7EF] text-[#064E45] border border-[#DDE8DF] font-bold text-xs transition-all flex items-center gap-2 shadow-sm"
+            className="px-4 py-2.5 rounded-xl bg-white hover:bg-[#EAF7EF] text-[#064E45] border border-[#DDE8DF] font-bold text-xs transition-all flex items-center gap-2 shadow-sm cursor-pointer"
           >
             <UploadCloud className="w-4 h-4 text-[#064E45]" />
             <span>Import CSV</span>
@@ -132,7 +143,7 @@ export const StudentsPage = () => {
 
           <button
             onClick={() => setShowCreateModal(true)}
-            className="px-4 py-2.5 rounded-xl bg-[#064E45] hover:bg-[#053d36] text-white font-bold text-xs transition-all flex items-center gap-2 shadow-sm"
+            className="px-4 py-2.5 rounded-xl bg-[#064E45] hover:bg-[#053d36] text-white font-bold text-xs transition-all flex items-center gap-2 shadow-sm cursor-pointer"
           >
             <UserPlus className="w-4 h-4" />
             <span>New Student</span>
@@ -257,6 +268,11 @@ export const StudentsPage = () => {
           loading={deleteLoading}
         />
       )}
+
+      <ExportStudentsModal
+        isOpen={showExportModal}
+        onClose={() => setShowExportModal(false)}
+      />
 
       <ImageModal
         isOpen={!!zoomImageId}

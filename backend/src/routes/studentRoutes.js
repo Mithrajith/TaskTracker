@@ -8,6 +8,7 @@ import {
   toggleStudentStatus,
   deleteStudent,
   importStudentsFromCSV,
+  exportStudentsByTask,
 } from '../controllers/studentController.js';
 import { authenticate, requireRole, requirePasswordChanged } from '../middleware/auth.js';
 import { uploadCsv } from '../middleware/upload.js';
@@ -30,6 +31,7 @@ router.put('/:id', requireRole(ROLES.ADMIN), updateStudent);
 router.delete('/:id', requireRole(ROLES.ADMIN), deleteStudent);
 router.post('/:id/reset-password', requireRole(ROLES.ADMIN), resetPassword);
 router.patch('/:id/toggle-status', requireRole(ROLES.ADMIN), toggleStudentStatus);
+router.get('/export', requireRole(ROLES.ADMIN), exportStudentsByTask);
 
 // Student or Admin can view student profile by ID
 router.get('/:id', requirePasswordChanged, getStudentById);

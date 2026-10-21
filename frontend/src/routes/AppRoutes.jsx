@@ -70,6 +70,8 @@ export const AppRoutes = () => {
       <Route element={<ProtectedRoute allowedRoles={['student']} />}>
         <Route element={<StudentLayout />}>
           <Route path="/student" element={<StudentDashboard />} />
+          <Route path="/student/dashboard" element={<Navigate to="/student" replace />} />
+          <Route path="/student/tasks" element={<StudentDashboard />} />
           <Route path="/student/history" element={<StudentHistoryPage />} />
           <Route path="/student/profile" element={<ProfilePage />} />
         </Route>
