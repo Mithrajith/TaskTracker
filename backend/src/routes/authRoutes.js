@@ -1,6 +1,7 @@
 import express from 'express';
 import {
   login,
+  register,
   changePassword,
   updateProfile,
   getMe,
@@ -11,6 +12,7 @@ import { loginLimiter } from '../middleware/rateLimiter.js';
 
 const router = express.Router();
 
+router.post('/register', register); // public – student self-registration
 router.post('/login', loginLimiter, login);
 router.post('/change-password', authenticate, changePassword);
 router.patch('/profile', authenticate, updateProfile);

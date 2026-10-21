@@ -73,67 +73,67 @@ export const EditTaskModal = ({ isOpen, onClose, task, onUpdated }) => {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-xs font-bold text-[#233DFF] mb-1.5">Task Title</label>
+          <label className="block text-xs font-bold text-[#064E45] mb-1.5">Task Title</label>
           <div className="relative">
-            <BookOpen className="w-4 h-4 absolute left-3 top-3 text-[#233DFF]" />
+            <BookOpen className="w-4 h-4 absolute left-3 top-3 text-[#064E45]" />
             <input
               type="text"
               required
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 bg-[#F5F0E8] border border-[#D6CEC1] rounded-xl text-sm text-[#242424] placeholder-[#9A9890] focus:outline-none focus:ring-2 focus:ring-[#233DFF]/30 focus:border-[#233DFF]"
+              className="w-full pl-9 pr-3 py-2 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-sm text-[#172E2A] placeholder-[#71817B]/60 focus:outline-none focus:ring-2 focus:ring-[#064E45]/20 focus:border-[#064E45]"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-[#233DFF] mb-1.5">Description</label>
+          <label className="block text-xs font-bold text-[#064E45] mb-1.5">Description</label>
           <textarea
             rows={2}
             required
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full p-3 bg-[#F5F0E8] border border-[#D6CEC1] rounded-xl text-sm text-[#242424] placeholder-[#9A9890] focus:outline-none focus:ring-2 focus:ring-[#233DFF]/30 focus:border-[#233DFF] leading-relaxed"
+            className="w-full p-3 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-sm text-[#172E2A] placeholder-[#71817B]/60 focus:outline-none focus:ring-2 focus:ring-[#064E45]/20 focus:border-[#064E45] leading-relaxed"
           />
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-[#233DFF] mb-1.5">Instructions</label>
+          <label className="block text-xs font-bold text-[#064E45] mb-1.5">Instructions</label>
           <textarea
             rows={4}
             required
             value={instructions}
             onChange={(e) => setInstructions(e.target.value)}
-            className="w-full p-3 bg-[#F5F0E8] border border-[#D6CEC1] rounded-xl text-xs font-mono text-[#242424] placeholder-[#9A9890] focus:outline-none focus:ring-2 focus:ring-[#233DFF]/30 focus:border-[#233DFF] leading-relaxed"
+            className="w-full p-3 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-xs font-mono text-[#172E2A] placeholder-[#71817B]/60 focus:outline-none focus:ring-2 focus:ring-[#064E45]/20 focus:border-[#064E45] leading-relaxed"
           />
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-[#233DFF] mb-1.5">Deadline</label>
+          <label className="block text-xs font-bold text-[#064E45] mb-1.5">Deadline</label>
           <div className="relative">
-            <Calendar className="w-4 h-4 absolute left-3 top-3 text-[#233DFF]" />
+            <Calendar className="w-4 h-4 absolute left-3 top-3 text-[#064E45]" />
             <input
               type="date"
               value={deadline}
               onChange={(e) => setDeadline(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 bg-[#F5F0E8] border border-[#D6CEC1] rounded-xl text-sm text-[#242424] focus:outline-none focus:ring-2 focus:ring-[#233DFF]/30 focus:border-[#233DFF]"
+              className="w-full pl-9 pr-3 py-2 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-sm text-[#172E2A] focus:outline-none focus:ring-2 focus:ring-[#064E45]/20 focus:border-[#064E45]"
             />
           </div>
         </div>
 
-        <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#D6CEC1]">
+        <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#DDE8DF]">
           <button
             type="button"
             onClick={onClose}
             disabled={loading}
-            className="px-4 py-2 rounded-xl text-sm font-bold text-[#77766F] hover:text-[#233DFF] hover:bg-[#E5DED2] transition-colors"
+            className="px-4 py-2 rounded-xl text-sm font-bold text-[#71817B] hover:text-[#064E45] hover:bg-[#EAF7EF] transition-colors"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={loading}
-            className={`px-5 py-2 rounded-xl text-sm font-bold text-white bg-[#233DFF] hover:bg-[#1B2FCC] transition-all ${
+            className={`px-5 py-2 rounded-xl text-sm font-bold text-white bg-[#064E45] hover:bg-[#053d36] transition-all shadow-sm ${
               loading ? 'opacity-50 cursor-not-allowed' : ''
             }`}
           >

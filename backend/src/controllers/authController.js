@@ -4,6 +4,103 @@ import { ROLES, ACCOUNT_STATUS, AUDIT_ACTIONS } from '../config/constants.js';
 import { getStudentProgressionStats } from '../services/progressionService.js';
 import { logAudit } from '../utils/auditLogger.js';
 
+// ─── Student self-registration ────────────────────────────────────────────────
+export const register = async (req, res, next) => {
+  try {
+    const { name, registerNumber, githubRepoUrl, password } = req.body;
+
+    // Validate required fields
+    if (!name || !registerNumber || !password) {
+      return res.status(400).json({
+        success: false,
+        message: 'Name, register number, and password are required',
+      });
+    }
+
+    if (password.length < 6) {
+      return res.status(400).json({
+        success: false,
+        message: 'Password must be at least 6 characters long',
+      });
+    }
+
+    // Check for duplicate register number
+    const existing = await User.findOne({
+      registerNumber: registerNumber.trim().toUpperCase(),
+    });
+    if (existing) {
+      return res.status(409).json({
+        success: false,
+        message: 'A student with this register number already exists',
+      });
+    }
+
+    // Validate GitHub URL if provided
+    let cleanGithub = (githubRepoUrl || '').trim();
+    if (cleanGithub) {
+      if (!cleanGithub.startsWith('http://') && !cleanGithub.startsWith('https://')) {
+        cleanGithub = `https://github.com/${cleanGithub.replace(/^@/, '').replace(/^github\.com\//, '')}`;
+      }
+      let parsed;
+      try {
+        parsed = new URL(cleanGithub);
+      } catch {
+        return res.status(400).json({
+          success: false,
+          message: 'Please provide a valid GitHub URL',
+        });
+      }
+      const isGithub = /(^|\.)github\.com$/i.test(parsed.hostname);
+      if (!['http:', 'https:'].includes(parsed.protocol) || !isGithub) {
+        return res.status(400).json({
+          success: false,
+          message: 'GitHub URL must be a valid github.com link',
+        });
+      }
+    }
+
+    // Create the student account
+    const user = await User.create({
+      name: name.trim(),
+      registerNumber: registerNumber.trim().toUpperCase(),
+      githubRepoUrl: cleanGithub,
+      password,
+      role: ROLES.STUDENT,
+      status: ACCOUNT_STATUS.ACTIVE,
+      mustChangePassword: false,
+      mustSetGithub: !cleanGithub,
+    });
+
+    await logAudit({
+      actorId: user._id,
+      action: AUDIT_ACTIONS.USER_CREATED,
+      resourceType: 'User',
+      resourceId: user._id,
+      metadata: { registerNumber: user.registerNumber, selfRegistered: true },
+    });
+
+    const token = generateToken(user);
+    const stats = await getStudentProgressionStats(user._id);
+
+    return res.status(201).json({
+      success: true,
+      token,
+      user: {
+        _id: user._id,
+        name: user.name,
+        registerNumber: user.registerNumber,
+        githubRepoUrl: user.githubRepoUrl,
+        role: user.role,
+        mustChangePassword: user.mustChangePassword,
+        mustSetGithub: user.mustSetGithub,
+        stats,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const generateToken = (user) => {
   const secret = process.env.JWT_SECRET || 'dev_jwt_secret_task_tracker_secure_2026_xyz';
   const expiresIn = process.env.JWT_EXPIRES_IN || '7d';

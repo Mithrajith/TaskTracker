@@ -31,18 +31,18 @@ export const ToastProvider = ({ children }) => {
       {children}
       <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2 max-w-md w-full px-4 pointer-events-none">
         {toasts.map((toast) => {
-          let bgClass = 'bg-white border-[#D6CEC1] text-[#242424]';
-          let icon = <Info className="w-5 h-5 text-[#233DFF] shrink-0" />;
+          let bgClass = 'bg-white border-[#DDE8DF] text-[#172E2A] shadow-md';
+          let icon = <Info className="w-5 h-5 text-[#064E45] shrink-0" />;
 
           if (toast.type === 'success') {
-            bgClass = 'bg-[#E5DED2] border-[#D6CEC1] text-[#233DFF]';
+            bgClass = 'bg-[#EAF7EF] border-[#DDE8DF] text-[#064E45] shadow-md';
             icon = <CheckCircle2 className="w-5 h-5 text-[#2D9B70] shrink-0" />;
           } else if (toast.type === 'error') {
-            bgClass = 'bg-[#FFF0ED] border-[#FAD3CC] text-[#E86A5B]';
+            bgClass = 'bg-[#FFF0ED] border-[#FAD3CC] text-[#E86A5B] shadow-md';
             icon = <AlertCircle className="w-5 h-5 text-[#E86A5B] shrink-0" />;
           } else if (toast.type === 'warning') {
-            bgClass = 'bg-[#FFF8EA] border-[#FCE6BD] text-[#A86B0F]';
-            icon = <AlertTriangle className="w-5 h-5 text-[#D88918] shrink-0" />;
+            bgClass = 'bg-[#FFF8EA] border-[#FCE6BD] text-[#A86B0F] shadow-md';
+            icon = <AlertTriangle className="w-5 h-5 text-[#F3B74F] shrink-0" />;
           }
 
           return (
@@ -56,7 +56,7 @@ export const ToastProvider = ({ children }) => {
               </div>
               <button
                 onClick={() => removeToast(toast.id)}
-                className="opacity-70 hover:opacity-100 transition-opacity p-0.5 rounded"
+                className="opacity-70 hover:opacity-100 transition-opacity p-0.5 rounded text-current"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -75,4 +75,3 @@ export const useToast = () => {
   }
   return context;
 };
-

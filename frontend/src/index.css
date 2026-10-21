@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #F5F0E8;
-  --foreground: #242424;
-  --primary: #233DFF;
-  --surface: #E5DED2;
-  --muted: #77766F;
-  --border: #D6CEC1;
+  --background: #FAF8F0;
+  --foreground: #172E2A;
+  --primary: #064E45;
+  --surface: #EAF7EF;
+  --muted: #71817B;
+  --border: #DDE8DF;
 
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: "IBM Plex Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -16,18 +16,19 @@
 }
 
 @theme {
-  --color-primary: #233DFF;
-  --color-primary-dark: #233DFF;
-  --color-primary-hover: #1B2FCC;
-  --color-secondary-green: #233DFF;
-  --color-mint-bg: #EDE7DB;
-  --color-mint-card: #E5DED2;
-  --color-accent-green: #233DFF;
-  --color-surface: #E5DED2;
-  --color-cream-bg: #F5F0E8;
-  --color-main-text: #242424;
-  --color-secondary-text: #77766F;
-  --color-border-subtle: #D6CEC1;
+  --color-primary: #064E45;
+  --color-primary-dark: #043831;
+  --color-primary-hover: #053d36;
+  --color-secondary-green: #2D806B;
+  --color-mint-bg: #E0F3E8;
+  --color-mint-card: #EAF7EF;
+  --color-peach-accent: #FFA77E;
+  --color-accent-green: #2D806B;
+  --color-surface: #EAF7EF;
+  --color-cream-bg: #FAF8F0;
+  --color-main-text: #172E2A;
+  --color-secondary-text: #71817B;
+  --color-border-subtle: #DDE8DF;
   --color-success-green: #2D9B70;
   --color-warning-amber: #F3B74F;
   --color-error-rose: #E86A5B;
@@ -44,7 +45,7 @@
 }
 
 ::selection {
-  background: var(--primary);
+  background: #064E45;
   color: #FFFFFF;
 }
 
@@ -54,12 +55,12 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #E5DED2;
+  background: #EAF7EF;
 }
 ::-webkit-scrollbar-thumb {
-  background: #D6CEC1;
+  background: #DDE8DF;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #233DFF;
+  background: #2D806B;
 }

@@ -36,7 +36,7 @@ const CircularProgress = ({ percentage = 0, size = 148, stroke = 14 }) => {
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="#D6CEC1"
+          stroke="#DDE8DF"
           strokeWidth={stroke}
         />
         <circle
@@ -53,8 +53,8 @@ const CircularProgress = ({ percentage = 0, size = 148, stroke = 14 }) => {
         />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-3xl font-black text-[#233DFF]">{clamped}%</span>
-        <span className="text-[10px] font-bold uppercase tracking-wider text-[#77766F]">
+        <span className="text-3xl font-black text-[#064E45]">{clamped}%</span>
+        <span className="text-[10px] font-bold uppercase tracking-wider text-[#71817B]">
           Complete
         </span>
       </div>
@@ -145,7 +145,7 @@ export const StudentDashboard = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="w-8 h-8 animate-spin text-[#233DFF]" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#064E45]" />
       </div>
     );
   }
@@ -198,49 +198,49 @@ export const StudentDashboard = () => {
       label: 'Total Tasks',
       value: totalTasks,
       icon: BookOpen,
-      tone: 'bg-[#E5DED2] text-[#233DFF] border-[#D6CEC1]',
+      tone: 'bg-[#EAF7EF] text-[#064E45] border-[#DDE8DF]',
     },
     {
       label: 'Approved Tasks',
       value: approvedCount,
       icon: CheckCircle2,
-      tone: 'bg-[#E5DED2] text-[#2D9B70] border-[#D6CEC1]',
+      tone: 'bg-[#EAF7EF] text-[#2D9B70] border-[#DDE8DF]',
     },
     {
       label: 'In Progress',
       value: inProgressCount,
       icon: TrendingUp,
-      tone: 'bg-[#E5DED2] text-[#233DFF] border-[#D6CEC1]',
+      tone: 'bg-[#EAF7EF] text-[#2D806B] border-[#DDE8DF]',
     },
     {
       label: 'Pending Review',
       value: pendingReviewCount,
       icon: Clock,
-      tone: 'bg-[#FFF8EA] text-[#D88918] border-[#FCE6BD]',
+      tone: 'bg-[#FFF8EA] text-[#F3B74F] border-[#FCE6BD]',
     },
   ];
 
   return (
     <div className="space-y-8 max-w-5xl mx-auto">
       {/* Welcome Section */}
-      <div className="bg-[#E5DED2] border border-[#D6CEC1] rounded-3xl p-6 sm:p-8 relative overflow-hidden">
-        <div className="absolute -right-10 -top-10 w-56 h-56 rounded-full bg-[#EDE7DB] pointer-events-none" />
+      <div className="bg-[#EAF7EF] border border-[#DDE8DF] rounded-3xl p-6 sm:p-8 relative overflow-hidden">
+        <div className="absolute -right-10 -top-10 w-56 h-56 rounded-full bg-[#E0F3E8] pointer-events-none" />
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#D6CEC1] text-[#233DFF] text-xs font-bold uppercase tracking-wider mb-3">
-              <Sparkles className="w-3.5 h-3.5 text-[#233DFF]" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#DDE8DF] text-[#064E45] text-xs font-bold uppercase tracking-wider mb-3">
+              <Sparkles className="w-3.5 h-3.5 text-[#064E45]" />
               <span>AI Engineer In-Training</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#233DFF] tracking-tight">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#064E45] tracking-tight">
               Welcome back, {user?.name?.split(' ')[0] || 'Engineer'}!
             </h1>
-            <p className="text-sm text-[#77766F] mt-1.5 max-w-xl">
+            <p className="text-sm text-[#71817B] mt-1.5 max-w-xl">
               Stay consistent — every approved task brings you one step closer to your goal.
               Let's get today's work done.
             </p>
-            <p className="text-xs text-[#77766F] mt-3">
+            <p className="text-xs text-[#71817B] mt-3">
               Register No:{' '}
-              <span className="font-mono font-semibold text-[#233DFF]">
+              <span className="font-mono font-semibold text-[#064E45]">
                 {user?.registerNumber}
               </span>
               {user?.githubRepoUrl && (
@@ -248,7 +248,7 @@ export const StudentDashboard = () => {
                   href={user.githubRepoUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="ml-3 inline-flex items-center gap-1 text-[#233DFF] hover:underline font-semibold"
+                  className="ml-3 inline-flex items-center gap-1 text-[#064E45] hover:underline font-semibold"
                 >
                   <Github className="w-3.5 h-3.5" />
                   <span>Repository</span>
@@ -258,15 +258,15 @@ export const StudentDashboard = () => {
           </div>
 
           {/* Current task summary card */}
-          <div className="flex items-center gap-3 bg-white p-3.5 rounded-2xl border border-[#D6CEC1] shrink-0">
-            <div className="w-12 h-12 rounded-xl bg-[#233DFF] flex items-center justify-center text-white font-black text-lg">
+          <div className="flex items-center gap-3 bg-white p-3.5 rounded-2xl border border-[#DDE8DF] shrink-0 shadow-sm">
+            <div className="w-12 h-12 rounded-xl bg-[#064E45] flex items-center justify-center text-white font-black text-lg">
               {stats?.currentTaskNumber > 0 ? `#${stats.currentTaskNumber}` : '0'}
             </div>
             <div className="min-w-0">
-              <span className="text-[10px] uppercase font-bold text-[#77766F] block">
+              <span className="text-[10px] uppercase font-bold text-[#71817B] block">
                 Current Task
               </span>
-              <span className="text-sm font-bold text-[#233DFF] block truncate max-w-[190px]">
+              <span className="text-sm font-bold text-[#064E45] block truncate max-w-[190px]">
                 {stats?.currentTaskTitle ||
                   (stats?.currentTaskNumber > 0
                     ? `Task ${stats.currentTaskNumber}`
@@ -289,7 +289,7 @@ export const StudentDashboard = () => {
           return (
             <Card key={card.label} className="p-4" variant="white">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-[#77766F]">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#71817B]">
                   {card.label}
                 </span>
                 <span
@@ -298,7 +298,7 @@ export const StudentDashboard = () => {
                   <Icon className="w-4 h-4" />
                 </span>
               </div>
-              <div className="mt-3 text-2xl font-black text-[#233DFF]">{card.value}</div>
+              <div className="mt-3 text-2xl font-black text-[#064E45]">{card.value}</div>
             </Card>
           );
         })}
@@ -308,12 +308,12 @@ export const StudentDashboard = () => {
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         <div className="xl:col-span-2 space-y-4" id="current-task">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-extrabold text-[#233DFF] flex items-center gap-2">
-              <BookOpen className="w-5 h-5 text-[#233DFF]" />
+            <h2 className="text-lg font-extrabold text-[#064E45] flex items-center gap-2">
+              <BookOpen className="w-5 h-5 text-[#064E45]" />
               <span>Current Practical Task</span>
             </h2>
             {currentTask && (
-              <span className="text-xs font-semibold text-[#77766F]">
+              <span className="text-xs font-semibold text-[#71817B]">
                 Task #{currentTask.task?.taskNumber} of roadmap
               </span>
             )}
@@ -328,12 +328,12 @@ export const StudentDashboard = () => {
               uploadProgress={uploadProgress}
             />
           ) : (
-            <Card className="text-center py-12 border-dashed border-[#D6CEC1] bg-[#E5DED2]/50">
-              <Sparkles className="w-10 h-10 text-[#233DFF] mx-auto mb-3" />
-              <h3 className="text-base font-bold text-[#233DFF]">
+            <Card className="text-center py-12 border-dashed border-[#DDE8DF] bg-[#EAF7EF]/50">
+              <Sparkles className="w-10 h-10 text-[#064E45] mx-auto mb-3" />
+              <h3 className="text-base font-bold text-[#064E45]">
                 You're at Task 0: Ready for Your First Assignment!
               </h3>
-              <p className="text-xs text-[#77766F] mt-1 max-w-md mx-auto">
+              <p className="text-xs text-[#71817B] mt-1 max-w-md mx-auto">
                 Your mentor will publish Task #1 soon. Once published, your practical assignment
                 will appear right here.
               </p>
@@ -343,8 +343,8 @@ export const StudentDashboard = () => {
 
         {/* Progress Overview */}
         <div className="space-y-4">
-          <h2 className="text-lg font-extrabold text-[#233DFF] flex items-center gap-2">
-            <Award className="w-5 h-5 text-[#233DFF]" />
+          <h2 className="text-lg font-extrabold text-[#064E45] flex items-center gap-2">
+            <Award className="w-5 h-5 text-[#064E45]" />
             <span>Progress Overview</span>
           </h2>
 
@@ -356,21 +356,21 @@ export const StudentDashboard = () => {
                   <span className="w-2.5 h-2.5 rounded-full bg-[#2D9B70]" />
                   Approved
                 </span>
-                <span className="text-[#233DFF]">{approvedCount}</span>
+                <span className="text-[#064E45] font-bold">{approvedCount}</span>
               </div>
               <div className="flex items-center justify-between text-xs font-semibold">
-                <span className="flex items-center gap-2 text-[#233DFF]">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#233DFF]" />
+                <span className="flex items-center gap-2 text-[#2D806B]">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#2D806B]" />
                   In Progress
                 </span>
-                <span className="text-[#233DFF]">{inProgressCount}</span>
+                <span className="text-[#064E45] font-bold">{inProgressCount}</span>
               </div>
               <div className="flex items-center justify-between text-xs font-semibold">
-                <span className="flex items-center gap-2 text-[#77766F]">
+                <span className="flex items-center gap-2 text-[#71817B]">
                   <span className="w-2.5 h-2.5 rounded-full bg-[#9A9890]" />
                   Locked
                 </span>
-                <span className="text-[#233DFF]">{lockedCount}</span>
+                <span className="text-[#064E45] font-bold">{lockedCount}</span>
               </div>
             </div>
           </Card>
@@ -379,14 +379,14 @@ export const StudentDashboard = () => {
 
       {/* Recent Activity */}
       <div className="space-y-4">
-        <h2 className="text-lg font-extrabold text-[#233DFF] flex items-center gap-2">
-          <Clock className="w-5 h-5 text-[#233DFF]" />
+        <h2 className="text-lg font-extrabold text-[#064E45] flex items-center gap-2">
+          <Clock className="w-5 h-5 text-[#064E45]" />
           <span>Recent Activity</span>
         </h2>
 
         <Card variant="white">
           {recentActivity.length === 0 ? (
-            <p className="text-sm text-[#77766F] text-center py-8">
+            <p className="text-sm text-[#71817B] text-center py-8">
               No activity yet. Submit your first task proof to see updates here.
             </p>
           ) : (
@@ -394,15 +394,15 @@ export const StudentDashboard = () => {
               {recentActivity.map((item) => {
                 const config =
                   item.type === 'approved'
-                    ? { icon: CheckCircle2, tone: 'bg-[#E5DED2] text-[#2D9B70] border-[#D6CEC1]' }
+                    ? { icon: CheckCircle2, tone: 'bg-[#EAF7EF] text-[#2D9B70] border-[#DDE8DF]' }
                     : item.type === 'changes'
                     ? { icon: MessageSquare, tone: 'bg-[#FFF0ED] text-[#E86A5B] border-[#FAD3CC]' }
-                    : { icon: UploadCloud, tone: 'bg-[#E5DED2] text-[#233DFF] border-[#D6CEC1]' };
+                    : { icon: UploadCloud, tone: 'bg-[#EAF7EF] text-[#064E45] border-[#DDE8DF]' };
                 const Icon = config.icon;
                 return (
                   <div
                     key={item.id}
-                    className="flex items-start gap-3 p-3.5 rounded-xl bg-[#F5F0E8] border border-[#D6CEC1]"
+                    className="flex items-start gap-3 p-3.5 rounded-xl bg-[#FAF8F0] border border-[#DDE8DF]"
                   >
                     <span
                       className={`w-9 h-9 rounded-xl border flex items-center justify-center shrink-0 ${config.tone}`}
@@ -410,14 +410,14 @@ export const StudentDashboard = () => {
                       <Icon className="w-4 h-4" />
                     </span>
                     <div className="min-w-0 flex-1">
-                      <p className="text-xs font-bold text-[#233DFF]">{item.title}</p>
+                      <p className="text-xs font-bold text-[#064E45]">{item.title}</p>
                       {item.detail && (
-                        <p className="text-[11px] text-[#77766F] line-clamp-2 mt-0.5">
+                        <p className="text-[11px] text-[#71817B] line-clamp-2 mt-0.5">
                           {item.detail}
                         </p>
                       )}
                     </div>
-                    <span className="text-[10px] text-[#77766F] whitespace-nowrap shrink-0">
+                    <span className="text-[10px] text-[#71817B] whitespace-nowrap shrink-0">
                       {new Date(item.date).toLocaleDateString()}
                     </span>
                   </div>
@@ -432,11 +432,11 @@ export const StudentDashboard = () => {
       {lockedTasks.length > 0 && (
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-extrabold text-[#233DFF] flex items-center gap-2">
-              <Lock className="w-5 h-5 text-[#77766F]" />
+            <h2 className="text-lg font-extrabold text-[#064E45] flex items-center gap-2">
+              <Lock className="w-5 h-5 text-[#71817B]" />
               <span>Upcoming Locked Tasks</span>
             </h2>
-            <span className="text-xs font-semibold text-[#77766F]">
+            <span className="text-xs font-semibold text-[#71817B]">
               {lockedTasks.length} locked
             </span>
           </div>
@@ -451,21 +451,21 @@ export const StudentDashboard = () => {
 
       {/* Previous Completed Tasks Highlights */}
       {previousApprovedTasks.length > 0 && (
-        <div className="space-y-3 pt-4 border-t border-[#D6CEC1]">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-[#77766F]">
+        <div className="space-y-3 pt-4 border-t border-[#DDE8DF]">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-[#71817B]">
             Previously Completed &amp; Approved Tasks ({previousApprovedTasks.length})
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {previousApprovedTasks.map((t) => (
               <div
                 key={t._id}
-                className="p-3.5 rounded-xl bg-[#E5DED2] border border-[#D6CEC1] flex items-center justify-between"
+                className="p-3.5 rounded-xl bg-[#EAF7EF] border border-[#DDE8DF] flex items-center justify-between"
               >
                 <div className="min-w-0">
                   <span className="text-xs font-bold text-[#2D9B70]">
                     Task #{t.task?.taskNumber}
                   </span>
-                  <p className="text-xs font-semibold text-[#233DFF] truncate max-w-xs">
+                  <p className="text-xs font-semibold text-[#064E45] truncate max-w-xs">
                     {t.task?.title}
                   </p>
                 </div>

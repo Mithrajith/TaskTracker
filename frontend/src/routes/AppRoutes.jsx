@@ -7,6 +7,7 @@ import { StudentLayout } from './StudentLayout';
 
 // Pages
 import { Login } from '../pages/Login';
+import { SignUp } from '../pages/SignUp';
 import { AdminDashboard } from '../pages/admin/AdminDashboard';
 import { StudentsPage } from '../pages/admin/StudentsPage';
 import { StudentDetailPage } from '../pages/admin/StudentDetailPage';
@@ -23,6 +24,7 @@ import { LandingPage } from '../pages/LandingPage';
 export const AppRoutes = () => {
   const { user, token } = useAuth();
 
+
   return (
     <Routes>
       {/* Public Login Route */}
@@ -33,6 +35,18 @@ export const AppRoutes = () => {
             <Navigate to={user.role === 'admin' ? '/admin' : '/student'} replace />
           ) : (
             <Login />
+          )
+        }
+      />
+
+      {/* Public Sign Up Route */}
+      <Route
+        path="/signup"
+        element={
+          token && user ? (
+            <Navigate to={user.role === 'admin' ? '/admin' : '/student'} replace />
+          ) : (
+            <SignUp />
           )
         }
       />

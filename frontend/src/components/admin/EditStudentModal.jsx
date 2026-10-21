@@ -71,64 +71,64 @@ export const EditStudentModal = ({ isOpen, onClose, student, onUpdated }) => {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-xs font-bold text-[#233DFF] mb-1.5">Full Name</label>
+          <label className="block text-xs font-bold text-[#064E45] mb-1.5">Full Name</label>
           <div className="relative">
-            <User className="w-4 h-4 absolute left-3 top-3 text-[#233DFF]" />
+            <User className="w-4 h-4 absolute left-3 top-3 text-[#064E45]" />
             <input
               type="text"
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 bg-[#F5F0E8] border border-[#D6CEC1] rounded-xl text-sm text-[#242424] placeholder-[#9A9890] focus:outline-none focus:ring-2 focus:ring-[#233DFF]/30 focus:border-[#233DFF]"
+              className="w-full pl-9 pr-3 py-2 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-sm text-[#172E2A] placeholder-[#71817B]/60 focus:outline-none focus:ring-2 focus:ring-[#064E45]/20 focus:border-[#064E45]"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-[#233DFF] mb-1.5">
+          <label className="block text-xs font-bold text-[#064E45] mb-1.5">
             GitHub Repository URL{' '}
-            <span className="text-[#77766F] font-medium">(optional)</span>
+            <span className="text-[#71817B] font-medium">(optional)</span>
           </label>
           <div className="relative">
-            <Github className="w-4 h-4 absolute left-3 top-3 text-[#233DFF]" />
+            <Github className="w-4 h-4 absolute left-3 top-3 text-[#064E45]" />
             <input
               type="url"
               value={githubRepoUrl}
               onChange={(e) => setGithubRepoUrl(e.target.value)}
               placeholder="https://github.com/..."
-              className="w-full pl-9 pr-3 py-2 bg-[#F5F0E8] border border-[#D6CEC1] rounded-xl text-sm text-[#242424] placeholder-[#9A9890] focus:outline-none focus:ring-2 focus:ring-[#233DFF]/30 focus:border-[#233DFF]"
+              className="w-full pl-9 pr-3 py-2 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-sm text-[#172E2A] placeholder-[#71817B]/60 focus:outline-none focus:ring-2 focus:ring-[#064E45]/20 focus:border-[#064E45]"
             />
           </div>
-          <span className="text-[10px] text-[#77766F] mt-1 block">
+          <span className="text-[10px] text-[#71817B] mt-1 block">
             Student can also add or update this from their profile page.
           </span>
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-[#233DFF] mb-1.5">Account Status</label>
+          <label className="block text-xs font-bold text-[#064E45] mb-1.5">Account Status</label>
           <select
             value={status}
             onChange={(e) => setStatus(e.target.value)}
-            className="w-full p-2.5 bg-[#F5F0E8] border border-[#D6CEC1] rounded-xl text-sm text-[#242424] focus:outline-none focus:ring-2 focus:ring-[#233DFF]/30 focus:border-[#233DFF]"
+            className="w-full p-2.5 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-sm text-[#172E2A] focus:outline-none focus:ring-2 focus:ring-[#064E45]/20 focus:border-[#064E45]"
           >
             <option value="active">Active (Can log in & submit tasks)</option>
             <option value="inactive">Deactivated (Access revoked)</option>
           </select>
         </div>
 
-        <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#D6CEC1]">
+        <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#DDE8DF]">
           <button
             type="button"
             onClick={onClose}
             disabled={loading}
-            className="px-4 py-2 rounded-xl text-sm font-bold text-[#77766F] hover:text-[#233DFF] hover:bg-[#E5DED2] transition-colors"
+            className="px-4 py-2 rounded-xl text-sm font-bold text-[#71817B] hover:text-[#064E45] hover:bg-[#EAF7EF] transition-colors"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={loading}
-            className={`px-5 py-2 rounded-xl text-sm font-bold text-white bg-[#233DFF] hover:bg-[#1B2FCC] transition-all ${
+            className={`px-5 py-2 rounded-xl text-sm font-bold text-white bg-[#064E45] hover:bg-[#053d36] transition-all shadow-sm ${
               loading ? 'opacity-50 cursor-not-allowed' : ''
             }`}
           >

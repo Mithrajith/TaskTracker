@@ -50,6 +50,25 @@ export const AuthProvider = ({ children }) => {
     throw new Error(res.data.message || 'Login failed');
   };
 
+  const register = async ({ name, registerNumber, githubRepoUrl, password }) => {
+    const res = await apiClient.post('/auth/register', {
+      name,
+      registerNumber,
+      githubRepoUrl,
+      password,
+    });
+
+    if (res.data.success) {
+      const { token: newToken, user: userData } = res.data;
+      setToken(newToken);
+      setUser(userData);
+      localStorage.setItem('token', newToken);
+      localStorage.setItem('user', JSON.stringify(userData));
+      return userData;
+    }
+    throw new Error(res.data.message || 'Registration failed');
+  };
+
   const logout = async () => {
     try {
       if (token) {
@@ -120,6 +139,7 @@ export const AuthProvider = ({ children }) => {
         token,
         loading,
         login,
+        register,
         logout,
         refreshUser,
         changePassword,

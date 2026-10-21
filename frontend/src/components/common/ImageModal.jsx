@@ -17,8 +17,6 @@ export const ImageModal = ({ isOpen, onClose, imgSrc, fileId, title = 'Proof Scr
     }
 
     if (fileId) {
-      // Reuse the cached blob if this proof was already loaded, so the
-      // enlarged view opens instantly without another network request.
       setLoading(true);
       setFailed(false);
       getCachedFileUrl(fileId)
@@ -49,22 +47,22 @@ export const ImageModal = ({ isOpen, onClose, imgSrc, fileId, title = 'Proof Scr
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#242424]/70 backdrop-blur-xs animate-fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#172E2A]/70 backdrop-blur-xs animate-fade-in"
       onClick={onClose}
     >
       <div
-        className="relative max-w-5xl max-h-[90vh] w-full bg-white border border-[#D6CEC1] rounded-2xl overflow-hidden flex flex-col"
+        className="relative max-w-5xl max-h-[90vh] w-full bg-white border border-[#DDE8DF] rounded-2xl overflow-hidden flex flex-col shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between px-5 py-3.5 border-b border-[#D6CEC1] bg-[#F5F0E8] shrink-0">
-          <span className="text-sm font-bold text-[#233DFF]">{title}</span>
+        <div className="flex items-center justify-between px-5 py-3.5 border-b border-[#DDE8DF] bg-[#FAF8F0] shrink-0">
+          <span className="text-sm font-bold text-[#064E45]">{title}</span>
           <div className="flex items-center gap-2">
             {resolvedSrc && (
               <a
                 href={resolvedSrc}
                 target="_blank"
                 rel="noreferrer"
-                className="p-1.5 rounded-lg text-[#77766F] hover:text-[#233DFF] hover:bg-[#E5DED2] transition-colors"
+                className="p-1.5 rounded-lg text-[#71817B] hover:text-[#064E45] hover:bg-[#EAF7EF] transition-colors"
                 title="Open full image in new tab"
               >
                 <ExternalLink className="w-4 h-4" />
@@ -72,21 +70,21 @@ export const ImageModal = ({ isOpen, onClose, imgSrc, fileId, title = 'Proof Scr
             )}
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg text-[#77766F] hover:text-[#242424] hover:bg-[#E5DED2] transition-colors"
+              className="p-1.5 rounded-lg text-[#71817B] hover:text-[#172E2A] hover:bg-[#EAF7EF] transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
         </div>
-        <div className="p-4 overflow-auto flex items-center justify-center bg-[#F1ECE2] max-h-[80vh] min-h-[200px]">
+        <div className="p-4 overflow-auto flex items-center justify-center bg-[#FAF8F0] max-h-[80vh] min-h-[200px]">
           {loading ? (
-            <div className="flex flex-col items-center justify-center py-16 text-[#77766F] gap-2">
-              <Loader2 className="w-7 h-7 animate-spin text-[#233DFF]" />
+            <div className="flex flex-col items-center justify-center py-16 text-[#71817B] gap-2">
+              <Loader2 className="w-7 h-7 animate-spin text-[#064E45]" />
               <span className="text-xs font-medium">Loading image...</span>
             </div>
           ) : failed || !resolvedSrc ? (
-            <div className="flex flex-col items-center justify-center py-16 text-[#77766F] gap-2">
-              <ImageOff className="w-8 h-8 text-[#9A9890]" />
+            <div className="flex flex-col items-center justify-center py-16 text-[#71817B] gap-2">
+              <ImageOff className="w-8 h-8 text-[#71817B]/60" />
               <span className="text-xs font-medium">Unable to load this image.</span>
             </div>
           ) : (

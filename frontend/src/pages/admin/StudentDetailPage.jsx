@@ -51,7 +51,7 @@ export const StudentDetailPage = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="w-8 h-8 animate-spin text-[#233DFF]" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#064E45]" />
       </div>
     );
   }
@@ -59,11 +59,11 @@ export const StudentDetailPage = () => {
   if (error || !studentData) {
     return (
       <div className="p-6 text-center text-[#E86A5B] bg-[#FFF0ED] border border-[#FAD3CC] rounded-2xl max-w-lg mx-auto">
-        <AlertCircle className="w-8 h-8 mx-auto mb-2" />
+        <AlertCircle className="w-8 h-8 mx-auto mb-2 text-[#E86A5B]" />
         <p>{error || 'Student not found'}</p>
         <Link
           to="/admin/students"
-          className="mt-4 inline-flex items-center gap-1.5 px-4 py-2 bg-[#233DFF] hover:bg-[#1B2FCC] text-xs font-bold rounded-xl text-white"
+          className="mt-4 inline-flex items-center gap-1.5 px-4 py-2 bg-[#064E45] hover:bg-[#053d36] text-xs font-bold rounded-xl text-white shadow-sm"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to Students</span>
@@ -73,7 +73,7 @@ export const StudentDetailPage = () => {
   }
 
   const { stats = {}, taskHistory = [] } = studentData;
-  const labelClass = 'text-[10px] font-bold uppercase tracking-wider text-[#77766F]';
+  const labelClass = 'text-[10px] font-bold uppercase tracking-wider text-[#71817B]';
 
   return (
     <div className="space-y-6">
@@ -81,7 +81,7 @@ export const StudentDetailPage = () => {
       <div>
         <Link
           to="/admin/students"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#77766F] hover:text-[#233DFF] transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#71817B] hover:text-[#064E45] transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to All Students</span>
@@ -92,24 +92,24 @@ export const StudentDetailPage = () => {
       <Card>
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="flex items-start sm:items-center gap-4">
-            <div className="w-16 h-16 rounded-2xl bg-[#233DFF] flex items-center justify-center text-2xl font-black text-white shrink-0">
+            <div className="w-16 h-16 rounded-2xl bg-[#064E45] flex items-center justify-center text-2xl font-black text-white shrink-0 shadow-sm">
               {studentData.name.slice(0, 2).toUpperCase()}
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <h1 className="text-xl font-extrabold text-[#233DFF]">{studentData.name}</h1>
+                <h1 className="text-xl font-extrabold text-[#064E45]">{studentData.name}</h1>
                 <Badge status={studentData.status} />
               </div>
-              <p className="text-xs font-mono text-[#233DFF] mt-0.5 font-semibold">
+              <p className="text-xs font-mono text-[#2D806B] mt-0.5 font-semibold">
                 Register Number: {studentData.registerNumber}
               </p>
-              <div className="flex items-center gap-4 mt-2 text-xs text-[#77766F] flex-wrap">
+              <div className="flex items-center gap-4 mt-2 text-xs text-[#71817B] flex-wrap">
                 <span className="flex items-center gap-1">
-                  <Calendar className="w-3.5 h-3.5 text-[#233DFF]" />
+                  <Calendar className="w-3.5 h-3.5 text-[#064E45]" />
                   Enrolled: {new Date(studentData.createdAt).toLocaleDateString()}
                 </span>
                 <span className="flex items-center gap-1">
-                  <Clock className="w-3.5 h-3.5 text-[#233DFF]" />
+                  <Clock className="w-3.5 h-3.5 text-[#064E45]" />
                   Last Active: {new Date(studentData.lastActivityAt).toLocaleDateString()}
                 </span>
               </div>
@@ -122,7 +122,7 @@ export const StudentDetailPage = () => {
                 href={studentData.githubRepoUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="px-3 py-2 rounded-xl text-xs font-bold bg-white hover:bg-[#E5DED2] text-[#233DFF] border border-[#D6CEC1] transition-colors flex items-center gap-1.5"
+                className="px-3 py-2 rounded-xl text-xs font-bold bg-white hover:bg-[#EAF7EF] text-[#064E45] border border-[#DDE8DF] transition-colors flex items-center gap-1.5 shadow-xs"
               >
                 <Github className="w-4 h-4" />
                 <span>GitHub Repo</span>
@@ -132,7 +132,7 @@ export const StudentDetailPage = () => {
 
             <button
               onClick={() => setShowResetModal(true)}
-              className="px-3.5 py-2 rounded-xl text-xs font-bold bg-[#FFF8EA] hover:bg-[#FCE6BD]/60 text-[#D88918] border border-[#FCE6BD] transition-colors flex items-center gap-1.5"
+              className="px-3.5 py-2 rounded-xl text-xs font-bold bg-[#FFF8EA] hover:bg-[#FCE6BD]/60 text-[#A86B0F] border border-[#FCE6BD] transition-colors flex items-center gap-1.5 shadow-xs"
             >
               <KeyRound className="w-4 h-4" />
               <span>Reset Password</span>
@@ -141,29 +141,29 @@ export const StudentDetailPage = () => {
         </div>
 
         {/* Progress Metrics Overview Bar */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6 pt-6 border-t border-[#D6CEC1]">
-          <div className="p-3.5 rounded-xl bg-[#E5DED2] border border-[#D6CEC1]">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6 pt-6 border-t border-[#DDE8DF]">
+          <div className="p-3.5 rounded-xl bg-[#EAF7EF] border border-[#DDE8DF]">
             <span className={`${labelClass} block`}>Current Task</span>
-            <span className="text-lg font-extrabold text-[#233DFF]">
+            <span className="text-lg font-extrabold text-[#064E45]">
               Task #{stats.currentTaskNumber || 0}
             </span>
           </div>
 
-          <div className="p-3.5 rounded-xl bg-[#E5DED2] border border-[#D6CEC1]">
+          <div className="p-3.5 rounded-xl bg-[#EAF7EF] border border-[#DDE8DF]">
             <span className={`${labelClass} block`}>Approved Completion</span>
             <span className="text-lg font-extrabold text-[#2D9B70]">
               {stats.approvedPercentage || 0}%
             </span>
           </div>
 
-          <div className="p-3.5 rounded-xl bg-[#F5F0E8] border border-[#D6CEC1]">
+          <div className="p-3.5 rounded-xl bg-[#FAF8F0] border border-[#DDE8DF]">
             <span className={`${labelClass} block`}>Approved Tasks</span>
-            <span className="text-lg font-extrabold text-[#233DFF]">
+            <span className="text-lg font-extrabold text-[#064E45]">
               {stats.approvedTasksCount || 0} / {stats.assignedTasksCount || 0}
             </span>
           </div>
 
-          <div className="p-3.5 rounded-xl bg-[#F5F0E8] border border-[#D6CEC1]">
+          <div className="p-3.5 rounded-xl bg-[#FAF8F0] border border-[#DDE8DF]">
             <span className={`${labelClass} block`}>Current Task Status</span>
             <div className="mt-1">
               <Badge status={stats.currentTaskStatus} />
@@ -175,15 +175,15 @@ export const StudentDetailPage = () => {
       {/* Task & Complete Submission History */}
       <div className="space-y-4">
         <div className="flex items-center gap-2">
-          <History className="w-5 h-5 text-[#233DFF]" />
-          <h2 className="text-lg font-extrabold text-[#233DFF]">
+          <History className="w-5 h-5 text-[#064E45]" />
+          <h2 className="text-lg font-extrabold text-[#064E45]">
             Assigned Tasks &amp; Complete Submission History
           </h2>
         </div>
 
         {taskHistory.length === 0 ? (
           <Card>
-            <p className="text-sm text-[#77766F] text-center py-8">
+            <p className="text-sm text-[#71817B] text-center py-8">
               No tasks have been assigned to this student yet.
             </p>
           </Card>
@@ -191,16 +191,16 @@ export const StudentDetailPage = () => {
           taskHistory.map((st) => (
             <Card key={st._id}>
               {/* Task Header */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-[#D6CEC1]">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-[#DDE8DF]">
                 <div className="flex items-center gap-2.5">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#233DFF] bg-[#E5DED2] px-2.5 py-0.5 rounded-md border border-[#D6CEC1]">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#064E45] bg-[#EAF7EF] px-2.5 py-0.5 rounded-md border border-[#DDE8DF]">
                     Task #{st.task?.taskNumber}
                   </span>
-                  <h3 className="text-base font-bold text-[#233DFF]">{st.task?.title}</h3>
+                  <h3 className="text-base font-bold text-[#064E45]">{st.task?.title}</h3>
                 </div>
                 <div className="flex items-center gap-3">
                   <Badge status={st.status} />
-                  <span className="text-xs text-[#77766F] font-medium">
+                  <span className="text-xs text-[#71817B] font-medium">
                     Unlocked: {new Date(st.unlockedAt).toLocaleDateString()}
                   </span>
                 </div>
@@ -213,23 +213,23 @@ export const StudentDetailPage = () => {
                 </span>
 
                 {!st.submissions || st.submissions.length === 0 ? (
-                  <p className="text-xs text-[#8A887F] italic py-2">
+                  <p className="text-xs text-[#71817B] italic py-2">
                     No work has been submitted yet for this task.
                   </p>
                 ) : (
                   st.submissions.map((sub) => (
                     <div
                       key={sub._id}
-                      className="p-4 rounded-xl bg-[#F5F0E8] border border-[#D6CEC1] space-y-3"
+                      className="p-4 rounded-xl bg-[#FAF8F0] border border-[#DDE8DF] space-y-3"
                     >
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         <div className="flex items-center gap-2">
-                          <span className="text-xs font-bold text-[#233DFF]">
+                          <span className="text-xs font-bold text-[#064E45]">
                             Version {sub.version}
                           </span>
                           <Badge status={sub.status} />
                         </div>
-                        <span className="text-[11px] text-[#77766F]">
+                        <span className="text-[11px] text-[#71817B]">
                           Submitted: {new Date(sub.submittedAt).toLocaleString()}
                         </span>
                       </div>
@@ -242,7 +242,7 @@ export const StudentDetailPage = () => {
                               href={sub.githubUrl}
                               target="_blank"
                               rel="noreferrer"
-                              className="inline-flex items-center gap-1.5 text-xs text-[#233DFF] hover:underline font-semibold"
+                              className="inline-flex items-center gap-1.5 text-xs text-[#064E45] hover:underline font-semibold"
                             >
                               <Github className="w-3.5 h-3.5" />
                               <span className="truncate max-w-sm">{sub.githubUrl}</span>
@@ -255,7 +255,7 @@ export const StudentDetailPage = () => {
                               <span className={`${labelClass} block mb-0.5`}>
                                 Student Explanation
                               </span>
-                              <p className="text-xs text-[#242424] leading-relaxed bg-white p-2.5 rounded-lg border border-[#D6CEC1]">
+                              <p className="text-xs text-[#172E2A] leading-relaxed bg-white p-2.5 rounded-lg border border-[#DDE8DF]">
                                 {sub.explanation}
                               </p>
                             </div>
@@ -265,7 +265,7 @@ export const StudentDetailPage = () => {
                         {/* Proof Image Preview */}
                         <div>
                           <span className={`${labelClass} block mb-1`}>Proof Screenshot</span>
-                          <div className="w-full h-24 rounded-lg overflow-hidden border border-[#D6CEC1] bg-white flex items-center justify-center">
+                          <div className="w-full h-24 rounded-lg overflow-hidden border border-[#DDE8DF] bg-white flex items-center justify-center">
                             <AuthorizedImage
                               fileId={sub.fileId}
                               alt={`Proof v${sub.version}`}
@@ -278,23 +278,23 @@ export const StudentDetailPage = () => {
 
                       {/* Mentor Feedback & Review decision history */}
                       {sub.reviews && sub.reviews.length > 0 && (
-                        <div className="mt-2 pt-2 border-t border-[#D6CEC1] space-y-1.5">
+                        <div className="mt-2 pt-2 border-t border-[#DDE8DF] space-y-1.5">
                           {sub.reviews.map((rev) => (
                             <div
                               key={rev._id}
-                              className="p-2.5 rounded-lg bg-white border border-[#D6CEC1] text-xs flex items-start gap-2"
+                              className="p-2.5 rounded-lg bg-white border border-[#DDE8DF] text-xs flex items-start gap-2"
                             >
-                              <MessageSquare className="w-4 h-4 text-[#233DFF] shrink-0 mt-0.5" />
+                              <MessageSquare className="w-4 h-4 text-[#064E45] shrink-0 mt-0.5" />
                               <div className="flex-1">
                                 <div className="flex items-center justify-between text-[11px] mb-0.5">
-                                  <span className="font-bold text-[#233DFF]">
+                                  <span className="font-bold text-[#064E45]">
                                     Mentor: {rev.reviewer?.name} ({rev.decision})
                                   </span>
-                                  <span className="text-[#77766F]">
+                                  <span className="text-[#71817B]">
                                     {new Date(rev.reviewedAt).toLocaleString()}
                                   </span>
                                 </div>
-                                <p className="text-[#242424] italic">"{rev.feedback}"</p>
+                                <p className="text-[#172E2A] italic">"{rev.feedback}"</p>
                               </div>
                             </div>
                           ))}

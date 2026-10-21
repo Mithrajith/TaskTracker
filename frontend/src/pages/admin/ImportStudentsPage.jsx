@@ -151,8 +151,8 @@ export const ImportStudentsPage = () => {
 
   const handleFileChange = (file) => {
     if (!file) return;
-    if (!file.name.toLowerCase().endsWith('.csv') && file.type !== 'text/csv') {
-      toastError('Please choose a valid .csv file');
+    if (!file.name.endsWith('.csv') && file.type !== 'text/csv') {
+      toastError('Please select a valid CSV file (.csv)');
       return;
     }
     setSelectedFile(file);
@@ -161,10 +161,8 @@ export const ImportStudentsPage = () => {
     const reader = new FileReader();
     reader.onload = (e) => {
       const text = e.target?.result;
-      if (typeof text === 'string') {
-        const parsed = parseClientCSV(text);
-        setPreviewRows(parsed);
-      }
+      const parsed = parseClientCSV(text);
+      setPreviewRows(parsed);
     };
     reader.readAsText(file);
   };
@@ -172,16 +170,10 @@ export const ImportStudentsPage = () => {
   const handlePasteChange = (text) => {
     setPastedText(text);
     setImportResult(null);
-    if (!text.trim()) {
-      setPreviewRows([]);
-      setParseStats({ total: 0, valid: 0, invalid: 0 });
-      return;
-    }
     const parsed = parseClientCSV(text);
     setPreviewRows(parsed);
   };
 
-  // Drag and drop handlers
   const handleDrag = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -273,21 +265,21 @@ export const ImportStudentsPage = () => {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#233DFF] mb-1">
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#064E45] mb-1">
             <Link
               to="/admin/students"
-              className="hover:underline flex items-center gap-1 text-[#77766F] hover:text-[#233DFF]"
+              className="hover:underline flex items-center gap-1 text-[#71817B] hover:text-[#064E45]"
             >
               <Users className="w-3.5 h-3.5" /> Students
             </Link>
             <span>/</span>
             <span>Bulk CSV Import</span>
           </div>
-          <h1 className="text-2xl font-extrabold tracking-tight text-[#233DFF] flex items-center gap-2">
-            <FileSpreadsheet className="w-6 h-6 text-[#233DFF]" />
+          <h1 className="text-2xl font-extrabold tracking-tight text-[#064E45] flex items-center gap-2">
+            <FileSpreadsheet className="w-6 h-6 text-[#064E45]" />
             <span>Import Students via CSV</span>
           </h1>
-          <p className="text-sm text-[#77766F] mt-1">
+          <p className="text-sm text-[#71817B] mt-1">
             Bulk-enroll students using a CSV file containing register numbers, names, and optional
             GitHub links.
           </p>
@@ -295,29 +287,29 @@ export const ImportStudentsPage = () => {
 
         <button
           onClick={downloadSampleTemplate}
-          className="px-4 py-2.5 rounded-xl bg-white hover:bg-[#E5DED2] text-[#233DFF] border border-[#D6CEC1] font-bold text-xs transition-all flex items-center gap-2 self-start sm:self-auto"
+          className="px-4 py-2.5 rounded-xl bg-white hover:bg-[#EAF7EF] text-[#064E45] border border-[#DDE8DF] font-bold text-xs transition-all flex items-center gap-2 self-start sm:self-auto shadow-xs"
         >
-          <Download className="w-4 h-4 text-[#233DFF]" />
+          <Download className="w-4 h-4 text-[#064E45]" />
           <span>Download CSV Template</span>
         </button>
       </div>
 
       {/* Info Callout */}
-      <div className="p-4 rounded-2xl bg-[#E5DED2] border border-[#D6CEC1] text-xs text-[#233DFF] flex items-start gap-3">
-        <Info className="w-5 h-5 text-[#233DFF] shrink-0 mt-0.5" />
+      <div className="p-4 rounded-2xl bg-[#EAF7EF] border border-[#DDE8DF] text-xs text-[#064E45] flex items-start gap-3 shadow-xs">
+        <Info className="w-5 h-5 text-[#064E45] shrink-0 mt-0.5" />
         <div className="space-y-1">
-          <p className="font-bold text-[#233DFF]">CSV Format Requirements:</p>
-          <p className="text-[#233DFF]/90 leading-relaxed">
+          <p className="font-bold text-[#064E45]">CSV Format Requirements:</p>
+          <p className="text-[#172E2A]/90 leading-relaxed">
             Your file must have a header row with columns:{' '}
-            <code className="bg-white px-1.5 py-0.5 rounded text-[#233DFF] font-mono border border-[#D6CEC1]">
+            <code className="bg-white px-1.5 py-0.5 rounded text-[#064E45] font-mono border border-[#DDE8DF]">
               register_number
             </code>
             ,{' '}
-            <code className="bg-white px-1.5 py-0.5 rounded text-[#233DFF] font-mono border border-[#D6CEC1]">
+            <code className="bg-white px-1.5 py-0.5 rounded text-[#064E45] font-mono border border-[#DDE8DF]">
               name
             </code>
             , and optional{' '}
-            <code className="bg-white px-1.5 py-0.5 rounded text-[#233DFF] font-mono border border-[#D6CEC1]">
+            <code className="bg-white px-1.5 py-0.5 rounded text-[#064E45] font-mono border border-[#DDE8DF]">
               github_link
             </code>
             . Header names are flexible (e.g. <span className="font-mono">reg_no</span>,{' '}
@@ -330,7 +322,7 @@ export const ImportStudentsPage = () => {
       <Card className="p-6">
         <div className="space-y-6">
           {/* Tabs */}
-          <div className="flex border-b border-[#D6CEC1] gap-4">
+          <div className="flex border-b border-[#DDE8DF] gap-4">
             <button
               onClick={() => {
                 setActiveTab('file');
@@ -338,8 +330,8 @@ export const ImportStudentsPage = () => {
               }}
               className={`pb-3 text-xs font-bold flex items-center gap-2 border-b-2 transition-colors ${
                 activeTab === 'file'
-                  ? 'border-[#233DFF] text-[#233DFF]'
-                  : 'border-transparent text-[#77766F] hover:text-[#233DFF]'
+                  ? 'border-[#064E45] text-[#064E45]'
+                  : 'border-transparent text-[#71817B] hover:text-[#064E45]'
               }`}
             >
               <UploadCloud className="w-4 h-4" />
@@ -352,8 +344,8 @@ export const ImportStudentsPage = () => {
               }}
               className={`pb-3 text-xs font-bold flex items-center gap-2 border-b-2 transition-colors ${
                 activeTab === 'paste'
-                  ? 'border-[#233DFF] text-[#233DFF]'
-                  : 'border-transparent text-[#77766F] hover:text-[#233DFF]'
+                  ? 'border-[#064E45] text-[#064E45]'
+                  : 'border-transparent text-[#71817B] hover:text-[#064E45]'
               }`}
             >
               <FileText className="w-4 h-4" />
@@ -371,10 +363,10 @@ export const ImportStudentsPage = () => {
               onClick={() => fileInputRef.current?.click()}
               className={`border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-all ${
                 dragActive
-                  ? 'border-[#233DFF] bg-[#E5DED2]'
+                  ? 'border-[#064E45] bg-[#EAF7EF]'
                   : selectedFile
-                  ? 'border-[#2D9B70]/60 bg-[#E5DED2]'
-                  : 'border-[#D6CEC1] hover:border-[#233DFF] bg-[#F5F0E8] hover:bg-[#E5DED2]'
+                  ? 'border-[#2D9B70]/60 bg-[#EAF7EF]'
+                  : 'border-[#DDE8DF] hover:border-[#064E45] bg-[#FAF8F0] hover:bg-[#EAF7EF]'
               }`}
             >
               <input
@@ -387,24 +379,24 @@ export const ImportStudentsPage = () => {
 
               {selectedFile ? (
                 <div className="flex flex-col items-center gap-2">
-                  <div className="w-12 h-12 rounded-2xl bg-white border border-[#D6CEC1] flex items-center justify-center text-[#2D9B70]">
+                  <div className="w-12 h-12 rounded-2xl bg-white border border-[#DDE8DF] flex items-center justify-center text-[#2D9B70] shadow-xs">
                     <CheckCircle2 className="w-6 h-6" />
                   </div>
-                  <p className="text-sm font-bold text-[#233DFF]">{selectedFile.name}</p>
-                  <p className="text-xs text-[#77766F]">
+                  <p className="text-sm font-bold text-[#064E45]">{selectedFile.name}</p>
+                  <p className="text-xs text-[#71817B]">
                     {(selectedFile.size / 1024).toFixed(1)} KB &bull; Click or drag to replace
                   </p>
                 </div>
               ) : (
                 <div className="flex flex-col items-center gap-2">
-                  <div className="w-12 h-12 rounded-2xl bg-white border border-[#D6CEC1] flex items-center justify-center text-[#233DFF]">
-                    <UploadCloud className="w-6 h-6 text-[#233DFF]" />
+                  <div className="w-12 h-12 rounded-2xl bg-white border border-[#DDE8DF] flex items-center justify-center text-[#064E45] shadow-xs">
+                    <UploadCloud className="w-6 h-6 text-[#064E45]" />
                   </div>
-                  <p className="text-sm font-medium text-[#242424]">
+                  <p className="text-sm font-medium text-[#172E2A]">
                     Drag and drop your student CSV file here, or{' '}
-                    <span className="text-[#233DFF] underline font-bold">browse</span>
+                    <span className="text-[#064E45] underline font-bold">browse</span>
                   </p>
-                  <p className="text-xs text-[#77766F]">Supports .csv files up to 5MB</p>
+                  <p className="text-xs text-[#71817B]">Supports .csv files up to 5MB</p>
                 </div>
               )}
             </div>
@@ -413,7 +405,7 @@ export const ImportStudentsPage = () => {
           {/* Tab 2: Paste Raw CSV */}
           {activeTab === 'paste' && (
             <div className="space-y-2">
-              <label className="text-xs font-bold text-[#233DFF]">
+              <label className="text-xs font-bold text-[#064E45]">
                 Paste CSV Rows with Header
               </label>
               <textarea
@@ -421,16 +413,16 @@ export const ImportStudentsPage = () => {
                 onChange={(e) => handlePasteChange(e.target.value)}
                 placeholder="register_number,name,github_link&#10;AI2026001,Aarav Patel,https://github.com/aarav&#10;AI2026002,Diya Sharma,https://github.com/diya"
                 rows={6}
-                className="w-full px-4 py-3 bg-[#F5F0E8] border border-[#D6CEC1] rounded-xl font-mono text-xs text-[#242424] focus:outline-none focus:border-[#233DFF] focus:ring-2 focus:ring-[#233DFF]/20"
+                className="w-full px-4 py-3 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl font-mono text-xs text-[#172E2A] placeholder-[#71817B]/60 focus:outline-none focus:border-[#064E45] focus:ring-2 focus:ring-[#064E45]/20"
               />
             </div>
           )}
 
           {/* Configuration Options */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-[#D6CEC1]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-[#DDE8DF]">
             <div>
-              <label className="text-xs font-bold text-[#233DFF] block mb-1.5 flex items-center gap-1.5">
-                <KeyRound className="w-3.5 h-3.5 text-[#233DFF]" />
+              <label className="text-xs font-bold text-[#064E45] block mb-1.5 flex items-center gap-1.5">
+                <KeyRound className="w-3.5 h-3.5 text-[#064E45]" />
                 <span>Default Initial Password</span>
               </label>
               <PasswordInput
@@ -438,9 +430,9 @@ export const ImportStudentsPage = () => {
                 onChange={(e) => setDefaultPassword(e.target.value)}
                 placeholder="Student@123"
                 autoComplete="new-password"
-                className="w-full pl-3.5 pr-10 py-2 rounded-xl bg-[#F5F0E8] border border-[#D6CEC1] text-xs text-[#242424] font-mono focus:outline-none focus:border-[#233DFF] focus:ring-2 focus:ring-[#233DFF]/20"
+                className="w-full pl-3.5 pr-10 py-2 rounded-xl bg-[#FAF8F0] border border-[#DDE8DF] text-xs text-[#172E2A] font-mono focus:outline-none focus:border-[#064E45] focus:ring-2 focus:ring-[#064E45]/20"
               />
-              <p className="text-[11px] text-[#77766F] mt-1">
+              <p className="text-[11px] text-[#71817B] mt-1">
                 Used if no password column is present in the CSV. Students must change this password
                 on their first login.
               </p>
@@ -452,13 +444,13 @@ export const ImportStudentsPage = () => {
                   type="checkbox"
                   checked={updateExisting}
                   onChange={(e) => setUpdateExisting(e.target.checked)}
-                  className="rounded border-[#D6CEC1] bg-white text-[#233DFF] focus:ring-[#233DFF] h-4 w-4"
+                  className="rounded border-[#DDE8DF] bg-white text-[#064E45] focus:ring-[#064E45] h-4 w-4"
                 />
-                <span className="text-xs text-[#242424]">
+                <span className="text-xs text-[#172E2A]">
                   Update existing students if register number already exists
                 </span>
               </label>
-              <p className="text-[11px] text-[#77766F]">
+              <p className="text-[11px] text-[#71817B]">
                 When unchecked, existing register numbers are safely skipped without overwriting
                 existing data.
               </p>
@@ -470,15 +462,15 @@ export const ImportStudentsPage = () => {
       {/* Live Preview Section */}
       {previewRows.length > 0 && !importResult && (
         <Card className="p-6 space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#D6CEC1]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#DDE8DF]">
             <div>
-              <h2 className="text-base font-bold text-[#233DFF] flex items-center gap-2">
+              <h2 className="text-base font-bold text-[#064E45] flex items-center gap-2">
                 <span>CSV Preview</span>
-                <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#E5DED2] text-[#233DFF] border border-[#D6CEC1]">
+                <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#EAF7EF] text-[#064E45] border border-[#DDE8DF]">
                   {parseStats.total} rows detected
                 </span>
               </h2>
-              <p className="text-xs text-[#77766F] mt-0.5">
+              <p className="text-xs text-[#71817B] mt-0.5">
                 Review data before importing into your database.
               </p>
             </div>
@@ -486,7 +478,7 @@ export const ImportStudentsPage = () => {
             <div className="flex items-center gap-2">
               <button
                 onClick={handleReset}
-                className="px-3 py-1.5 rounded-xl bg-white hover:bg-[#E5DED2] text-[#233DFF] border border-[#D6CEC1] text-xs font-bold transition-colors"
+                className="px-3 py-1.5 rounded-xl bg-white hover:bg-[#EAF7EF] text-[#064E45] border border-[#DDE8DF] text-xs font-bold transition-colors"
               >
                 Clear
               </button>
@@ -494,7 +486,7 @@ export const ImportStudentsPage = () => {
               <button
                 onClick={handleImport}
                 disabled={importing || parseStats.valid === 0}
-                className="px-5 py-2 rounded-xl bg-[#233DFF] hover:bg-[#1B2FCC] disabled:opacity-50 text-white font-bold text-xs transition-all flex items-center gap-2"
+                className="px-5 py-2 rounded-xl bg-[#FFA77E] hover:bg-[#ff9668] disabled:opacity-50 text-[#172E2A] font-bold text-xs transition-all flex items-center gap-2 shadow-sm"
               >
                 {importing ? (
                   <>
@@ -512,9 +504,9 @@ export const ImportStudentsPage = () => {
           </div>
 
           {/* Preview Table */}
-          <div className="overflow-x-auto rounded-xl border border-[#D6CEC1] max-h-80 overflow-y-auto">
+          <div className="overflow-x-auto rounded-xl border border-[#DDE8DF] max-h-80 overflow-y-auto">
             <table className="w-full text-left text-xs border-collapse">
-              <thead className="sticky top-0 bg-[#F5F0E8] border-b border-[#D6CEC1] text-[11px] font-bold uppercase tracking-wider text-[#77766F]">
+              <thead className="sticky top-0 bg-[#FAF8F0] border-b border-[#DDE8DF] text-[11px] font-bold uppercase tracking-wider text-[#71817B]">
                 <tr>
                   <th className="py-2.5 px-3">#</th>
                   <th className="py-2.5 px-3">Register Number</th>
@@ -523,11 +515,11 @@ export const ImportStudentsPage = () => {
                   <th className="py-2.5 px-3">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#E5DED2] text-[#242424]">
+              <tbody className="divide-y divide-[#DDE8DF] text-[#172E2A]">
                 {previewRows.map((row, idx) => (
                   <tr
                     key={idx}
-                    className={`hover:bg-[#F1ECE2] ${
+                    className={`hover:bg-[#EAF7EF]/40 ${
                       row.status === 'invalid'
                         ? 'bg-[#FFF0ED]'
                         : row.status === 'duplicate'
@@ -535,25 +527,25 @@ export const ImportStudentsPage = () => {
                         : ''
                     }`}
                   >
-                    <td className="py-2.5 px-3 font-mono text-[#77766F]">{row.rowNumber}</td>
-                    <td className="py-2.5 px-3 font-mono font-bold text-[#233DFF]">
+                    <td className="py-2.5 px-3 font-mono text-[#71817B]">{row.rowNumber}</td>
+                    <td className="py-2.5 px-3 font-mono font-bold text-[#064E45]">
                       {row.registerNumber || <span className="text-[#E86A5B] italic">Missing</span>}
                     </td>
-                    <td className="py-2.5 px-3 font-medium text-[#242424]">
+                    <td className="py-2.5 px-3 font-medium text-[#172E2A]">
                       {row.name || <span className="text-[#E86A5B] italic">Missing</span>}
                     </td>
-                    <td className="py-2.5 px-3 font-mono text-[#77766F]">
+                    <td className="py-2.5 px-3 font-mono text-[#71817B]">
                       {row.githubRepoUrl ? (
-                        <span className="truncate max-w-xs block text-[#242424]">
+                        <span className="truncate max-w-xs block text-[#172E2A]">
                           {row.githubRepoUrl}
                         </span>
                       ) : (
-                        <span className="text-[#9A9890] italic">None</span>
+                        <span className="text-[#71817B]/60 italic">None</span>
                       )}
                     </td>
                     <td className="py-2.5 px-3">
                       {row.status === 'valid' ? (
-                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#2D9B70] bg-[#E5DED2] px-2 py-0.5 rounded border border-[#D6CEC1]">
+                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#2D9B70] bg-[#EAF7EF] px-2 py-0.5 rounded border border-[#DDE8DF]">
                           <CheckCircle2 className="w-3 h-3" /> Ready
                         </span>
                       ) : (
@@ -572,14 +564,14 @@ export const ImportStudentsPage = () => {
 
       {/* Import Results Report */}
       {importResult && (
-        <Card className="p-6 space-y-6 border-[#D6CEC1]">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#D6CEC1]">
+        <Card className="p-6 space-y-6 border-[#DDE8DF]">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#DDE8DF]">
             <div>
-              <h2 className="text-lg font-bold text-[#233DFF] flex items-center gap-2">
+              <h2 className="text-lg font-bold text-[#064E45] flex items-center gap-2">
                 <CheckCircle2 className="w-5 h-5 text-[#2D9B70]" />
                 <span>CSV Import Complete</span>
               </h2>
-              <p className="text-xs text-[#77766F] mt-1">
+              <p className="text-xs text-[#71817B] mt-1">
                 Processed {importResult.totalProcessed} records from CSV.
               </p>
             </div>
@@ -587,7 +579,7 @@ export const ImportStudentsPage = () => {
             <div className="flex items-center gap-2">
               <button
                 onClick={handleReset}
-                className="px-4 py-2 rounded-xl bg-white hover:bg-[#E5DED2] text-[#233DFF] border border-[#D6CEC1] text-xs font-bold transition-colors flex items-center gap-1.5"
+                className="px-4 py-2 rounded-xl bg-white hover:bg-[#EAF7EF] text-[#064E45] border border-[#DDE8DF] text-xs font-bold transition-colors flex items-center gap-1.5 shadow-xs"
               >
                 <RefreshCw className="w-3.5 h-3.5" />
                 <span>Import Another File</span>
@@ -595,7 +587,7 @@ export const ImportStudentsPage = () => {
 
               <button
                 onClick={() => navigate('/admin/students')}
-                className="px-4 py-2 rounded-xl bg-[#233DFF] hover:bg-[#1B2FCC] text-white text-xs font-bold transition-all flex items-center gap-1.5"
+                className="px-4 py-2 rounded-xl bg-[#064E45] hover:bg-[#053d36] text-white text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm"
               >
                 <span>View Students</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -605,24 +597,24 @@ export const ImportStudentsPage = () => {
 
           {/* Metric Badges */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className="p-3.5 rounded-xl bg-[#E5DED2] border border-[#D6CEC1] text-center">
+            <div className="p-3.5 rounded-xl bg-[#EAF7EF] border border-[#DDE8DF] text-center">
               <p className="text-2xl font-bold text-[#2D9B70]">{importResult.createdCount}</p>
-              <p className="text-xs text-[#2D9B70]/80 font-medium mt-0.5">Students Created</p>
+              <p className="text-xs text-[#2D9B70] font-medium mt-0.5">Students Created</p>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-[#E5DED2] border border-[#D6CEC1] text-center">
-              <p className="text-2xl font-bold text-[#233DFF]">{importResult.updatedCount}</p>
-              <p className="text-xs text-[#233DFF]/80 font-medium mt-0.5">Updated</p>
+            <div className="p-3.5 rounded-xl bg-[#EAF7EF] border border-[#DDE8DF] text-center">
+              <p className="text-2xl font-bold text-[#064E45]">{importResult.updatedCount}</p>
+              <p className="text-xs text-[#064E45] font-medium mt-0.5">Updated</p>
             </div>
 
             <div className="p-3.5 rounded-xl bg-[#FFF8EA] border border-[#FCE6BD] text-center">
-              <p className="text-2xl font-bold text-[#D88918]">{importResult.skippedCount}</p>
-              <p className="text-xs text-[#D88918]/80 font-medium mt-0.5">Skipped (Duplicates)</p>
+              <p className="text-2xl font-bold text-[#F3B74F]">{importResult.skippedCount}</p>
+              <p className="text-xs text-[#A86B0F] font-medium mt-0.5">Skipped (Duplicates)</p>
             </div>
 
             <div className="p-3.5 rounded-xl bg-[#FFF0ED] border border-[#FAD3CC] text-center">
               <p className="text-2xl font-bold text-[#E86A5B]">{importResult.errorCount}</p>
-              <p className="text-xs text-[#E86A5B]/80 font-medium mt-0.5">Errors</p>
+              <p className="text-xs text-[#E86A5B] font-medium mt-0.5">Errors</p>
             </div>
           </div>
 
@@ -632,22 +624,22 @@ export const ImportStudentsPage = () => {
               <h3 className="text-xs font-bold uppercase tracking-wider text-[#2D9B70]">
                 Newly Added Students ({importResult.created.length})
               </h3>
-              <div className="max-h-60 overflow-y-auto space-y-1.5 rounded-xl border border-[#D6CEC1] bg-[#F5F0E8] p-2 text-xs">
+              <div className="max-h-60 overflow-y-auto space-y-1.5 rounded-xl border border-[#DDE8DF] bg-[#FAF8F0] p-2 text-xs">
                 {importResult.created.map((s) => (
                   <div
                     key={s._id}
-                    className="p-2.5 rounded-lg bg-white border border-[#D6CEC1] flex items-center justify-between"
+                    className="p-2.5 rounded-lg bg-white border border-[#DDE8DF] flex items-center justify-between"
                   >
                     <div className="flex items-center gap-3">
-                      <span className="font-mono font-bold text-[#233DFF]">{s.registerNumber}</span>
-                      <span className="font-medium text-[#242424]">{s.name}</span>
+                      <span className="font-mono font-bold text-[#064E45]">{s.registerNumber}</span>
+                      <span className="font-medium text-[#172E2A]">{s.name}</span>
                     </div>
                     {s.githubRepoUrl && (
                       <a
                         href={s.githubRepoUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="text-[#77766F] hover:text-[#233DFF] flex items-center gap-1 font-mono text-[11px]"
+                        className="text-[#71817B] hover:text-[#064E45] flex items-center gap-1 font-mono text-[11px]"
                       >
                         <span>GitHub</span>
                         <ExternalLink className="w-3 h-3" />
@@ -662,7 +654,7 @@ export const ImportStudentsPage = () => {
           {/* Skipped Details */}
           {importResult.skipped.length > 0 && (
             <div className="space-y-2">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-[#D88918]">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[#F3B74F]">
                 Skipped Rows ({importResult.skipped.length})
               </h3>
               <div className="max-h-40 overflow-y-auto space-y-1 rounded-xl border border-[#FCE6BD] bg-[#FFF8EA] p-2 text-xs">
@@ -675,7 +667,7 @@ export const ImportStudentsPage = () => {
                       Row {sk.row}: <strong className="font-mono">{sk.registerNumber}</strong> (
                       {sk.name})
                     </span>
-                    <span className="text-[11px] text-[#D88918] font-medium">{sk.reason}</span>
+                    <span className="text-[11px] text-[#F3B74F] font-medium">{sk.reason}</span>
                   </div>
                 ))}
               </div>

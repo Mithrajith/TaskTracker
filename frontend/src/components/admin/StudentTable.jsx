@@ -25,10 +25,10 @@ export const StudentTable = ({
 }) => {
   return (
     <div className="space-y-4">
-      <div className="overflow-x-auto rounded-2xl border border-[#D6CEC1] bg-white">
+      <div className="overflow-x-auto rounded-2xl border border-[#DDE8DF] bg-white shadow-sm">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="border-b border-[#D6CEC1] bg-[#F5F0E8] text-[11px] font-bold uppercase tracking-wider text-[#77766F]">
+            <tr className="border-b border-[#DDE8DF] bg-[#FAF8F0] text-[11px] font-bold uppercase tracking-wider text-[#71817B]">
               <th className="py-3.5 px-4">Student</th>
               <th className="py-3.5 px-4">Register No</th>
               <th className="py-3.5 px-4">Current Task</th>
@@ -39,10 +39,10 @@ export const StudentTable = ({
               <th className="py-3.5 px-4 text-right">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[#E5DED2] text-xs text-[#242424]">
+          <tbody className="divide-y divide-[#EAF7EF] text-xs text-[#172E2A]">
             {students.length === 0 ? (
               <tr>
-                <td colSpan="8" className="py-12 text-center text-[#77766F]">
+                <td colSpan="8" className="py-12 text-center text-[#71817B]">
                   No student records found matching the criteria.
                 </td>
               </tr>
@@ -54,31 +54,31 @@ export const StudentTable = ({
                 return (
                   <tr
                     key={student._id}
-                    className="hover:bg-[#F1ECE2] transition-colors group"
+                    className="hover:bg-[#EAF7EF]/50 transition-colors group"
                   >
                     {/* Student Name & GitHub link */}
                     <td className="py-3.5 px-4">
-                      <div className="font-bold text-[#233DFF] flex items-center gap-2">
+                      <div className="font-bold text-[#064E45] flex items-center gap-2">
                         <span>{student.name}</span>
                         {student.githubRepoUrl && (
                           <a
                             href={student.githubRepoUrl}
                             target="_blank"
                             rel="noreferrer"
-                            className="text-[#9A9890] hover:text-[#233DFF] transition-colors"
+                            className="text-[#71817B] hover:text-[#064E45] transition-colors"
                             title="GitHub Profile / Repo"
                           >
                             <Github className="w-3.5 h-3.5" />
                           </a>
                         )}
                       </div>
-                      <span className="text-[10px] text-[#77766F]">
+                      <span className="text-[10px] text-[#71817B]">
                         Status: {student.status}
                       </span>
                     </td>
 
                     {/* Register Number */}
-                    <td className="py-3.5 px-4 font-mono font-medium text-[#242424]">
+                    <td className="py-3.5 px-4 font-mono font-medium text-[#172E2A]">
                       {student.registerNumber}
                     </td>
 
@@ -86,15 +86,15 @@ export const StudentTable = ({
                     <td className="py-3.5 px-4">
                       {stats.currentTaskNumber > 0 ? (
                         <div>
-                          <span className="font-bold text-[#233DFF]">
+                          <span className="font-bold text-[#064E45]">
                             Task #{stats.currentTaskNumber}
                           </span>
-                          <p className="text-[10px] text-[#77766F] truncate max-w-[140px]">
+                          <p className="text-[10px] text-[#71817B] truncate max-w-[140px]">
                             {stats.currentTaskTitle}
                           </p>
                         </div>
                       ) : (
-                        <span className="text-[#9A9890] italic">Task 0 (None)</span>
+                        <span className="text-[#71817B] italic">Task 0 (None)</span>
                       )}
                     </td>
 
@@ -105,13 +105,13 @@ export const StudentTable = ({
                           <span className="text-[#2D9B70] font-bold">
                             {stats.approvedPercentage || 0}%
                           </span>
-                          <span className="text-[#77766F] text-[10px]">
+                          <span className="text-[#71817B] text-[10px]">
                             {stats.approvedTasksCount || 0}/{stats.assignedTasksCount || 0}
                           </span>
                         </div>
-                        <div className="w-full h-1.5 bg-[#E5DED2] rounded-full overflow-hidden">
+                        <div className="w-full h-1.5 bg-[#EAF7EF] rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-gradient-to-r from-[#233DFF] to-[#2D9B70] rounded-full transition-all duration-300"
+                            className="h-full bg-[#2D9B70] rounded-full transition-all duration-300"
                             style={{ width: `${stats.approvedPercentage || 0}%` }}
                           />
                         </div>
@@ -126,7 +126,7 @@ export const StudentTable = ({
                     {/* Latest Proof Thumbnail */}
                     <td className="py-3.5 px-4">
                       {latestProofId ? (
-                        <div className="w-10 h-10 rounded-lg overflow-hidden border border-[#D6CEC1] bg-[#F5F0E8]">
+                        <div className="w-10 h-10 rounded-lg overflow-hidden border border-[#DDE8DF] bg-[#FAF8F0]">
                           <AuthorizedImage
                             fileId={latestProofId}
                             alt="Proof thumbnail"
@@ -135,12 +135,12 @@ export const StudentTable = ({
                           />
                         </div>
                       ) : (
-                        <span className="text-[11px] text-[#9A9890]">None</span>
+                        <span className="text-[11px] text-[#71817B]">None</span>
                       )}
                     </td>
 
                     {/* Latest Submission Date */}
-                    <td className="py-3.5 px-4 text-[11px] text-[#77766F]">
+                    <td className="py-3.5 px-4 text-[11px] text-[#71817B]">
                       {stats.latestSubmission?.submittedAt
                         ? new Date(stats.latestSubmission.submittedAt).toLocaleDateString()
                         : '—'}
@@ -151,7 +151,7 @@ export const StudentTable = ({
                       <div className="flex items-center justify-end gap-1.5">
                         <button
                           onClick={() => onViewProfile(student._id)}
-                          className="p-1.5 rounded-lg text-[#77766F] hover:text-[#233DFF] hover:bg-[#E5DED2] transition-colors"
+                          className="p-1.5 rounded-lg text-[#71817B] hover:text-[#064E45] hover:bg-[#EAF7EF] transition-colors"
                           title="View Profile & Submissions"
                         >
                           <Eye className="w-4 h-4" />
@@ -159,7 +159,7 @@ export const StudentTable = ({
 
                         <button
                           onClick={() => onEditStudent(student)}
-                          className="p-1.5 rounded-lg text-[#77766F] hover:text-[#233DFF] hover:bg-[#E5DED2] transition-colors"
+                          className="p-1.5 rounded-lg text-[#71817B] hover:text-[#064E45] hover:bg-[#EAF7EF] transition-colors"
                           title="Edit Student"
                         >
                           <Edit2 className="w-4 h-4" />
@@ -167,7 +167,7 @@ export const StudentTable = ({
 
                         <button
                           onClick={() => onResetPassword(student)}
-                          className="p-1.5 rounded-lg text-[#77766F] hover:text-[#D88918] hover:bg-[#FFF8EA] transition-colors"
+                          className="p-1.5 rounded-lg text-[#71817B] hover:text-[#F3B74F] hover:bg-[#FFF8EA] transition-colors"
                           title="Reset Password"
                         >
                           <KeyRound className="w-4 h-4" />
@@ -177,8 +177,8 @@ export const StudentTable = ({
                           onClick={() => onToggleStatus(student)}
                           className={`p-1.5 rounded-lg transition-colors ${
                             student.status === 'active'
-                              ? 'text-[#77766F] hover:text-[#E86A5B] hover:bg-[#FFF0ED]'
-                              : 'text-[#E86A5B] hover:text-[#2D9B70] hover:bg-[#E5DED2]'
+                              ? 'text-[#71817B] hover:text-[#E86A5B] hover:bg-[#FFF0ED]'
+                              : 'text-[#E86A5B] hover:text-[#2D9B70] hover:bg-[#EAF7EF]'
                           }`}
                           title={
                             student.status === 'active' ? 'Deactivate Account' : 'Activate Account'
@@ -189,7 +189,7 @@ export const StudentTable = ({
 
                         <button
                           onClick={() => onDeleteStudent && onDeleteStudent(student)}
-                          className="p-1.5 rounded-lg text-[#77766F] hover:text-[#E86A5B] hover:bg-[#FFF0ED] transition-colors"
+                          className="p-1.5 rounded-lg text-[#71817B] hover:text-[#E86A5B] hover:bg-[#FFF0ED] transition-colors"
                           title="Delete Student from Database"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -206,7 +206,7 @@ export const StudentTable = ({
 
       {/* Pagination Bar */}
       {pagination && pagination.totalPages > 1 && (
-        <div className="flex items-center justify-between text-xs text-[#77766F] px-2">
+        <div className="flex items-center justify-between text-xs text-[#71817B] px-2">
           <span>
             Showing page {pagination.page} of {pagination.totalPages} (Total{' '}
             {pagination.total} students)
@@ -215,15 +215,15 @@ export const StudentTable = ({
             <button
               disabled={pagination.page <= 1}
               onClick={() => onPageChange(pagination.page - 1)}
-              className="p-1.5 rounded-lg bg-white border border-[#D6CEC1] hover:bg-[#E5DED2] disabled:opacity-40 transition-colors text-[#233DFF]"
+              className="p-1.5 rounded-lg bg-white border border-[#DDE8DF] hover:bg-[#EAF7EF] disabled:opacity-40 transition-colors text-[#064E45]"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <span className="font-bold text-[#233DFF]">{pagination.page}</span>
+            <span className="font-bold text-[#064E45]">{pagination.page}</span>
             <button
               disabled={pagination.page >= pagination.totalPages}
               onClick={() => onPageChange(pagination.page + 1)}
-              className="p-1.5 rounded-lg bg-white border border-[#D6CEC1] hover:bg-[#E5DED2] disabled:opacity-40 transition-colors text-[#233DFF]"
+              className="p-1.5 rounded-lg bg-white border border-[#DDE8DF] hover:bg-[#EAF7EF] disabled:opacity-40 transition-colors text-[#064E45]"
             >
               <ChevronRight className="w-4 h-4" />
             </button>

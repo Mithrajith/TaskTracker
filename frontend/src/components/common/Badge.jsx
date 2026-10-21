@@ -3,20 +3,20 @@ import React from 'react';
 export const Badge = ({ status, className = '' }) => {
   const norm = (status || '').toLowerCase().replace(/[\s-]/g, '_');
 
-  let style = 'bg-[#F5F0E8] text-[#77766F] border-[#D6CEC1]';
-  let dotColor = 'bg-[#77766F]';
+  let style = 'bg-[#FAF8F0] text-[#71817B] border-[#DDE8DF]';
+  let dotColor = 'bg-[#71817B]';
   let label = status || 'Unknown';
 
   switch (norm) {
     case 'approved':
-      style = 'bg-[#E5DED2] text-[#2D9B70] border-[#D6CEC1]';
+      style = 'bg-[#EAF7EF] text-[#2D9B70] border-[#DDE8DF]';
       dotColor = 'bg-[#2D9B70]';
       label = 'Approved';
       break;
     case 'submitted':
     case 'under_review':
     case 'pending':
-      style = 'bg-[#FFF8EA] text-[#D88918] border-[#FCE6BD]';
+      style = 'bg-[#FFF8EA] text-[#A86B0F] border-[#FCE6BD]';
       dotColor = 'bg-[#F3B74F]';
       label = 'Pending Review';
       break;
@@ -31,27 +31,27 @@ export const Badge = ({ status, className = '' }) => {
       label = 'Rejected';
       break;
     case 'in_progress':
-      style = 'bg-[#E5DED2] text-[#233DFF] border-[#D6CEC1]';
-      dotColor = 'bg-[#233DFF]';
+      style = 'bg-[#EAF7EF] text-[#064E45] border-[#DDE8DF]';
+      dotColor = 'bg-[#064E45]';
       label = 'In Progress';
       break;
     case 'assigned':
-      style = 'bg-[#E5DED2] text-[#233DFF] border-[#D6CEC1]';
-      dotColor = 'bg-[#233DFF]';
+      style = 'bg-[#EAF7EF] text-[#064E45] border-[#DDE8DF]';
+      dotColor = 'bg-[#064E45]';
       label = 'Assigned';
       break;
     case 'published':
-      style = 'bg-[#E5DED2] text-[#233DFF] border-[#D6CEC1]';
-      dotColor = 'bg-[#233DFF]';
+      style = 'bg-[#EAF7EF] text-[#064E45] border-[#DDE8DF]';
+      dotColor = 'bg-[#064E45]';
       label = 'Published';
       break;
     case 'draft':
-      style = 'bg-[#EFEAE0] text-[#77766F] border-[#D6CEC1]';
-      dotColor = 'bg-[#77766F]';
+      style = 'bg-[#FAF8F0] text-[#71817B] border-[#DDE8DF]';
+      dotColor = 'bg-[#71817B]';
       label = 'Draft';
       break;
     case 'active':
-      style = 'bg-[#E5DED2] text-[#2D9B70] border-[#D6CEC1]';
+      style = 'bg-[#EAF7EF] text-[#2D9B70] border-[#DDE8DF]';
       dotColor = 'bg-[#2D9B70]';
       label = 'Active';
       break;
@@ -61,8 +61,8 @@ export const Badge = ({ status, className = '' }) => {
       label = 'Deactivated';
       break;
     case 'locked':
-      style = 'bg-[#EFEAE0] text-[#8A887F] border-[#D6CEC1]';
-      dotColor = 'bg-[#9A9890]';
+      style = 'bg-[#FAF8F0] text-[#71817B] border-[#DDE8DF]';
+      dotColor = 'bg-[#71817B]';
       label = 'Locked';
       break;
     default:
@@ -78,4 +78,3 @@ export const Badge = ({ status, className = '' }) => {
     </span>
   );
 };
-

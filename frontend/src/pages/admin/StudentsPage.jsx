@@ -112,11 +112,11 @@ export const StudentsPage = () => {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-extrabold tracking-tight text-[#233DFF] flex items-center gap-2">
-            <Users className="w-6 h-6 text-[#233DFF]" />
+          <h1 className="text-2xl font-extrabold tracking-tight text-[#064E45] flex items-center gap-2">
+            <Users className="w-6 h-6 text-[#064E45]" />
             <span>Student Management</span>
           </h1>
-          <p className="text-sm text-[#77766F] mt-1">
+          <p className="text-sm text-[#71817B] mt-1">
             Manage student enrollments, reset credentials, and track daily practical progress.
           </p>
         </div>
@@ -124,15 +124,15 @@ export const StudentsPage = () => {
         <div className="flex items-center gap-2 self-start sm:self-auto">
           <button
             onClick={() => navigate('/admin/students/import')}
-            className="px-4 py-2.5 rounded-xl bg-white hover:bg-[#E5DED2] text-[#233DFF] border border-[#D6CEC1] font-bold text-xs transition-all flex items-center gap-2"
+            className="px-4 py-2.5 rounded-xl bg-white hover:bg-[#EAF7EF] text-[#064E45] border border-[#DDE8DF] font-bold text-xs transition-all flex items-center gap-2 shadow-sm"
           >
-            <UploadCloud className="w-4 h-4 text-[#233DFF]" />
+            <UploadCloud className="w-4 h-4 text-[#064E45]" />
             <span>Import CSV</span>
           </button>
 
           <button
             onClick={() => setShowCreateModal(true)}
-            className="px-4 py-2.5 rounded-xl bg-[#233DFF] hover:bg-[#1B2FCC] text-white font-bold text-xs transition-all flex items-center gap-2"
+            className="px-4 py-2.5 rounded-xl bg-[#064E45] hover:bg-[#053d36] text-white font-bold text-xs transition-all flex items-center gap-2 shadow-sm"
           >
             <UserPlus className="w-4 h-4" />
             <span>New Student</span>
@@ -141,27 +141,27 @@ export const StudentsPage = () => {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="p-4 rounded-2xl bg-white border border-[#D6CEC1] flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="p-4 rounded-2xl bg-white border border-[#DDE8DF] flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
         <div className="relative w-full sm:w-80">
-          <Search className="w-4 h-4 absolute left-3.5 top-3 text-[#77766F]" />
+          <Search className="w-4 h-4 absolute left-3.5 top-3 text-[#71817B]" />
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search by student name or register no..."
-            className="w-full pl-10 pr-3 py-2.5 bg-[#F5F0E8] border border-[#D6CEC1] rounded-xl text-xs text-[#242424] placeholder-[#77766F]/60 focus:outline-none focus:ring-2 focus:ring-[#233DFF]/30 focus:border-[#233DFF]"
+            className="w-full pl-10 pr-3 py-2.5 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-xs text-[#172E2A] placeholder-[#71817B]/60 focus:outline-none focus:ring-2 focus:ring-[#064E45]/20 focus:border-[#064E45]"
           />
         </div>
 
         <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
-          <div className="flex items-center gap-2 text-xs text-[#77766F] font-semibold">
-            <Filter className="w-3.5 h-3.5 text-[#233DFF]" />
+          <div className="flex items-center gap-2 text-xs text-[#71817B] font-semibold">
+            <Filter className="w-3.5 h-3.5 text-[#064E45]" />
             <span>Status:</span>
           </div>
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="p-2.5 bg-[#F5F0E8] border border-[#D6CEC1] rounded-xl text-xs text-[#242424] font-medium focus:outline-none focus:ring-2 focus:ring-[#233DFF]/30"
+            className="p-2.5 bg-[#FAF8F0] border border-[#DDE8DF] rounded-xl text-xs text-[#172E2A] font-medium focus:outline-none focus:ring-2 focus:ring-[#064E45]/20"
           >
             <option value="">All Statuses</option>
             <option value="active">Active Only</option>
@@ -170,7 +170,7 @@ export const StudentsPage = () => {
 
           <button
             onClick={() => fetchStudents(pagination.page)}
-            className="p-2.5 text-[#77766F] hover:text-[#233DFF] hover:bg-[#E5DED2] rounded-xl border border-[#D6CEC1] transition-colors"
+            className="p-2.5 text-[#71817B] hover:text-[#064E45] hover:bg-[#EAF7EF] rounded-xl border border-[#DDE8DF] transition-colors"
             title="Refresh Table"
           >
             <RefreshCw className="w-4 h-4" />
@@ -181,7 +181,7 @@ export const StudentsPage = () => {
       {/* Students Table */}
       {loading ? (
         <div className="flex items-center justify-center py-24">
-          <Loader2 className="w-8 h-8 animate-spin text-[#233DFF]" />
+          <Loader2 className="w-8 h-8 animate-spin text-[#064E45]" />
         </div>
       ) : (
         <StudentTable
