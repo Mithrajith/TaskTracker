@@ -1,7 +1,8 @@
 import Task from '../models/Task.js';
 import StudentTask from '../models/StudentTask.js';
 import Submission from '../models/Submission.js';
-import { TASK_STATUS, ROLES, AUDIT_ACTIONS } from '../config/constants.js';
+import User from '../models/User.js';
+import { TASK_STATUS, ROLES, ACCOUNT_STATUS, STUDENT_TASK_STATUS, AUDIT_ACTIONS } from '../config/constants.js';
 import {
   getEligibleStudentsForTask,
   assignTaskToEligibleStudents,
@@ -336,6 +337,98 @@ export const deleteTask = async (req, res, next) => {
     res.json({
       success: true,
       message: `Task #${task.taskNumber} deleted successfully from database`,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * POST /api/v1/tasks/:id/backfill
+ * Admin-only: Assigns a published task to every active student who doesn't
+ * have it yet. Existing StudentTask records (including approved/submitted ones)
+ * are NEVER modified — upsert uses $setOnInsert so existing docs are untouched.
+ */
+export const backfillTaskAssignments = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const task = await Task.findById(id);
+    if (!task) {
+      return res.status(404).json({ success: false, message: 'Task not found' });
+    }
+
+    if (task.status !== TASK_STATUS.PUBLISHED) {
+      return res.status(400).json({
+        success: false,
+        message: `Task #${task.taskNumber} must be published before backfilling assignments`,
+      });
+    }
+
+    // All active students
+    const allStudents = await User.find({
+      role: ROLES.STUDENT,
+      status: ACCOUNT_STATUS.ACTIVE,
+    }).select('_id name registerNumber');
+
+    // Students who already have this task
+    const existingIds = await StudentTask.distinct('student', { task: task._id });
+    const existingSet = new Set(existingIds.map((id) => id.toString()));
+
+    const toAssign = allStudents.filter((s) => !existingSet.has(s._id.toString()));
+    const alreadyHad = allStudents.length - toAssign.length;
+
+    const newlyAssigned = [];
+    const failed = [];
+
+    for (const student of toAssign) {
+      try {
+        await StudentTask.findOneAndUpdate(
+          { student: student._id, task: task._id },
+          {
+            $setOnInsert: {
+              student: student._id,
+              task: task._id,
+              status: STUDENT_TASK_STATUS.ASSIGNED,
+              unlockedAt: new Date(),
+              isStudentCompleted: false,
+            },
+          },
+          { upsert: true, returnDocument: 'after' }
+        );
+        newlyAssigned.push({ registerNumber: student.registerNumber, name: student.name });
+      } catch (err) {
+        failed.push({ registerNumber: student.registerNumber, reason: err.message });
+      }
+    }
+
+    await logAudit({
+      actorId: req.user._id,
+      action: AUDIT_ACTIONS.TASK_UPDATED,
+      resourceType: 'Task',
+      resourceId: task._id,
+      metadata: {
+        action: 'backfill',
+        taskNumber: task.taskNumber,
+        newlyAssigned: newlyAssigned.length,
+        alreadyHad,
+        failed: failed.length,
+      },
+    });
+
+    res.json({
+      success: true,
+      message: `Backfill complete for Task #${task.taskNumber}: ${newlyAssigned.length} newly assigned, ${alreadyHad} already had it.`,
+      data: {
+        taskNumber: task.taskNumber,
+        taskTitle: task.title,
+        totalStudents: allStudents.length,
+        alreadyHad,
+        newlyAssigned: newlyAssigned.length,
+        failed: failed.length,
+        newlyAssignedList: newlyAssigned,
+        failedList: failed,
+      },
     });
   } catch (error) {
     next(error);

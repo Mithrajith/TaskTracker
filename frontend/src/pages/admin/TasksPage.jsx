@@ -32,6 +32,11 @@ export const TasksPage = () => {
   const [deleteTaskTarget, setDeleteTaskTarget] = useState(null);
   const [deleteLoading, setDeleteLoading] = useState(false);
 
+  // Backfill state
+  const [backfillTarget, setBackfillTarget] = useState(null);
+  const [backfillLoading, setBackfillLoading] = useState(false);
+  const [backfillResult, setBackfillResult] = useState(null);
+
   // Eligible students modal
   const [eligiblePreviewTask, setEligiblePreviewTask] = useState(null);
   const [eligibleStudentsList, setEligibleStudentsList] = useState([]);
@@ -102,6 +107,24 @@ export const TasksPage = () => {
       error('Failed to load eligible students');
     } finally {
       setLoadingEligible(false);
+    }
+  };
+
+  const handleBackfillConfirm = async () => {
+    if (!backfillTarget) return;
+    setBackfillLoading(true);
+    try {
+      const res = await apiClient.post(`/tasks/${backfillTarget._id}/backfill`);
+      if (res.data?.success) {
+        setBackfillResult(res.data.data);
+        setBackfillTarget(null);
+        fetchTasks();
+        success(res.data.message);
+      }
+    } catch (err) {
+      error(err.response?.data?.message || 'Backfill failed');
+    } finally {
+      setBackfillLoading(false);
     }
   };
 
@@ -200,9 +223,19 @@ export const TasksPage = () => {
                         </button>
                       </>
                     ) : (
-                      <span className="text-xs font-bold text-[#2D9B70] bg-[#EAF7EF] px-3 py-1.5 rounded-xl border border-[#DDE8DF] flex items-center gap-1.5">
-                        <span>Published</span>
-                      </span>
+                      <>
+                        <span className="text-xs font-bold text-[#2D9B70] bg-[#EAF7EF] px-3 py-1.5 rounded-xl border border-[#DDE8DF] flex items-center gap-1.5">
+                          <span>Published</span>
+                        </span>
+                        <button
+                          onClick={() => setBackfillTarget(task)}
+                          className="px-3 py-1.5 rounded-xl text-xs font-bold bg-white hover:bg-[#FFF8EA] text-[#A86B0F] border border-[#FCE6BD] flex items-center gap-1.5 transition-colors"
+                          title="Re-assign this task to all active students who don't have it yet"
+                        >
+                          <Users className="w-3.5 h-3.5" />
+                          <span>Re-assign to All</span>
+                        </button>
+                      </>
                     )}
 
                     <button
@@ -339,6 +372,88 @@ export const TasksPage = () => {
               ))}
             </div>
           )}
+        </Modal>
+      )}
+
+      {/* Backfill Confirmation Modal */}
+      {backfillTarget && (
+        <ConfirmationModal
+          isOpen={!!backfillTarget}
+          onClose={() => setBackfillTarget(null)}
+          onConfirm={handleBackfillConfirm}
+          title={`Re-assign Task #${backfillTarget.taskNumber} to All Students?`}
+          message={`This will assign "${backfillTarget.title}" to every active student who doesn't have it yet. Students who already have this task (including those who submitted or were approved) will NOT be affected — their progress is fully preserved.`}
+          confirmText="Re-assign to All"
+          loading={backfillLoading}
+        />
+      )}
+
+      {/* Backfill Result Modal */}
+      {backfillResult && (
+        <Modal
+          isOpen={!!backfillResult}
+          onClose={() => setBackfillResult(null)}
+          title={`Backfill Complete — Task #${backfillResult.taskNumber}`}
+          subtitle={backfillResult.taskTitle}
+          maxWidth="max-w-lg"
+        >
+          <div className="space-y-4">
+            {/* Summary Cards */}
+            <div className="grid grid-cols-3 gap-3">
+              <div className="p-3 rounded-2xl bg-[#EAF7EF] border border-[#DDE8DF] text-center">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#71817B] block">Total Students</span>
+                <span className="text-2xl font-extrabold text-[#064E45]">{backfillResult.totalStudents}</span>
+              </div>
+              <div className="p-3 rounded-2xl bg-[#EAF7EF] border border-[#DDE8DF] text-center">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#2D9B70] block">Newly Assigned</span>
+                <span className="text-2xl font-extrabold text-[#2D9B70]">{backfillResult.newlyAssigned}</span>
+              </div>
+              <div className="p-3 rounded-2xl bg-[#FAF8F0] border border-[#DDE8DF] text-center">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#71817B] block">Already Had It</span>
+                <span className="text-2xl font-extrabold text-[#71817B]">{backfillResult.alreadyHad}</span>
+              </div>
+            </div>
+
+            {/* Newly Assigned List */}
+            {backfillResult.newlyAssigned > 0 && (
+              <div>
+                <p className="text-xs font-bold text-[#064E45] mb-2 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-[#2D9B70] inline-block" />
+                  Newly Assigned ({backfillResult.newlyAssigned})
+                </p>
+                <div className="max-h-48 overflow-y-auto space-y-1 rounded-xl border border-[#DDE8DF] bg-white p-2">
+                  {backfillResult.newlyAssignedList.map((s, i) => (
+                    <div key={i} className="flex items-center justify-between py-1.5 px-2 rounded-lg hover:bg-[#EAF7EF] text-xs">
+                      <span className="font-semibold text-[#172E2A]">{s.name}</span>
+                      <span className="font-mono text-[#064E45] text-[11px]">{s.registerNumber}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {backfillResult.newlyAssigned === 0 && (
+              <div className="text-center py-4 text-xs text-[#71817B]">
+                <AlertCircle className="w-6 h-6 mx-auto mb-1 text-[#F3B74F]" />
+                All active students already had this task assigned.
+              </div>
+            )}
+
+            {backfillResult.failed > 0 && (
+              <p className="text-xs text-[#E86A5B] font-medium">
+                ⚠ {backfillResult.failed} assignment(s) failed. Check server logs.
+              </p>
+            )}
+
+            <div className="pt-2 flex justify-end">
+              <button
+                onClick={() => setBackfillResult(null)}
+                className="px-4 py-2 rounded-xl bg-[#064E45] text-white text-xs font-bold hover:bg-[#053d36] transition-colors"
+              >
+                Done
+              </button>
+            </div>
+          </div>
         </Modal>
       )}
     </div>

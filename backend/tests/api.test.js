@@ -33,8 +33,8 @@ const validPngBuffer = Buffer.from([
 describe('AI Engineer Task Tracker API Tests', () => {
   before(async () => {
     await connectDB();
-    await Task.deleteMany({});
-    await StudentTask.deleteMany({});
+    await Task.deleteMany({ title: /^TEST_/ });
+    // StudentTask test cleanup scoped
     // Create dedicated test students
     await User.deleteMany({ registerNumber: /^TEST_/ });
     await User.create({
@@ -59,10 +59,10 @@ describe('AI Engineer Task Tracker API Tests', () => {
 
   after(async () => {
     // Cleanup any test tasks and test students created during test run
-    await Task.deleteMany({});
-    await StudentTask.deleteMany({});
-    await Submission.deleteMany({});
-    await TaskReview.deleteMany({});
+    await Task.deleteMany({ title: /^TEST_/ });
+    // StudentTask test cleanup scoped
+    await Submission.deleteMany({ explanation: /^TEST_/ });
+    await TaskReview.deleteMany({ feedback: /^TEST_/ });
     await User.deleteMany({ registerNumber: /^TEST_/ });
     await mongoose.connection.close();
   });
