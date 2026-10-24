@@ -7,6 +7,7 @@ import { ROLES, ACCOUNT_STATUS, AUDIT_ACTIONS, STUDENT_TASK_STATUS } from '../co
 import {
   getStudentProgressionStats,
   assignTaskToEligibleStudents,
+  assignTask1ToNewStudent,
 } from '../services/progressionService.js';
 import { logAudit } from '../utils/auditLogger.js';
 import { parseCSV } from '../utils/csvParser.js';
@@ -171,11 +172,8 @@ export const createStudent = async (req, res, next) => {
       mustSetGithub: !(githubRepoUrl || '').trim(),
     });
 
-    // Check if Task 1 is published; if so, assign it to the new student
-    const task1 = await Task.findOne({ taskNumber: 1, status: 'published' });
-    if (task1) {
-      await assignTaskToEligibleStudents(task1);
-    }
+    // Auto-assign Task 1 directly to the new student if it's already published
+    await assignTask1ToNewStudent(student._id);
 
     await logAudit({
       actorId: req.user._id,
@@ -470,7 +468,7 @@ export const importStudentsFromCSV = async (req, res, next) => {
       });
 
       if (task1) {
-        await assignTaskToEligibleStudents(task1);
+        await assignTask1ToNewStudent(newStudent._id);
       }
 
       await logAudit({

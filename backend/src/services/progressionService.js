@@ -143,6 +143,39 @@ export const getEligibleStudentsForTask = async (taskNumber) => {
 };
 
 /**
+ * Immediately assigns published Task 1 to a single newly created student.
+ * Safe to call even if Task 1 is not yet published — it silently no-ops.
+ * Uses upsert so duplicate calls are harmless.
+ */
+export const assignTask1ToNewStudent = async (studentId) => {
+  const task1 = await Task.findOne({ taskNumber: 1, status: TASK_STATUS.PUBLISHED });
+  if (!task1) {
+    // Task 1 not published yet — student will be picked up when admin publishes it
+    return { assigned: false, reason: 'Task 1 is not published yet' };
+  }
+
+  try {
+    const studentTask = await StudentTask.findOneAndUpdate(
+      { student: studentId, task: task1._id },
+      {
+        $setOnInsert: {
+          student: studentId,
+          task: task1._id,
+          status: STUDENT_TASK_STATUS.ASSIGNED,
+          unlockedAt: new Date(),
+          isStudentCompleted: false,
+        },
+      },
+      { upsert: true, returnDocument: 'after' }
+    );
+    return { assigned: true, task1, studentTask };
+  } catch (err) {
+    console.error(`Error assigning Task 1 to new student ${studentId}:`, err.message);
+    return { assigned: false, reason: err.message };
+  }
+};
+
+/**
  * Assigns a published task to all currently eligible students
  */
 export const assignTaskToEligibleStudents = async (taskDoc) => {

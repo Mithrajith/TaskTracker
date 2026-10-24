@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 import { ROLES, ACCOUNT_STATUS, AUDIT_ACTIONS } from '../config/constants.js';
-import { getStudentProgressionStats } from '../services/progressionService.js';
+import { getStudentProgressionStats, assignTask1ToNewStudent } from '../services/progressionService.js';
 import { logAudit } from '../utils/auditLogger.js';
 
 // ─── Student self-registration ────────────────────────────────────────────────
@@ -78,6 +78,9 @@ export const register = async (req, res, next) => {
       resourceId: user._id,
       metadata: { registerNumber: user.registerNumber, selfRegistered: true },
     });
+
+    // Auto-assign Task 1 if it is already published
+    await assignTask1ToNewStudent(user._id);
 
     const token = generateToken(user);
     const stats = await getStudentProgressionStats(user._id);
